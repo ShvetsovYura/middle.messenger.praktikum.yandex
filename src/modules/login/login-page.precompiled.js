@@ -1,0 +1,6 @@
+(function() {
+  var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['login-page'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "<form class=\"form form_small\">\r\n  <h2 class=\"form-header\">\r\n    Вход\r\n  </h2>\r\n  <div class=\"form-field form-field_inline\">\r\n    <label class=\"form-field__label form-field__label_inline\" for=\"login\">Логин</label>\r\n    <input\r\n      class=\"form-field__input form-field__input_underlined\"\r\n      type=\"text\"\r\n      name=\"first_name\"\r\n      id=\"first_name\"\r\n      required\r\n    />\r\n  </div>\r\n\r\n  <div class=\"form-field form-field_inline\">\r\n    <label class=\"form-field__label\" for=\"password\">Пароль</label>\r\n    <input\r\n      class=\"form-field__input form-field__input_underlined\"\r\n      type=\"password\"\r\n      name=\"password\"\r\n      id=\"password\"\r\n      required\r\n    />\r\n  </div>\r\n  <div class=\"form-field\">\r\n    <button class=\"form-field__submit form-field__submit_large\" type=\"submit\">\r\n      Войти\r\n    </button>\r\n  </div>\r\n  <div>\r\n    <p>Нет аккаунта? <a href=\"registration.html\">Зарегистрироваться</a></p>\r\n  </div>\r\n</form>";
+},"useData":true});
+})();
