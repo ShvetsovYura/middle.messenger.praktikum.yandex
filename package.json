@@ -4,9 +4,9 @@
   "description": "---",
   "main": "index.js",
   "scripts": {
-    "dev": "parcel .\\src\\index.html",
-    "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "parcel ./src/index.html",
+    "start": "node ./server.js",
+    "build": "parcel build ./src/index.html"
   },
   "repository": {
     "type": "git",
