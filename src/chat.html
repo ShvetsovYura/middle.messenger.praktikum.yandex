@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link href="./styles/style.less" rel="stylesheet" />
+	<title>WelcoChat</title>
+</head>
+
+<body>
+	<main class="chat-main">
+		<aside class="side-panel">
+			<div class="header-panel">
+				<div class="header-panel__settings">
+					<a href="profile.html">Профиль</a>
+					<button>Добавить пользователя</button>
+				</div>
+
+				<div class="search-panel">
+					<input class="search-panel__search-chat" placeholder="поиск чатов" />
+				</div>
+			</div>
+
+			<ul class="chats-list"></ul>
+		</aside>
+		<div class="chat-messages-panel">
+			<div class="chat-messages-panel__header">
+				header panel
+			</div>
+			<div class="chat-messages-container"></div>
+
+			<form class="message-form">
+				<div class="message-form__body">
+					<input class="message-form__input" name="message" type="text" placeholder="Сообщение" />
+					<button class="message-form__submit" type="submit">Отправить</button>
+				</div>
+			</form>
+		</div>
+	</main>
+	<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.runtime.js"></script>
+	<script src="./modules/chat/chats-list.js"></script>
+	<script src="./modules/chat/messages.js"></script>
+</body>
+
+</html>
