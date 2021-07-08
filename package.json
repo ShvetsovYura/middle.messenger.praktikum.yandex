@@ -1,12 +1,11 @@
 {
-  "name": "WelcoChat",
+  "name": "welcochat",
   "version": "1.0.0",
   "description": "---",
-  "main": "index.js",
   "scripts": {
-    "dev": "parcel build ./src/index.html --port 3000",
-    "start": "parcel build ./src/index.html && node ./server.js",
-    "build": "parcel build ./src/index.html"
+    "dev": "parcel ./public/index.html",
+    "start": "parcel build ./public/index.html && node ./server.js",
+    "build": "parcel build ./public/index.html"
   },
   "repository": {
     "type": "git",
@@ -20,14 +19,12 @@
   },
   "homepage": "https://github.com/ShvetsovYura/middle.messenger.praktikum.yandex#readme",
   "devDependencies": {
-    "@parcel/transformer-less": "^2.0.0-beta.3.1",
-    "parcel": "^2.0.0-beta.3.1",
-    "parcel-bundler": "^1.12.5",
-    "parcel-plugin-static-files-copy": "^2.6.0"
+    "@parcel/transformer-less": "^2.0.0-beta.3.1"
   },
   "dependencies": {
     "express": "^4.17.1",
-    "handlebars": "^4.7.7"
+    "handlebars": "^4.7.7",
+    "parcel": "^2.0.0-beta.3.1"
   },
   "staticFiles": {
     "staticPath": "public",

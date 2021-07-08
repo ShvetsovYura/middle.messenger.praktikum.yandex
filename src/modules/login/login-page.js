@@ -1,3 +1,5 @@
-import "./login-page.precompiled";
+import Handlebars from "handlebars";
+import loginPageTpl from "./login-page.tpl";
 
-document.querySelector(".form-container").innerHTML = Handlebars.templates["login-page"]();
+const template = Handlebars.compile(loginPageTpl);
+document.body.innerHTML = template();

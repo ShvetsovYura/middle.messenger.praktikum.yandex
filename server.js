@@ -2,10 +2,8 @@ const express = require("express");
 
 const app = express();
 
-app.use(express.static('dist'))
+const PORT = process.env.port || 3000;
 
-app.use(express.static('dist'));
+app.use(express.static("dist"));
 
-app.listen(3000, function () {
-  console.log("server start");
-});
+app.listen(PORT);
