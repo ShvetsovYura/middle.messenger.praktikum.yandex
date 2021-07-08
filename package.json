@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "parcel ./public/index.html",
     "start": "parcel build ./public/index.html && node ./server.js",
-    "build": "parcel build ./public/index.html"
+    "build": "./node_modules/.bin/parcel build ./public/index.html"
   },
   "repository": {
     "type": "git",
