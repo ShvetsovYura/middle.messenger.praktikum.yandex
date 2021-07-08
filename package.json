@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "parcel ./src/index.html",
-    "start": "node ./server.js",
+    "start": "parcel build ./src/index.html",
     "build": "parcel build ./src/index.html"
   },
   "repository": {
@@ -27,5 +27,9 @@
   "dependencies": {
     "express": "^4.17.1",
     "handlebars": "^4.7.7"
+  },
+   "staticFiles": {
+    "staticPath": "public",
+    "watcherGlob": "**"
   }
 }
