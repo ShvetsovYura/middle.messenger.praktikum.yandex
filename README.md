@@ -2,6 +2,6 @@
 
 - `npm run dev` — запуск в режиме разработки
 - `npm run start` — запуск
-- `npm run build:prod` — сборка
+- `npm run build` — сборка
 
 [netlify](https://nifty-sinoussi-580704.netlify.app)
