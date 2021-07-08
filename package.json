@@ -1,11 +1,11 @@
 {
-  "name": "middle.messenger.praktikum.yandex",
+  "name": "WelcoChat",
   "version": "1.0.0",
   "description": "---",
   "main": "index.js",
   "scripts": {
-    "dev": "parcel ./src/index.html",
-    "start": "parcel build ./src/index.html",
+    "dev": "parcel build ./src/index.html --port 3000",
+    "start": "parcel build ./src/index.html && node ./server.js",
     "build": "parcel build ./src/index.html"
   },
   "repository": {
@@ -32,5 +32,5 @@
   "staticFiles": {
     "staticPath": "public",
     "watcherGlob": "**"
-}
+  }
 }
