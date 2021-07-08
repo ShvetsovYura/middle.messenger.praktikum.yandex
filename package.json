@@ -4,8 +4,8 @@
   "description": "---",
   "main": "index.js",
   "scripts": {
-    "dev": "parcel ./src/index.html",
-    "start": "parcel build ./src/index.html",
+    "dev": "parcel build ./src/index.html --port 3000",
+    "start": "parcel build ./src/index.html && node ./server.js",
     "build": "parcel build ./src/index.html"
   },
   "repository": {
@@ -28,7 +28,7 @@
     "express": "^4.17.1",
     "handlebars": "^4.7.7"
   },
-   "staticFiles": {
+  "staticFiles": {
     "staticPath": "public",
     "watcherGlob": "**"
   }
