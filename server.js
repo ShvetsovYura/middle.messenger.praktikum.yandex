@@ -9,4 +9,6 @@ const bundler = new Bundler(file, {});
 app.use(express.static("public"));
 app.use(bundler.middleware());
 
-app.listen(3000);
+app.listen(3000, function () {
+  console.log("server start");
+});
