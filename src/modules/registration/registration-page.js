@@ -1,3 +1,5 @@
-import "./registration-page.precompiled";
+import Handlebars from "handlebars";
+import registrationPageTpl from "./registration-page.tpl";
 
-document.querySelector('.form-container').innerHTML = Handlebars.templates["registration-page"]();
+const template = Handlebars.compile(registrationPageTpl);
+document.body.innerHTML = template();

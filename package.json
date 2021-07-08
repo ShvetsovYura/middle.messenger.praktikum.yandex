@@ -1,10 +1,10 @@
 {
-  "name": "WelcoChat",
+  "name": "welcochat",
   "version": "1.0.0",
   "description": "---",
-  "main": "index.js",
+  "main": "index.html",
   "scripts": {
-    "dev": "parcel build ./src/index.html --port 3000",
+    "dev": "parcel ./src/index.html",
     "start": "parcel build ./src/index.html && node ./server.js",
     "build": "parcel build ./src/index.html"
   },
@@ -22,7 +22,8 @@
   "devDependencies": {
     "@parcel/transformer-less": "^2.0.0-beta.3.1",
     "parcel": "^2.0.0-beta.3.1",
-    "parcel-bundler": "^1.12.5"
+    "parcel-bundler": "^1.12.5",
+    "parcel-plugin-handlebars-precompile": "^1.0.2"
   },
   "dependencies": {
     "express": "^4.17.1",

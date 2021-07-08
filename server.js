@@ -2,10 +2,8 @@ const express = require("express");
 
 const app = express();
 
-// const file = "src/index.html";
+const PORT = process.env.port || 3000;
 
-// app.use(express.static("public"));
-app.use(express.static('dist'))
-// app.use(bundler.middleware());
+app.use(express.static("dist"));
 
-app.listen(3000);
+app.listen(PORT);

@@ -1,4 +1,5 @@
-import "./change-password-page.precompiled";
+import Handlebars from "handlebars";
+import changePasswordPageTpl from "./change-password-page.tpl";
 
-const template = Handlebars.templates["change-password-page"];
-document.querySelector(".form-container").innerHTML = template();
+const template = Handlebars.compile(changePasswordPageTpl);
+document.body.innerHTML = template();
