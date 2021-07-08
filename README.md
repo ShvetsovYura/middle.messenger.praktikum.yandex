@@ -4,4 +4,4 @@
 - `npm run start` — запуск
 - `npm run build:prod` — сборка
 
-[netlify](https://github.com/facebook/react)
+[netlify](https://nifty-sinoussi-580704.netlify.app)
