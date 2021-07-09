@@ -127,12 +127,12 @@ export const data = {
       own: true,
     },
   ],
-  userinfo:{
-    first_name:'Юрий',
-    second_name:'Швецов',
-    display_name:"SY",
-    login:'ShvetsovYura',
-    email:'testov@teser.com',
-    phone:'+7(987)1234567',
-  }
+  userinfo: {
+    first_name: "Юрий",
+    second_name: "Швецов",
+    display_name: "SY",
+    login: "ShvetsovYura",
+    email: "testov@teser.com",
+    phone: "+7(987)1234567",
+  },
 };
