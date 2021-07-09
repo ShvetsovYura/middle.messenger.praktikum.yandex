@@ -4,4 +4,4 @@ import { data } from "../../mocks/data.mock";
 
 Handlebars.registerHelper("isdefined", (value) => !value);
 const template = Handlebars.compile(chatPageTpl);
-document.body.innerHTML = template(data);
+document.querySelector(".chat-main").innerHTML = template(data);
