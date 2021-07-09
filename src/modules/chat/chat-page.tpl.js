@@ -5,12 +5,10 @@ export default `
       <a href="profile.html">Профиль</a>
       <button>Добавить пользователя</button>
     </div>
-
     <div class="search-panel">
       <input class="search-panel__search-chat" placeholder="поиск чатов" />
     </div>
   </div>
-
   <ul class="chats-list">
     {{#each chatList }}
     <li class="chat-item {{#if selected}} chat-item_selected {{/if}}">
@@ -54,7 +52,6 @@ export default `
     </div>
     {{/each }}
   </div>
-
   <form class="message-form">
     <div class="message-form__body">
       <input class="message-form__input" name="message" type="text" placeholder="Сообщение" />

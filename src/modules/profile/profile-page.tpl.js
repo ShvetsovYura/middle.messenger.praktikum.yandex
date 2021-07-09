@@ -85,5 +85,4 @@ export default `
     <button class="form-field__submit">Выйти</button>
   </div>
 </form>
-
 `;
