@@ -32,7 +32,6 @@ export default class LoginPage extends BaseComponent implements IRenderable {
   render() {
     console.log("render LoginPage");
     const tpl = compile(template, { noEscape: true });
-
     return tpl({ button: this.props.button.render() });
   }
 }
