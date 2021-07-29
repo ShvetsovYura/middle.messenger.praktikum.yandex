@@ -8,6 +8,7 @@ type FormFieldProps = {
   label: string;
   id: string;
   type?: "text" | "password" | "number";
+  inline?: boolean;
   [key: string]: any;
 };
 
@@ -17,6 +18,7 @@ export default class FormField extends BaseComponent {
       "div",
       {
         label: props.label,
+        componentWrapperClass: props.inline ? "form-field form-field_inline" : "form-field",
         children: {
           input: new Input({
             id: props.id,
@@ -29,30 +31,17 @@ export default class FormField extends BaseComponent {
       },
       {
         ...attributes,
-        
       }
     );
   }
 
-  componentDidMount() {
-    setTimeout(() => {
-      this.props.children.input.setProps({ id: "ololo" });
-    }, 3000);
-    // return new Promise((res) =>
-    //   setTimeout(() => {
-    //     this.setProps()
-    //     res(null);
-    //   }, 2000)
-    // ).then(() =>
-    //   setTimeout(() => {
-    //     this.show();
-    //   }, 3000)
-    // );
-  }
-
   render() {
     const tpl = compile(template, { noEscape: true });
-    const { label, id } = this.props;
-    return tpl({ label: label, labelFor: id });
+    const { id, label, componentWrapperClass } = this.props;
+    return tpl({
+      labelFor: id,
+      label: label,
+      componentWrapperClass,
+    });
   }
 }

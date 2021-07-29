@@ -1,5 +1,5 @@
 import { EventBus, IEventBus } from "../services/event-bus";
-import {  v4 as uuid } from "uuid";
+import { v4 as uuid } from "uuid";
 type Meta = {
   tagName: string;
   props: Record<string, any>;
