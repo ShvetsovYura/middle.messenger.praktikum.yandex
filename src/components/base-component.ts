@@ -1,15 +1,21 @@
 import { EventBus, IEventBus } from "../services/event-bus";
-
+import {  v4 as uuid } from "uuid";
 type Meta = {
   tagName: string;
   props: Record<string, any>;
 };
 
+function keyInObject<T>(key: any, object: T): key is keyof T {
+  return key in object;
+}
+
 export default abstract class BaseComponent {
   private _props: Record<string, any>;
   private _element: HTMLElement;
   private _meta: Meta;
-  protected eventBus: () => IEventBus;
+  private _eventBus: () => IEventBus;
+  private _id: string;
+  private _attributes: Record<string, any>;
 
   static EVENTS = {
     INIT: "flow:init",
@@ -18,16 +24,21 @@ export default abstract class BaseComponent {
     FLOW_RENDER: "flow:render",
   };
 
-  constructor(tagName = "div", props: Record<string, any> = {}) {
+  constructor(tagName = "div", props: Record<string, any> = {}, attributes: Record<string, any> = {}) {
     const eventBus: IEventBus = new EventBus();
     this._meta = {
       tagName,
       props,
     };
-    this.eventBus = () => eventBus;
+    this._id = uuid();
+    this._eventBus = () => eventBus;
     this._props = this._makePropsProxy(props);
+    this._attributes = attributes;
+
     this._registerEvents(eventBus);
-    this.eventBus().emit(BaseComponent.EVENTS.INIT);
+    this._eventBus().emit(BaseComponent.EVENTS.INIT);
+
+    this._removeEvents = this._removeEvents.bind(this);
   }
 
   get element() {
@@ -37,9 +48,8 @@ export default abstract class BaseComponent {
   get props() {
     return this._props;
   }
-
-  get events() {
-    return this.props.events;
+  get id() {
+    return this._id;
   }
 
   private _registerEvents(eventsBus: IEventBus) {
@@ -50,23 +60,30 @@ export default abstract class BaseComponent {
   }
 
   private _removeEvents(): void {
-    const { events = {} } = this._props;
-    Object.keys(events).forEach((eventName) => this._element.removeEventListener(eventName, this.events[eventName]));
+    const { events = {} } = this.props;
+    Object.keys(events).forEach((eventName) => {
+      this._element.removeEventListener(eventName, events[eventName]);
+    });
   }
 
   private _addEvents(): void {
-    const { events = {} } = this._props;
+    const { events = {} } = this.props;
     Object.keys(events).forEach((eventName) => {
       this._element.addEventListener(eventName, events[eventName]);
     });
   }
 
   private _render() {
-    console.log("start _render");
-    this._removeEvents.call(this);
+    this._removeEvents();
     const block = this.render();
-
     this._element.innerHTML = block;
+
+    const { children = {} } = this.props;
+    Object.keys(children).forEach((childKey) => {
+      this._element.querySelector(`[data-tpl-key="${childKey}"`)?.replaceWith(children[childKey].getContent());
+    });
+    this._setAttributes(this._attributes);
+
     this._addEvents();
   }
 
@@ -77,9 +94,8 @@ export default abstract class BaseComponent {
         return typeof value === "function" ? value.bind(target) : value;
       },
       set: (target, prop: string, value: T): boolean => {
-        // console.log("proxy set called");
         target[prop] = value;
-        this.eventBus().emit(BaseComponent.EVENTS.FLOW_CDU, { ...target }, target);
+        this._eventBus().emit(BaseComponent.EVENTS.FLOW_CDU, { ...target }, target);
         return true;
       },
       deleteProperty: () => {
@@ -89,22 +105,27 @@ export default abstract class BaseComponent {
   }
 
   private _componentDidUpdate(oldProps: any, newProps: any): void {
-    // console.log("component did update call", this._element);
     const needUpdate: boolean = this.componentDidUpdate(oldProps, newProps);
     if (needUpdate) {
-      // console.log("_componentDidUpdate need update?: ", needUpdate);
-      this.eventBus().emit(BaseComponent.EVENTS.FLOW_RENDER, newProps);
+      this._eventBus().emit(BaseComponent.EVENTS.FLOW_RENDER, newProps);
     }
   }
 
   private _componentDidMount(): void {
     this.componentDidMount();
-    this.eventBus().emit(BaseComponent.EVENTS.FLOW_RENDER);
+
+    this._eventBus().emit(BaseComponent.EVENTS.FLOW_RENDER);
   }
 
   private _createResources(): void {
     const { tagName } = this._meta;
     this._element = this._createDocumentElement(tagName);
+    this._element.setAttribute("data-id", this._id);
+  }
+
+  _setAttributes(attributes: Record<string, any>) {
+    Object.assign(this._attributes, attributes);
+    Object.keys(attributes).forEach((attribute) => this._element.setAttribute(attribute, attributes[attribute]));
   }
 
   private _createDocumentElement(tagName: string): HTMLElement {
@@ -113,11 +134,10 @@ export default abstract class BaseComponent {
 
   init() {
     this._createResources();
-    this.eventBus().emit(BaseComponent.EVENTS.FLOW_CDM);
+    this._eventBus().emit(BaseComponent.EVENTS.FLOW_CDM);
   }
 
   setProps = (nextProps: any) => {
-    // console.log("call setProps", nextProps);
     if (!nextProps) return;
     Object.assign(this._props, nextProps);
   };
@@ -133,10 +153,6 @@ export default abstract class BaseComponent {
     return this._element;
   }
 
-  getEvents() {
-    const { events = {} } = this._props;
-    return events;
-  }
   show() {
     this._element.style.display = "block";
   }
