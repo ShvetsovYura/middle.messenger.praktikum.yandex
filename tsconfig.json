@@ -9,5 +9,6 @@
     "noUnusedParameters": true,
     "noUnusedLocals": true,
     "noImplicitAny": true
-  }
+  },
+  "exclude": ["node_modules"]
 }
