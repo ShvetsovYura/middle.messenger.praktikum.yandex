@@ -1,4 +1,5 @@
 import { compile } from "handlebars";
+import Validator, { ValidationResult } from "../../services/validator";
 import BaseComponent from "../base-component";
 import InputErrrorMessage from "../ui/input-error-message/InputErrorMessage";
 import Input from "../ui/input/input";
@@ -10,43 +11,63 @@ type FormFieldProps = {
   type?: "text" | "password" | "number" | "tel" | "email";
   required?: boolean;
   disabled?: boolean;
-  inline?: boolean;
-  underline?: boolean;
   caption: string;
   events?: Record<string, Function>;
   message?: string;
   value?: string;
   class?: string;
+  validator?: any;
 };
 
 export default class FormField extends BaseComponent {
-  constructor(props: FormFieldProps, attributes: Record<string, any> = {}) {
-    super(
-      "div",
-      {
-        inline: props.inline && "form-field_inline",
-        underline: props.underline && "form-field_underlined",
-        children: {
-          label: new Label({
-            caption: props.caption,
-            for: props.id,
-          }),
-          input: new Input({
-            id: props.id,
-            name: props.id,
-            required: props.required,
-            disabled: props.disabled,
-            events: props.events,
-            value: props.value,
-            type: props.type,
-          }),
-          errorMessage: new InputErrrorMessage({ message: props.message || "" }),
-        },
+  validator: Validator | undefined;
+  valid: boolean;
+  constructor(props: FormFieldProps) {
+    super("div", {
+      children: {
+        label: new Label({
+          caption: props.caption,
+          for: props.id,
+        }),
+        input: new Input({
+          id: props.id,
+          name: props.id,
+          required: props.required,
+          disabled: props.disabled,
+          events: {
+            blur: () => this.validateField(),
+            focus: () => this.validateField(),
+            input: (e: InputEvent) => {
+              const element = e.target as HTMLInputElement;
+              this.validateField();
+            },
+          },
+          value: props.value,
+          type: props.type,
+        }),
+        errorMessage: new InputErrrorMessage({ message: props.message || "" }),
       },
-      {
-        ...attributes,
-      }
-    );
+    });
+
+    this.validator = props.validator;
+    this.valid = false;
+  }
+  getValue() {
+    return this.props.children.input.getValue();
+  }
+  validateField(): boolean | undefined {
+    if (!this.validator) return;
+    const { value } = this.props.children.input.element;
+    const res: ValidationResult = this.validator.validate(value);
+    const { errorMessage } = this.props.children;
+    if (!!res.valid) {
+      this.valid = true;
+      errorMessage.setProps({ message: "" });
+    } else {
+      this.valid = false;
+      errorMessage.setProps({ message: res.message });
+    }
+    return res.valid;
   }
 
   render() {

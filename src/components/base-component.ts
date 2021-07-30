@@ -5,7 +5,7 @@ type Meta = {
   props: Record<string, any>;
 };
 
-const listPropsAsAttribute: string[] = ["for", "class", "value", "type"];
+const listPropsAsAttribute: string[] = ["for", "class", "value", "type", "id", "name"];
 
 function keyInObject<T>(key: any, object: T): key is keyof T {
   return key in object;
@@ -17,7 +17,6 @@ export default abstract class BaseComponent {
   private _meta: Meta;
   private _eventBus: () => IEventBus;
   private _id: string;
-  private _attributes: Record<string, any>;
 
   static EVENTS = {
     INIT: "flow:init",
@@ -26,7 +25,7 @@ export default abstract class BaseComponent {
     FLOW_RENDER: "flow:render",
   };
 
-  constructor(tagName = "div", props: Record<string, any> = {}, attributes: Record<string, any> = {}) {
+  constructor(tagName = "div", props: Record<string, any> = {}) {
     const eventBus: IEventBus = new EventBus();
     this._meta = {
       tagName,
@@ -35,7 +34,6 @@ export default abstract class BaseComponent {
     this._id = uuid();
     this._eventBus = () => eventBus;
     this._props = this._makePropsProxy(props);
-    this._attributes = attributes;
 
     this._registerEvents(eventBus);
     this._eventBus().emit(BaseComponent.EVENTS.INIT);
@@ -104,7 +102,7 @@ export default abstract class BaseComponent {
         }
       }
     });
-    this._setAttributes(this._attributes);
+    // this._setAttributes(this._attributes);
 
     this._addEvents();
   }

@@ -4,16 +4,17 @@ import BaseComponent from "../../base-component";
 const template = `{{ caption }}`;
 
 type ButtonProps = {
-  type?: "button" | "submit";
+  type?: "button" | "submit" | "reset";
   caption: string;
   events?: any;
+  class?: string;
 };
 
 export default class Button extends BaseComponent {
-  constructor(props: ButtonProps, attributes: Record<string, any> = {}) {
-    super("button", props, {
-      ...attributes,
-      class: attributes.class || "form-field__submit form-field__submit_large",
+  constructor(props: ButtonProps) {
+    super("button", {
+      ...props,
+      class: props.class || "form-field__submit form-field__submit_large",
     });
   }
   render() {

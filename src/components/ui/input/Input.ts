@@ -18,10 +18,12 @@ export default class Input extends BaseComponent {
       ...props,
       type: props.type || "text",
       value: props.value || "",
-      class: props.class || "form-field__input form-field__input_underlined",
+      class: props.class || "form-field__input",
     });
   }
-
+  getValue() {
+    return { [this.id]: "hso" };
+  }
   render() {
     return "";
   }

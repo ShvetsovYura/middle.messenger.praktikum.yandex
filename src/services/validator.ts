@@ -32,13 +32,13 @@ export default class Validator {
 
 export function shorterThan(criteria: number): Function {
   return function (value: string): ValidationResult {
-    return value.length < criteria ? valid() : invalid(`Должно быть короче, чем ${criteria} символов`);
+    return value.length < criteria ? valid() : invalid(`Длина должна быть < ${criteria}`);
   };
 }
 
 export function longerThan(criteria: number): Function {
   return function (value: string): ValidationResult {
-    return value.length > criteria ? valid() : invalid(`Должно быть длинее, чем ${criteria} символов`);
+    return value.length > criteria ? valid() : invalid(`Длина должна быть > ${criteria}`);
   };
 }
 
@@ -66,9 +66,23 @@ export function isVariousSymbols(): Function {
   };
 }
 
-export function onlyEnLetters(): Function {
+export function onlyLatinLetters(): Function {
   const re = /^[a-zA-Z]+$/;
   return function (value: string): ValidationResult {
     return re.test(value) ? valid() : invalid("Должны быть только латинские строчные или прописные буквы");
+  };
+}
+
+export function onlyCyrilicLetters(): Function {
+  const re = /^[а-яА-Я]+$/;
+  return function (value: string): ValidationResult {
+    return re.test(value) ? valid() : invalid("Должны быть только кириличиеские буквы");
+  };
+}
+
+export function latinOrCyrilicLetters(): Function {
+  const re = /^[а-яА-Яa-zA-Z]+$/;
+  return function (value: string): ValidationResult {
+    return re.test(value) ? valid() : invalid("Должны быть только латинские или кириличиеские буквы");
   };
 }

@@ -9,7 +9,6 @@ export default class InputErrrorMessage extends BaseComponent {
         ...props,
         class: "form-field__error-message",
       },
-      {}
     );
   }
   render() {
