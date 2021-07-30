@@ -37,10 +37,7 @@ export default class FormField extends BaseComponent {
           events: {
             blur: () => this.validateField(),
             focus: () => this.validateField(),
-            input: (e: InputEvent) => {
-              const element = e.target as HTMLInputElement;
-              this.validateField();
-            },
+            input: () => this.validateField(),
           },
           value: props.value,
           type: props.type,

@@ -1,4 +1,5 @@
 export default `
+<form class="form">
   <h2 class="form-header">{{title}}</h2>
   <div data-tpl-key='firstNameFormField'></div>
   <div data-tpl-key='secondNameFormField'></div>
@@ -13,4 +14,5 @@ export default `
   <div>
     <p>Уже зарегистрированы? <a href="login.html">Войти</a></p>
   </div>
+</form>
 `;

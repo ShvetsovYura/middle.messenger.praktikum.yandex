@@ -7,9 +7,9 @@ type Meta = {
 
 const listPropsAsAttribute: string[] = ["for", "class", "value", "type", "id", "name"];
 
-function keyInObject<T>(key: any, object: T): key is keyof T {
-  return key in object;
-}
+// function keyInObject<T>(key: any, object: T): key is keyof T {
+//   return key in object;
+// }
 
 export default abstract class BaseComponent {
   private _props: Record<string, any>;

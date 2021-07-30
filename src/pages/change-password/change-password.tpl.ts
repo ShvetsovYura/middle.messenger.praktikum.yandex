@@ -1,5 +1,5 @@
 export default `
-<form class="form form_small">
+<form class="form">
   <h2 class="form-header">{{title}}</h2>
   <div data-tpl-key='currentPasswordFormField'></div>
   <div data-tpl-key='newPasswordFormField'></div>

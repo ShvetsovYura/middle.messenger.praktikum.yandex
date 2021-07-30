@@ -3,13 +3,13 @@ import BaseComponent from "../../components/base-component";
 import FormField from "../../components/form-field/form-field";
 import Button from "../../components/ui/button/button";
 import { passwordValidator } from "../../helpers/validators";
-import Validator, { isVariousSymbols, longerThan, onlyLatinLetters, ValidationResult } from "../../services/validator";
 import template from "./change-password.tpl";
 
 export default class ChangePasswordPage extends BaseComponent {
   constructor() {
-    super("form", {
+    super("main", {
       title: "Сменить пароль",
+      class: "form-container",
       children: {
         currentPasswordFormField: new FormField({
           caption: "Текущий пароль",
@@ -45,8 +45,6 @@ export default class ChangePasswordPage extends BaseComponent {
 
   submitForm(e: any) {
     e.preventDefault();
-
-    // const f = new FormData(e.target.value);
     e.target.querySelectorAll("input").forEach((v: any) => console.log(v.value));
   }
 

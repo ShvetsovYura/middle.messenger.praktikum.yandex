@@ -2,71 +2,64 @@ import { compile } from "handlebars";
 import BaseComponent from "../../components/base-component";
 import FormField from "../../components/form-field/form-field";
 import Button from "../../components/ui/button/button";
-import Validator, { isVariousSymbols, longerThan, onlyEnLetters, ValidationResult } from "../../services/validator";
+import { emailValidator, firstNameValidator, loginValidator, passwordValidator } from "../../helpers/validators";
 import template from "./registration-page.tpl";
-
-const loginValidator = new Validator().addRule(onlyEnLetters()).addRule(longerThan(6));
-const passwordValidator = new Validator().addRule(isVariousSymbols()).addRule(longerThan(6));
 
 export default class RegistrationPage extends BaseComponent {
   constructor() {
-    super(
-      "form",
-      {
-        title: "Регистрация пользователя",
-        children: {
-          firstNameFormField: new FormField({
-            caption: "Имя",
-            id: "first_name",
-          }),
-          secondNameFormField: new FormField({
-            caption: "Фамилия",
-            id: "second_name",
-          }),
-          loginFormField: new FormField({
-            caption: "Логин",
-            id: "login",
-          }),
-          emailFormField: new FormField({
-            caption: "E-mail",
-            id: "email",
-          }),
-          passwordFormField: new FormField({
-            caption: "Пароль",
-            id: "password",
-          }),
-          passwordRepeatFormField: new FormField({
-            caption: "Пароль (еще раз)",
-            id: "password-repeat",
-          }),
+    super("main", {
+      title: "Регистрация пользователя",
+      class: "form-container",
+      children: {
+        firstNameFormField: new FormField({
+          caption: "Имя",
+          id: "first_name",
+          required: true,
+          validator: firstNameValidator,
+        }),
+        secondNameFormField: new FormField({
+          caption: "Фамилия",
+          id: "second_name",
+          required: true,
+          validator: firstNameValidator,
+        }),
+        loginFormField: new FormField({
+          caption: "Логин",
+          id: "login",
+          required: true,
+          validator: loginValidator,
+        }),
+        emailFormField: new FormField({
+          caption: "E-mail",
+          id: "email",
+          type: "email",
+          required: true,
+          validator: emailValidator,
+        }),
+        passwordFormField: new FormField({
+          caption: "Пароль",
+          id: "password",
+          type: "password",
+          required: true,
+          validator: passwordValidator,
+        }),
+        passwordRepeatFormField: new FormField({
+          caption: "Пароль (еще раз)",
+          id: "password-repeat",
+          required: true,
+          type: "password",
+          validator: passwordValidator,
+        }),
 
-          submitFormButton: new Button(
-            {
-              caption: "Зарегистрироваться",
-            },
-            {}
-          ),
-        },
-        events: {
-          submit: (e: any) => this.submitForm(e),
-        },
+        submitFormButton: new Button({
+          caption: "Зарегистрироваться",
+        }),
       },
-      {
-        class: "form form_small",
-      }
-    );
+      events: {
+        submit: (e: any) => this.submitForm(e),
+      },
+    });
   }
-
-  validateField(value: any, validator: any, componentName: string) {
-    const res: ValidationResult = validator.validate(value);
-    const { errorMessage } = this.props.children[componentName].props.children;
-    if (!!res.valid) {
-      errorMessage.setProps({ message: "" });
-    } else {
-      errorMessage.setProps({ message: res.message });
-    }
-  }
-
   submitForm(e: any) {
     e.preventDefault();
 

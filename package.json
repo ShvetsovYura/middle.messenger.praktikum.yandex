@@ -20,6 +20,10 @@
   "homepage": "https://github.com/ShvetsovYura/middle.messenger.praktikum.yandex#readme",
   "devDependencies": {
     "@types/uuid": "^8.3.1",
+    "@typescript-eslint/eslint-plugin": "^4.28.5",
+    "@typescript-eslint/parser": "^4.28.5",
+    "eslint": "^7.31.0",
+    "eslint-config-airbnb-typescript": "^12.3.1",
     "less": "^4.1.1",
     "parcel-plugin-static-files-copy": "^2.6.0",
     "ts-node": "^10.1.0",
