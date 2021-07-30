@@ -16,19 +16,16 @@ export default class ChangePasswordPage extends BaseComponent {
         title: "Сменить пароль",
         children: {
           currentPasswordFormField: new FormField({
-            label: "Текущий пароль",
+            caption: "Текущий пароль",
             id: "oldPassword",
-            isRequired: true,
           }),
           newPasswordFormField: new FormField({
-            label: "Новый пароль",
+            caption: "Новый пароль",
             id: "newPassword",
-            isRequired: true,
           }),
           repeatNewPasswordFormField: new FormField({
-            label: "Новый пароль (еще раз)",
+            caption: "Новый пароль (еще раз)",
             id: "repeatNewPassword",
-            isRequired: true,
           }),
 
           submitFormButton: new Button(

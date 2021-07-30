@@ -5,6 +5,8 @@ type Meta = {
   props: Record<string, any>;
 };
 
+const listPropsAsAttribute: string[] = ["for", "class", "value", "type"];
+
 function keyInObject<T>(key: any, object: T): key is keyof T {
   return key in object;
 }
@@ -82,6 +84,26 @@ export default abstract class BaseComponent {
     Object.keys(children).forEach((childKey) => {
       this._element.querySelector(`[data-tpl-key="${childKey}"`)?.replaceWith(children[childKey].getContent());
     });
+    Object.keys(this.props).forEach((propName) => {
+      if (listPropsAsAttribute.includes(propName)) {
+        this._element.setAttribute(propName, this.props[propName]);
+      }
+      if (propName === "disabled") {
+        if (!!this.props[propName]) {
+          this._element.setAttribute("disabled", "disabled");
+        } else {
+          this._element.removeAttribute("disabled");
+        }
+      }
+
+      if (propName === "required") {
+        if (!!this.props[propName]) {
+          this._element.setAttribute("required", "required");
+        } else {
+          this._element.removeAttribute("required");
+        }
+      }
+    });
     this._setAttributes(this._attributes);
 
     this._addEvents();
@@ -124,7 +146,6 @@ export default abstract class BaseComponent {
   }
 
   _setAttributes(attributes: Record<string, any>) {
-    Object.assign(this._attributes, attributes);
     Object.keys(attributes).forEach((attribute) => this._element.setAttribute(attribute, attributes[attribute]));
   }
 

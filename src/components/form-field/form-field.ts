@@ -2,14 +2,19 @@ import { compile } from "handlebars";
 import BaseComponent from "../base-component";
 import InputErrrorMessage from "../ui/input-error-message/InputErrorMessage";
 import Input from "../ui/input/input";
+import Label from "../ui/label/label";
 import template from "./form-field.tpl";
 
 type FormFieldProps = {
-  label: string;
   id: string;
-  type?: "text" | "password" | "number";
+  type?: "text" | "password" | "number" | "tel" | "email";
+  required?: boolean;
+  disabled?: boolean;
   inline?: boolean;
-  [key: string]: any;
+  caption: string;
+  events?: Record<string, Function>;
+  message?: string;
+  value?: string;
 };
 
 export default class FormField extends BaseComponent {
@@ -17,14 +22,20 @@ export default class FormField extends BaseComponent {
     super(
       "div",
       {
-        label: props.label,
         componentWrapperClass: props.inline ? "form-field form-field_inline" : "form-field",
         children: {
+          label: new Label({
+            caption: props.caption,
+            for: props.id,
+          }),
           input: new Input({
             id: props.id,
             name: props.id,
-            isRequired: props.isRequired,
+            required: props.required,
+            disabled: props.disabled,
             events: props.events,
+            value: props.value,
+            type:props.type
           }),
           errorMessage: new InputErrrorMessage({ message: props.message || "" }),
         },

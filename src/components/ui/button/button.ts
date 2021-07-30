@@ -1,7 +1,7 @@
 import { compile } from "handlebars";
 import BaseComponent from "../../base-component";
 
-export const template = `{{ caption }}`;
+const template = `{{ caption }}`;
 
 type ButtonProps = {
   type?: "button" | "submit";

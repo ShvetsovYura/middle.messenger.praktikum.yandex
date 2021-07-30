@@ -14,7 +14,7 @@ export default class LoginPage extends BaseComponent {
       title: "Форма входа",
       children: {
         loginFormField: new FormField({
-          label: "Логин",
+          caption: "Логин",
           id: "login_name",
           isRequired: true,
           events: {
@@ -24,7 +24,7 @@ export default class LoginPage extends BaseComponent {
           },
         }),
         passwordFormField: new FormField({
-          label: "Пароль",
+          caption: "Пароль",
           id: "password",
           isRequired: true,
           events: {

@@ -3,25 +3,32 @@ import BaseComponent from "../../components/base-component";
 import FormField from "../../components/form-field/form-field";
 import Button from "../../components/ui/button/button";
 import Validator, { isVariousSymbols, longerThan, onlyEnLetters, ValidationResult } from "../../services/validator";
-import template from "./registration-page.tpl";
+import template from "./profile-page.tpl";
 
 const loginValidator = new Validator().addRule(onlyEnLetters()).addRule(longerThan(6));
 const passwordValidator = new Validator().addRule(isVariousSymbols()).addRule(longerThan(6));
 
-export default class RegistrationPage extends BaseComponent {
+export default class ProfilePage extends BaseComponent {
   constructor() {
     super(
       "form",
       {
-        title: "Регистрация пользователя",
+        title: "Профиль пользователя",
         children: {
           firstNameFormField: new FormField({
             caption: "Имя",
             id: "first_name",
+            disabled: true,
           }),
           secondNameFormField: new FormField({
             caption: "Фамилия",
             id: "second_name",
+            required: true,
+            value: "sdmsms",
+          }),
+          displayNameFormField: new FormField({
+            caption: "Отображаемое имя",
+            id: "display_name",
           }),
           loginFormField: new FormField({
             caption: "Логин",
@@ -30,16 +37,13 @@ export default class RegistrationPage extends BaseComponent {
           emailFormField: new FormField({
             caption: "E-mail",
             id: "email",
+            type: "email",
           }),
-          passwordFormField: new FormField({
-            caption: "Пароль",
-            id: "password",
+          phoneFormField: new FormField({
+            caption: "Телефон",
+            id: "phone",
+            type: "tel",
           }),
-          passwordRepeatFormField: new FormField({
-            caption: "Пароль (еще раз)",
-            id: "password-repeat",
-          }),
-
           submitFormButton: new Button(
             {
               caption: "Зарегистрироваться",
