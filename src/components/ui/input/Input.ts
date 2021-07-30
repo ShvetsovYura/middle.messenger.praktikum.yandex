@@ -10,6 +10,7 @@ export type InputProps = {
   events?: Record<string, Function>;
   value?: string;
   class?: string;
+  placeholder?: string;
 };
 
 export default class Input extends BaseComponent {

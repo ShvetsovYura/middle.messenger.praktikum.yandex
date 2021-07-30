@@ -1,10 +1,9 @@
 import ChatMessage from "./src/components/chat-message/chat-message";
+import MessagesPanel from "./src/components/messages-container/messages-container";
+import ChatPage from "./src/pages/chat-page/chat-page";
 import render from "./src/utils/render";
+import messages from "./src/mocks/messages";
+// const page = new MessagesPanel();
 
-const page = new ChatMessage({
-  message: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem perspiciatis temporibus fugit perferendis placeat incidunt facere laborum, suscipit soluta quis dolorum at? Magni illo eum, consequuntur voluptatem repellat exercitationem at.",
-  own: true,
-  status: "pending",
-  time: "11:33",
-});
+const page = new ChatPage({ messages: messages });
 render("#app", page);

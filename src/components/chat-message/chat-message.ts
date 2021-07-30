@@ -2,11 +2,11 @@ import { compile } from "handlebars";
 import BaseComponent from "../base-component";
 import template from "./chat-message.tpl";
 
-type ChatMessageProps = {
+export type ChatMessageProps = {
   message: string;
   own: boolean;
   status: "pending" | "sended" | "reading";
-  time: string;
+  time: Date;
 };
 
 export default class ChatMessage extends BaseComponent {

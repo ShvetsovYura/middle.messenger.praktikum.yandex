@@ -6,7 +6,7 @@ import Input from "../ui/input/input";
 import Label from "../ui/label/label";
 import template from "./form-field.tpl";
 
-type FormFieldProps = {
+export type FormFieldProps = {
   id: string;
   type?: "text" | "password" | "number" | "tel" | "email";
   required?: boolean;

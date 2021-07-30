@@ -5,7 +5,7 @@ type Meta = {
   props: Record<string, any>;
 };
 
-const listPropsAsAttribute: string[] = ["for", "class", "value", "type", "id", "name"];
+const listPropsAsAttribute: string[] = ["for", "class", "value", "type", "id", "name", "placeholder"];
 
 // function keyInObject<T>(key: any, object: T): key is keyof T {
 //   return key in object;
