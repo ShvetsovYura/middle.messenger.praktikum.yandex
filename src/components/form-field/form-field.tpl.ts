@@ -1,5 +1,5 @@
 export default `
-    <div class="{{componentWrapperClass}}">
+    <div class="form-field">
         <div data-tpl-key="label"></div>
         <div data-tpl-key="input"></div>
     </div>

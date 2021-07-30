@@ -9,6 +9,7 @@ export type InputProps = {
   required?: boolean;
   events?: Record<string, Function>;
   value?: string;
+  class?: string;
 };
 
 export default class Input extends BaseComponent {
@@ -17,11 +18,9 @@ export default class Input extends BaseComponent {
       ...props,
       type: props.type || "text",
       value: props.value || "",
-      class: "form-field__input form-field__input_underlined",
+      class: props.class || "form-field__input form-field__input_underlined",
     });
   }
-
-
 
   render() {
     return "";

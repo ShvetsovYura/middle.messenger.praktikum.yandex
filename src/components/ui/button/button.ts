@@ -10,7 +10,7 @@ type ButtonProps = {
 };
 
 export default class Button extends BaseComponent {
-  constructor(props: ButtonProps, attributes: Record<string, any>) {
+  constructor(props: ButtonProps, attributes: Record<string, any> = {}) {
     super("button", props, {
       ...attributes,
       class: attributes.class || "form-field__submit form-field__submit_large",

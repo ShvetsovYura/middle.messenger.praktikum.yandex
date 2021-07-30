@@ -11,10 +11,12 @@ type FormFieldProps = {
   required?: boolean;
   disabled?: boolean;
   inline?: boolean;
+  underline?: boolean;
   caption: string;
   events?: Record<string, Function>;
   message?: string;
   value?: string;
+  class?: string;
 };
 
 export default class FormField extends BaseComponent {
@@ -22,7 +24,8 @@ export default class FormField extends BaseComponent {
     super(
       "div",
       {
-        componentWrapperClass: props.inline ? "form-field form-field_inline" : "form-field",
+        inline: props.inline && "form-field_inline",
+        underline: props.underline && "form-field_underlined",
         children: {
           label: new Label({
             caption: props.caption,
@@ -35,7 +38,7 @@ export default class FormField extends BaseComponent {
             disabled: props.disabled,
             events: props.events,
             value: props.value,
-            type:props.type
+            type: props.type,
           }),
           errorMessage: new InputErrrorMessage({ message: props.message || "" }),
         },
@@ -48,11 +51,12 @@ export default class FormField extends BaseComponent {
 
   render() {
     const tpl = compile(template, { noEscape: true });
-    const { id, label, componentWrapperClass } = this.props;
+    const { id, label, inline, underline } = this.props;
     return tpl({
       labelFor: id,
-      label: label,
-      componentWrapperClass,
+      label,
+      inline,
+      underline,
     });
   }
 }

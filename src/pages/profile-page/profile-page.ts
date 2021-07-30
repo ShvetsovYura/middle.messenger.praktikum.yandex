@@ -10,55 +10,52 @@ const passwordValidator = new Validator().addRule(isVariousSymbols()).addRule(lo
 
 export default class ProfilePage extends BaseComponent {
   constructor() {
-    super(
-      "form",
-      {
-        title: "Профиль пользователя",
-        children: {
-          firstNameFormField: new FormField({
-            caption: "Имя",
-            id: "first_name",
-            disabled: true,
-          }),
-          secondNameFormField: new FormField({
-            caption: "Фамилия",
-            id: "second_name",
-            required: true,
-            value: "sdmsms",
-          }),
-          displayNameFormField: new FormField({
-            caption: "Отображаемое имя",
-            id: "display_name",
-          }),
-          loginFormField: new FormField({
-            caption: "Логин",
-            id: "login",
-          }),
-          emailFormField: new FormField({
-            caption: "E-mail",
-            id: "email",
-            type: "email",
-          }),
-          phoneFormField: new FormField({
-            caption: "Телефон",
-            id: "phone",
-            type: "tel",
-          }),
-          submitFormButton: new Button(
-            {
-              caption: "Зарегистрироваться",
-            },
-            {}
-          ),
-        },
-        events: {
-          submit: (e: any) => this.submitForm(e),
-        },
+    super("main", {
+      title: "Профиль пользователя",
+      class: "form-container",
+      children: {
+        firstNameFormField: new FormField({
+          caption: "Имя",
+          id: "first_name",
+          disabled: true,
+          inline: true,
+          underline: true,
+        }),
+        secondNameFormField: new FormField({
+          caption: "Фамилия",
+          id: "second_name",
+          required: true,
+          value: "sdmsms",
+        }),
+        displayNameFormField: new FormField({
+          caption: "Отображаемое имя",
+          id: "display_name",
+        }),
+        loginFormField: new FormField({
+          caption: "Логин",
+          id: "login",
+        }),
+        emailFormField: new FormField({
+          caption: "E-mail",
+          id: "email",
+          type: "email",
+        }),
+        phoneFormField: new FormField({
+          caption: "Телефон",
+          id: "phone",
+          type: "tel",
+        }),
+        saveChangesFormButton: new Button({
+          caption: "Сохранить изменения",
+        }),
+        resetChangesFormButton: new Button({
+          caption: "Отменить изменения",
+        }),
       },
-      {
-        class: "form form_small",
-      }
-    );
+      events: {
+        submit: (e: any) => this.submitForm(e),
+      },
+    });
   }
 
   validateField(value: any, validator: any, componentName: string) {
