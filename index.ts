@@ -3,7 +3,10 @@ import MessagesPanel from "./src/components/messages-container/messages-containe
 import ChatPage from "./src/pages/chat-page/chat-page";
 import render from "./src/utils/render";
 import messages from "./src/mocks/messages";
+import SendMessageForm from "./src/components/send-message-form/send-message-form";
 // const page = new MessagesPanel();
 
-const page = new ChatPage({ messages: messages });
+// const page = new ChatPage({ messages: messages });
+const page  = new SendMessageForm()
+
 render("#app", page);
