@@ -20,6 +20,7 @@ export default class LoginPage extends BaseComponent {
         passwordFormField: new FormField({
           caption: 'Пароль',
           id: 'password',
+          type: 'password',
           required: true,
           validator: passwordValidator,
         }),
@@ -35,8 +36,18 @@ export default class LoginPage extends BaseComponent {
 
   submitForm(e: any) {
     e.preventDefault();
-
-    e.target.querySelectorAll('input').forEach((v: any) => console.log(v.value));
+    const { children = {} } = this.props;
+    for (const childKey of Object.keys(children)) {
+      if (children[childKey] instanceof FormField) {
+        const result = (children[childKey] as FormField).validateField();
+        if (result === false) return;
+      }
+    }
+    const result: Record<string, string> = {};
+    e.target.querySelectorAll('input').forEach((v: HTMLInputElement) => {
+      result[v.name] = v.value;
+    });
+    console.log(result);
   }
 
   render() {

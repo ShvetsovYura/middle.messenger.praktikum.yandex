@@ -6,7 +6,8 @@
     "dev": "parcel ./public/index.html",
     "start": "parcel build ./public/index.html && node ./server.js",
     "build": "parcel build ./public/index.html",
-    "eslint": "eslint src/**/*.ts"
+    "eslint": "eslint src/**/*.ts",
+    "stylelint": "stylelint src/**/*.less"
   },
   "repository": {
     "type": "git",

@@ -26,7 +26,7 @@ export type ProfilePageProps = {
 
 export default class ProfilePage extends BaseComponent {
   constructor(props: ProfilePageProps) {
-    // @eslint-ignore
+    // eslint-disable-next-line
     const { first_name, second_name, display_name, email, phone, login } = props.userInfo;
     super('main', {
       title: 'Профиль пользователя',
@@ -90,23 +90,23 @@ export default class ProfilePage extends BaseComponent {
   submitForm(e: any) {
     e.preventDefault();
     const { children = {} } = this.props;
-    for (let childKey of Object.keys(children)) {
+    for (const childKey of Object.keys(children)) {
       if (children[childKey] instanceof FormField) {
         const result = (children[childKey] as FormField).validateField();
-        console.log('resutl', result);
         if (result === false) return;
       }
     }
-    for (let childKey of Object.keys(children)) {
+    for (const childKey of Object.keys(children)) {
       if (children[childKey] instanceof FormField) {
-        console.log(children[childKey].getValue());
+        // console.log(children[childKey].getValue());
       }
     }
 
-    Array.from(e.target.querySelectorAll('input')).reduce((agg: any, cur: any) => {
-      console.log(agg[cur.getAttribute('name')], cur.value);
-      return (agg[cur.getAttribute('name')] = cur.value);
-    }, {});
+    const result: Record<string, string> = {};
+    e.target.querySelectorAll('input').forEach((v: HTMLInputElement) => {
+      result[v.name] = v.value;
+    });
+    console.log(result);
   }
 
   render() {

@@ -38,19 +38,22 @@ export default class ChangePasswordPage extends BaseComponent {
         }),
       },
       events: {
-        submit: (e: any) => this.submitForm(e),
+        submit: (e: Event) => this.submitForm(e),
       },
     });
   }
 
   submitForm(e: any) {
     e.preventDefault();
-    e.target.querySelectorAll('input').forEach((v: any) => console.log(v.value));
+    const result: Record<string, string> = {};
+    e.target.querySelectorAll('input').forEach(({ name, value }: HTMLInputElement) => {
+      result[name] = value;
+    });
+    console.log(result);
   }
 
   render() {
     const tpl = compile(template, { noEscape: true });
-    const { title } = this.props;
-    return tpl({ title });
+    return tpl(this.props);
   }
 }

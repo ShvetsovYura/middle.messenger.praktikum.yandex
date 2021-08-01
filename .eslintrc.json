@@ -14,7 +14,9 @@
     "linebreak-style": "off",
     "no-console": "off",
     "class-methods-use-this": "off",
-    "func-names":"off",
-    "no-restricted-syntax":"warn"
+    "func-names": "off",
+    "no-restricted-syntax": "off",
+    "object-curly-newline": "off",
+    "no-param-reassign": "off"
   }
 }
