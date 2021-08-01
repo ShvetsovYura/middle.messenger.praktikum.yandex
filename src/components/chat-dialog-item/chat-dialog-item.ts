@@ -1,6 +1,6 @@
-import { compile, registerHelper } from "handlebars";
-import BaseComponent from "../base-component";
-import template from "./chat-dialog-item.tpl";
+import { compile, registerHelper } from 'handlebars';
+import BaseComponent from '../base-component';
+import template from './chat-dialog-item.tpl';
 
 export type ChatDialogItemProps = {
   selected: boolean;
@@ -15,10 +15,11 @@ export type ChatDialogItemProps = {
 
 export default class ChatDialogItem extends BaseComponent {
   constructor(props: ChatDialogItemProps) {
-    super("li", props);
+    super('li', props);
   }
+
   render() {
-    registerHelper("isdefined", (value) => !value);
+    registerHelper('isdefined', (value) => !value);
     const tpl = compile(template, { noEscape: true });
     return tpl(this.props);
   }

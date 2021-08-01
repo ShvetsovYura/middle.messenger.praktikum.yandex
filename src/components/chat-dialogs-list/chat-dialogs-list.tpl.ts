@@ -17,7 +17,7 @@ export default `
             <b>Вы:</b>
             <span> {{lastMessage.text}} </span>
             </span>
-            <span class="chat-item__unread_badge {{#if (isdefined unreadMessages)}} hide{{/if}}">{{unreadCount}}</span>
+            <span class="chat-item__unread_badge {{#if (isdefined unreadMessages)}} hide{{/if}}">{{unreadMessages}}</span>
         </p>
         </div>
     </li>

@@ -1,1 +1,1 @@
-Handlebars.registerHelper("dateToTimeString", (date: Date) => `${date.getHours()}:${date.getMinutes()}`);
+Handlebars.registerHelper('dateToTimeString', (date: Date) => `${date.getHours()}:${date.getMinutes()}`);

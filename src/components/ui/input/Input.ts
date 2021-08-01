@@ -1,7 +1,7 @@
-import BaseComponent from "../../base-component";
+import BaseComponent from '../../base-component';
 
 export type InputProps = {
-  type?: "text" | "password" | "number" | "tel" | "email";
+  type?: 'text' | 'password' | 'number' | 'tel' | 'email';
   id: string;
   name: string;
   className?: string;
@@ -15,17 +15,19 @@ export type InputProps = {
 
 export default class Input extends BaseComponent {
   constructor(props: InputProps) {
-    super("input", {
+    super('input', {
       ...props,
-      type: props.type || "text",
-      value: props.value || "",
-      class: props.class || "form-field__input",
+      type: props.type || 'text',
+      value: props.value || '',
+      class: props.class || 'form-field__input',
     });
   }
+
   getValue() {
-    return { [this.id]: "hso" };
+    return { [this.id]: 'hso' };
   }
+
   render() {
-    return "";
+    return '';
   }
 }

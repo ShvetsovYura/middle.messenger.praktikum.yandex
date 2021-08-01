@@ -1,31 +1,33 @@
-import { EventBus, IEventBus } from "../services/event-bus";
-import { v4 as uuid } from "uuid";
+import { v4 as uuid } from 'uuid';
+
+import { EventBus, IEventBus } from '../services/event-bus';
+
 type Meta = {
   tagName: string;
   props: Record<string, any>;
 };
 
-const listPropsAsAttribute: string[] = ["for", "class", "value", "type", "id", "name", "placeholder", "href"];
-
-// function keyInObject<T>(key: any, object: T): key is keyof T {
-//   return key in object;
-// }
+const listPropsAsAttribute: string[] = ['for', 'class', 'value', 'type', 'id', 'name', 'placeholder', 'href'];
 
 export default abstract class BaseComponent {
   private _props: Record<string, any>;
+
   private _element: HTMLElement;
+
   private _meta: Meta;
+
   private _eventBus: () => IEventBus;
+
   private _id: string;
 
   static EVENTS = {
-    INIT: "flow:init",
-    FLOW_CDM: "flow:component-did-mount",
-    FLOW_CDU: "flow:component-did-update",
-    FLOW_RENDER: "flow:render",
+    INIT: 'flow:init',
+    FLOW_CDM: 'flow:component-did-mount',
+    FLOW_CDU: 'flow:component-did-update',
+    FLOW_RENDER: 'flow:render',
   };
 
-  constructor(tagName = "div", props: Record<string, any> = {}) {
+  constructor(tagName = 'div', props: Record<string, any> = {}) {
     const eventBus: IEventBus = new EventBus();
     this._meta = {
       tagName,
@@ -48,6 +50,7 @@ export default abstract class BaseComponent {
   get props() {
     return this._props;
   }
+
   get id() {
     return this._id;
   }
@@ -86,32 +89,31 @@ export default abstract class BaseComponent {
       if (listPropsAsAttribute.includes(propName)) {
         this._element.setAttribute(propName, this.props[propName]);
       }
-      if (propName === "disabled") {
-        if (!!this.props[propName]) {
-          this._element.setAttribute("disabled", "disabled");
+      if (propName === 'disabled') {
+        if (this.props[propName]) {
+          this._element.setAttribute('disabled', 'disabled');
         } else {
-          this._element.removeAttribute("disabled");
+          this._element.removeAttribute('disabled');
         }
       }
 
-      if (propName === "required") {
-        if (!!this.props[propName]) {
-          this._element.setAttribute("required", "required");
+      if (propName === 'required') {
+        if (this.props[propName]) {
+          this._element.setAttribute('required', 'required');
         } else {
-          this._element.removeAttribute("required");
+          this._element.removeAttribute('required');
         }
       }
     });
-    // this._setAttributes(this._attributes);
 
     this._addEvents();
   }
 
   private _makePropsProxy<T>(target: Record<string, T>): ProxyHandler<object> {
     return new Proxy(target, {
-      get: (target, prop: string): T => {
-        const value = target[prop];
-        return typeof value === "function" ? value.bind(target) : value;
+      get: (props, prop: string): T => {
+        const value = props[prop];
+        return typeof value === 'function' ? value.bind(props) : value;
       },
       set: (target, prop: string, value: T): boolean => {
         target[prop] = value;
@@ -119,7 +121,7 @@ export default abstract class BaseComponent {
         return true;
       },
       deleteProperty: () => {
-        throw new Error("Нет доступа");
+        throw new Error('Нет доступа');
       },
     });
   }
@@ -140,11 +142,12 @@ export default abstract class BaseComponent {
   private _createResources(): void {
     const { tagName } = this._meta;
     this._element = this._createDocumentElement(tagName);
-    this._element.setAttribute("data-id", this._id);
+    this._element.setAttribute('data-id', this._id);
   }
 
   _setAttributes(attributes: Record<string, any>) {
-    Object.keys(attributes).forEach((attribute) => this._element.setAttribute(attribute, attributes[attribute]));
+    Object.keys(attributes).forEach((attribute) =>
+      this._element.setAttribute(attribute, attributes[attribute]));
   }
 
   private _createDocumentElement(tagName: string): HTMLElement {
@@ -166,6 +169,7 @@ export default abstract class BaseComponent {
   }
 
   abstract render(): string;
+
   componentDidMount(): void {}
 
   getContent() {
@@ -173,10 +177,10 @@ export default abstract class BaseComponent {
   }
 
   show() {
-    this._element.style.display = "block";
+    this._element.style.display = 'block';
   }
 
   hide() {
-    this._element.style.display = "none";
+    this._element.style.display = 'none';
   }
 }

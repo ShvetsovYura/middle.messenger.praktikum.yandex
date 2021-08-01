@@ -1,3 +1,4 @@
-import LoginPage from "./login-page";
+import render from '../../utils/render';
+import LoginPage from './login-page';
 
-export default LoginPage;
+render('#app', new LoginPage());

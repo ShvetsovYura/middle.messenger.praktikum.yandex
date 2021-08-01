@@ -6,6 +6,7 @@ export interface IEventBus {
 
 export class EventBus implements IEventBus {
   private listeners: Record<string, Function[]>;
+
   constructor() {
     this.listeners = {};
   }
@@ -24,7 +25,7 @@ export class EventBus implements IEventBus {
     this.listeners[event] = this.listeners[event].filter((cb) => cb !== callback);
   }
 
-  emit(event: string, ...args: any ) {
+  emit(event: string, ...args: any) {
     if (!this.listeners[event]) {
       throw new Error(`Событие ${event} не найдено`);
     }

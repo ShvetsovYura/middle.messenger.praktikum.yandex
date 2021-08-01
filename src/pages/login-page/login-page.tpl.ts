@@ -1,5 +1,4 @@
 export default `
-<form class="form form_small">
   <h2 class="form-header">{{title}}</h2>
   <div data-tpl-key="loginFormField"></div>
   <div data-tpl-key="passwordFormField"></div>
@@ -9,5 +8,4 @@ export default `
   <div>
     <p>Нет аккаунта? <a href="registration.html">Зарегистрироваться</a></p>
   </div>
-</form>
 `;

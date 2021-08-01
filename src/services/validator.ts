@@ -10,6 +10,7 @@ function valid(): ValidationResult {
 
 export default class Validator {
   private _actionRules: Array<Function>;
+
   constructor() {
     this._actionRules = [];
   }
@@ -20,7 +21,7 @@ export default class Validator {
   }
 
   public validate(value: any): ValidationResult {
-    for (let rule of this._actionRules) {
+    for (const rule of this._actionRules) {
       const result: ValidationResult = rule(value);
       if (result.valid === false) {
         return result;
@@ -51,7 +52,7 @@ export function lengthBetween(min: number, max: number): Function {
 export function isEmail(): Function {
   const re = /^\S+@\S+\.\S{1,4}$/;
   return function (value: string): ValidationResult {
-    return re.test(value) ? valid() : invalid(`Не верный email`);
+    return re.test(value) ? valid() : invalid('Не верный email');
   };
 }
 
@@ -60,29 +61,28 @@ export function isVariousSymbols(): Function {
   return function (value: string): ValidationResult {
     return re.test(value)
       ? valid()
-      : invalid(
-          "Должна содержать заглавные и прописные латинские буквы, цифры, спецсимволы (один и более из !@#$%^J&*())"
-        );
+      : invalid(`Должна содержать заглавные и прописные латинские буквы,
+           цифры, спецсимволы (один и более из !@#$%^J&*())`);
   };
 }
 
 export function onlyLatinLetters(): Function {
   const re = /^[a-zA-Z]+$/;
   return function (value: string): ValidationResult {
-    return re.test(value) ? valid() : invalid("Должны быть только латинские строчные или прописные буквы");
+    return re.test(value) ? valid() : invalid('Должны быть только латинские строчные или прописные буквы');
   };
 }
 
 export function onlyCyrilicLetters(): Function {
   const re = /^[а-яА-Я]+$/;
   return function (value: string): ValidationResult {
-    return re.test(value) ? valid() : invalid("Должны быть только кириличиеские буквы");
+    return re.test(value) ? valid() : invalid('Должны быть только кириличиеские буквы');
   };
 }
 
 export function latinOrCyrilicLetters(): Function {
   const re = /^[а-яА-Яa-zA-Z]+$/;
   return function (value: string): ValidationResult {
-    return re.test(value) ? valid() : invalid("Должны быть только латинские или кириличиеские буквы");
+    return re.test(value) ? valid() : invalid('Должны быть только латинские или кириличиеские буквы');
   };
 }

@@ -1,10 +1,10 @@
-import { compile } from "handlebars";
-import BaseComponent from "../../base-component";
+import { compile } from 'handlebars';
+import BaseComponent from '../../base-component';
 
-const template = `{{ caption }}`;
+const template = '{{ caption }}';
 
 type ButtonProps = {
-  type?: "button" | "submit" | "reset";
+  type?: 'button' | 'submit' | 'reset';
   caption: string;
   events?: any;
   class?: string;
@@ -12,11 +12,12 @@ type ButtonProps = {
 
 export default class Button extends BaseComponent {
   constructor(props: ButtonProps) {
-    super("button", {
+    super('button', {
       ...props,
-      class: props.class || "form-field__submit form-field__submit_large",
+      class: props.class || 'form-field__submit form-field__submit_large',
     });
   }
+
   render() {
     const tpl = compile(template, { noEscape: true });
     return tpl(this.props);
