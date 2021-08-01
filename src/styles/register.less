@@ -4,9 +4,10 @@
 .form-field {
   width: 100%;
   padding: 10px;
+  padding-bottom: 2px;
   display: flex;
   justify-content: space-between;
-  flex-direction: column;
+  flex-direction: row;
 
   &__label {
     padding-left: 5px;
@@ -20,12 +21,14 @@
     }
   }
 
-  &__validation-message {
+  &__error-message {
+    font-size: 0.8rem;
+    line-height: 0.9rem;
+    min-height: 0.9rem;
+    padding-right: 10px;
+    float: right;
     display: block;
     color: @error-text-corlor;
-  }
-  &__validation-message_hide {
-    display: none;
   }
 
   &__input {
@@ -33,21 +36,11 @@
     background-color: rgb(247, 236, 236);
     height: 30px;
     padding: 3px;
+    border-bottom: @accent-color 1px solid;
+    width: 70%;
 
     &:disabled {
       background-color: @disabled-color;
-    }
-
-    &_full-width {
-      width: 100%;
-    }
-
-    &_medium {
-      width: 400px;
-    }
-
-    &_underlined {
-      border-bottom: @accent-color 1px solid;
     }
   }
   &__submit {
@@ -72,32 +65,16 @@
     cursor: pointer;
     margin: auto;
   }
-
-  &_underlined {
-    border-bottom: 1px solid black;
-  }
-  &_inline {
-    flex-direction: row;
-  }
 }
 
 .form {
   width: 100%;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
   padding: 30px;
   background-color: @base-color;
   box-shadow: 0px 0px 5px 1px @shadow-color;
-
-  &_small {
-    max-width: 450px;
-  }
-  &_medium {
-    max-width: 800px;
-  }
-  &_large {
-    max-width: 80%;
-  }
 }
 
 .form-header {

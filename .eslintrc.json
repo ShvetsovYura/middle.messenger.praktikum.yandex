@@ -1,0 +1,22 @@
+{
+  "extends": ["airbnb-typescript/base"],
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "no-underscore-dangle": "off",
+    "linebreak-style": "off",
+    "no-console": "off",
+    "class-methods-use-this": "off",
+    "func-names": "off",
+    "no-restricted-syntax": "off",
+    "object-curly-newline": "off",
+    "no-param-reassign": "off"
+  }
+}
