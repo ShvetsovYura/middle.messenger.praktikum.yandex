@@ -2,7 +2,7 @@ import { compile } from 'handlebars';
 import Validator, { ValidationResult } from '../../services/validator';
 import BaseComponent from '../base-component';
 import InputErrrorMessage from '../ui/input-error-message/InputErrorMessage';
-import Input from '../ui/input/input';
+import Input from '../ui/input';
 import Label from '../ui/label/label';
 import template from './form-field.tpl';
 
