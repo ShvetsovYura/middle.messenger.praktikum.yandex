@@ -3,7 +3,7 @@ import BaseComponent from "../base-component";
 import { ChatMessageProps } from "../chat-message/chat-message";
 import template from "./messages-container.tpl";
 
-type MessagesContainerProps = {
+export type MessagesContainerProps = {
   messages: Array<ChatMessageProps>;
 };
 

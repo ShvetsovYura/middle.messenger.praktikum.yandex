@@ -22,35 +22,37 @@ export default class SendMessageForm extends BaseComponent {
         }),
       },
       events: {
-        submit:(e:Event)=>this.messageSubmit(e),
+        submit: (e: Event) => this.messageSubmit(e),
+      },
     });
   }
 
-  messageSubmit(e:any){
-      e.preventDefault();
-      const { messageInput } = this.props.children;
-      const { id, name } = messageInput.props;
+  messageSubmit(e: any) {
+    e.preventDefault();
+    const { messageInput } = this.props.children;
+    const { id, name } = messageInput.props;
 
-      const element =  document.querySelector(`#${id}`)
-      let value:string;
-      if (element){
-        const el = (element as HTMLInputElement);
-        value =  el.value
-      }
-      else {
-        return;
-      }
-      if(value=="") {
-        return;
-      }
-      console.log({ [name]: value });
-    },
-  
-  
+    const element = document.querySelector(`#${id}`);
+    let value: string;
+    if (element) {
+      const el = element as HTMLInputElement;
+      value = el.value;
+    } else {
+      return;
+    }
+    if (value == "") {
+      return;
+    }
+    console.log({ [name]: value });
+
+    if (element) {
+      const el = element as HTMLInputElement;
+      value = el.value;
+    }
+  }
 
   render() {
     const tpl = compile(template, { noEscape: true });
     return tpl(null);
   }
 }
-
