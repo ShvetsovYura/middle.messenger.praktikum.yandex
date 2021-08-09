@@ -3,6 +3,8 @@
 - `npm run dev` — запуск в режиме разработки
 - `npm run start` — запуск
 - `npm run build` — сборка
+- `npm run eslint` - запуск eslint
+- `npm run stylelint` - запуск stylelint
 
 netlify: https://nifty-sinoussi-580704.netlify.app
 
