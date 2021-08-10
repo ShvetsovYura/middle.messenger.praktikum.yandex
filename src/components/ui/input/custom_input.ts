@@ -1,15 +1,16 @@
+import { compile } from 'handlebars';
 import BaseComponent from '../../base-component';
+import template from './input.tpl';
 
 export type InputProps = {
   type?: 'text' | 'password' | 'number' | 'tel' | 'email';
   id: string;
   name: string;
-  className?: string;
   disabled?: boolean;
   required?: boolean;
   events?: Record<string, Function>;
-  value?: string;
-  class?: string;
+  initValue?: string;
+  className?: string;
   placeholder?: string;
 };
 
@@ -18,8 +19,7 @@ export default class Input extends BaseComponent {
     super('input', {
       ...props,
       type: props.type || 'text',
-      value: props.value || '',
-      class: props.class || 'form-field__input',
+      className: props.className || 'form-field__input',
     });
   }
 
@@ -28,6 +28,7 @@ export default class Input extends BaseComponent {
   }
 
   render() {
-    return '';
+    const tpl = compile(template);
+    return tpl(this.props);
   }
 }
