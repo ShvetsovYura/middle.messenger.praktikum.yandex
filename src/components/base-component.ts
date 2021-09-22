@@ -64,7 +64,6 @@ export default abstract class BaseComponent {
 
   private _removeEvents(): void {
     const { events = {} } = this.props;
-    console.log('element to remove events', this._element);
     Object.keys(events).forEach((eventName) => {
       this._element?.removeEventListener(eventName, events[eventName]);
     });
@@ -72,7 +71,6 @@ export default abstract class BaseComponent {
 
   private _addEvents(): void {
     const { events = {} } = this.props;
-    console.log('element to add events', this._element);
     Object.keys(events).forEach((eventName) => {
       this._element?.addEventListener(eventName, events[eventName]);
     });
@@ -90,6 +88,10 @@ export default abstract class BaseComponent {
       this._element.replaceWith(newElement);
       this._element = newElement;
     }
+    const { children = {} } = this.props;
+    Object.keys(children).forEach((childKey) => {
+      this._element.querySelector(`[data-tpl-key="${childKey}"`)?.replaceWith(children[childKey].getContent());
+    });
     this._addEvents();
   }
 
@@ -119,7 +121,6 @@ export default abstract class BaseComponent {
 
   private _componentDidMount(): void {
     this.componentDidMount();
-
     this._eventBus().emit(BaseComponent.EVENTS.FLOW_RENDER);
   }
 
@@ -140,7 +141,6 @@ export default abstract class BaseComponent {
 
   setProps = (nextProps: any) => {
     if (!nextProps) return;
-    console.log('setProps', nextProps);
     Object.assign(this._props, nextProps);
   };
 
@@ -156,11 +156,16 @@ export default abstract class BaseComponent {
     return this._element;
   }
 
-  show() {
-    this._element.style.display = 'block';
+  show(rootQuerySelector: string = '#app'): void {
+    const root = document.querySelector(rootQuerySelector);
+    root?.append(this._element);
+    this._eventBus().emit(BaseComponent.EVENTS.FLOW_RENDER);
+
+    // this._element.style.display = 'block';
   }
 
   hide() {
-    this._element.style.display = 'none';
+    this._element?.remove();
+    // this._element.style.display = 'none';
   }
 }

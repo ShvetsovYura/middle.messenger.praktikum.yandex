@@ -17,36 +17,47 @@ type TRequestOptions = {
 
 function queryStringify(data: TRequestData) {
   if (!data) return '';
-  return Object.keys(data).reduce((acc:string, key:string, index:number, arr:any[]) => `${acc}${key}=${data[key]}${index < arr.length - 1 ? '&' : ''}`, '?');
+  return Object.keys(data).reduce(
+    (acc: string, key: string, index: number, arr: any[]) =>
+      `${acc}${key}=${data[key]}${index < arr.length - 1 ? '&' : ''}`,
+    '?',
+  );
 }
 
 export default class HTTPTransport {
-  public get = (url: string, options = {}) => this.request(url, {
-    ...options,
-    method: METHODS.GET,
-  });
+  get(url: string, options = {}) {
+    return this.request(url, {
+      ...options,
+      method: METHODS.GET,
+    });
+  }
 
-  public post = (url: string, options = {}) => this.request(url, {
-    ...options,
-    method: METHODS.POST,
-  });
+  post(url: string, options = {}) {
+    return this.request(url, { ...options, method: METHODS.POST });
+  }
 
-  public put = (url: string, options = {}) => this.request(url, {
-    ...options,
-    method: METHODS.PUT,
-  });
+  put(url: string, options = {}) {
+    return this.request(url, {
+      ...options,
+      method: METHODS.PUT,
+    });
+  }
 
-  public patch = (url: string, options = {}) => this.request(url, {
-    ...options,
-    method: METHODS.PATCH,
-  });
+  patch(url: string, options = {}) {
+    this.request(url, {
+      ...options,
+      method: METHODS.PATCH,
+    });
+  }
 
-  public delete = (url: string, options = {}) => this.request(url, {
-    ...options,
-    method: METHODS.DELETE,
-  });
+  delete(url: string, options = {}) {
+    return this.request(url, {
+      ...options,
+      method: METHODS.DELETE,
+    });
+  }
 
-  request = (url: string, options: TRequestOptions) => {
+  request(url: string, options: TRequestOptions) {
     const { method = METHODS.GET, headers = {}, data, timeout = 5000 } = options;
 
     let query: string;
@@ -60,8 +71,8 @@ export default class HTTPTransport {
       const xhr = new XMLHttpRequest();
 
       xhr.open(method, url + query);
-
-      Object.keys(headers).forEach((key:string) => {
+      xhr.withCredentials = true;
+      Object.keys(headers).forEach((key: string) => {
         xhr.setRequestHeader(key, headers[key]);
       });
 
@@ -84,5 +95,5 @@ export default class HTTPTransport {
         xhr.send(JSON.stringify(data));
       }
     });
-  };
+  }
 }

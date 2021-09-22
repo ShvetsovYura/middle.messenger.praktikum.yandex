@@ -16,7 +16,7 @@ type LabelProps = {
   className?: string;
 };
 
-const template = '<label {{#if for}} for={{for}} {{/if}}>{{ caption }}</label>';
+const template = '<label class="{{className}}" {{#if for}} for="{{for}}" {{/if}}>{{ caption }}</label>';
 
 export default class Label extends BaseComponent {
   constructor(props: LabelProps) {

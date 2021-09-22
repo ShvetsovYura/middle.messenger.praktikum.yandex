@@ -1,13 +1,12 @@
 import render from '../utils/render';
-import Label from '../components/ui/label/label';
-import Input from '../components/ui/input';
+import FormField from '../components/form-field/form-field';
+import { loginValidator } from '../helpers/validators';
 
-const btn = new Input({
-  id: 'dsdf',
-  initValue: 'meme',
-  events: {
-    input: (e: Event) => console.log(e.target?.value),
-  },
+const el = new FormField({
+  caption: 'Логин',
+  id: 'login_name',
+  required: true,
+  validator: loginValidator,
 });
+render('#app', el);
 
-render('#app', btn);

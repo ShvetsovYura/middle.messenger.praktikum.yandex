@@ -19,11 +19,6 @@ export default class Button extends BaseComponent {
     });
   }
 
-  componentDidMount() {
-    setTimeout(() => this.setProps({ caption: 'meme' }), 2000);
-    setTimeout(() => this.setProps({ disabled: true }), 3000);
-  }
-
   render() {
     const tpl = compile(template, { noEscape: true });
     return tpl(this.props);
