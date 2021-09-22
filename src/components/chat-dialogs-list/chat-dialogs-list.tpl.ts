@@ -1,5 +1,4 @@
-export default `
-    {{#each dialogsList }}
+export default `{{#each dialogsList }}
     <li class="chat-item {{#if selected}} chat-item_selected {{/if}}">
         <div class="chat-item__user-avatar">
             <img class="chat-item__user-avatar-image" src="{{avatarImgPath}}" alt="user-avatar" />

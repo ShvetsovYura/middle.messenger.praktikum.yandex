@@ -9,4 +9,3 @@ const el = new FormField({
   validator: loginValidator,
 });
 render('#app', el);
-
