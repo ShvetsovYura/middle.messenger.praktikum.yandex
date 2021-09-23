@@ -3,18 +3,18 @@ import BaseComponent from '../base-component';
 // import ChatDialogsHeader from '../chat-dialogs-header/chat-dialogs-header';
 import ChatDialogsList from '../chat-dialogs-list/chat-dialogs-list';
 import template from './chat-dialogs-panel.tpl';
-import { ChatDialogItemProps } from '../chat-dialog-item/chat-dialog-item';
 
 export type ChatDialogsPanelProps = {
   dialogs: Array<ChatDialogItemProps>;
+  onSelect: any;
 };
 
 export default class ChatDialogsPanel extends BaseComponent {
-  constructor(props: ChatDialogsPanelProps) {
+  constructor(props: any) {
     const dialogsList = new ChatDialogsList({
-      dialogsList: props.dialogs,
+      dialogsItems: props.dialogs,
+      onSelectDialogCard: props.onSelectDialogCard,
     });
-    console.log('diallist', dialogsList);
     super('aside', {
       class: 'side-panel',
       children: {

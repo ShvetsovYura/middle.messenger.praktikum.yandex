@@ -1,5 +1,4 @@
-export default `
-    {{#each messages}}
+export default `<div> {{#each messages}}
     <div class="chat-message {{#if own}} chat-message_own {{/if}}">
     <div class="chat-message__body {{#if own}} chat-message__body_own {{else}} chat-message__body_partner {{/if}}">
         <p class="chat-mssage__text">{{message}}</p>
@@ -12,4 +11,5 @@ export default `
     </div>
     </div>
     {{/each }}
+    </div>
 `;

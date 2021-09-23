@@ -9,12 +9,22 @@ body {
   background-color: @base-color;
 }
 
-.chat-main {
+.messenger{
   display: flex;
   width: 100%;
   height: 100%;
-  min-height: 100%;
 }
+
+.messager-content-panel{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 
 .side-panel {
   display: flex;
@@ -30,19 +40,11 @@ body {
   padding: 5px;
   overflow-y: auto;
 }
-.chat-messages-panel {
-  flex: 1;
-  width: 100%;
-  display: flex;
-  position: relative;
-  flex-direction: column;
-}
+
 
 .chat-messages-panel__header {
   height: 50px;
   background-color: @background-color;
-  position: absolute;
-  flex: 1 1 auto;
   width: 100%;
   box-shadow: 0px 1px 5px @shadow-color;
 }
@@ -55,7 +57,7 @@ body {
   overflow-y: auto;
 }
 
-.chat-item {
+.dialog-card-item {
   display: flex;
   flex-direction: row;
   position: relative;
@@ -65,6 +67,22 @@ body {
   border-bottom: solid @accent-color 1px;
   align-items: flex-start;
   padding: 10px;
+  &__user-avatar {
+    height: 50px;
+    width: 50px;
+    flex: 0 0 auto;
+    position: relative;
+    border-radius: 100%;
+    border: 1px @accent-color solid;
+  }
+  &__user-avatar img{
+    height: 50px;
+    width: 50px;
+    flex: 0 0 auto;
+    position: relative;
+    border-radius: 100%;
+    border: 1px @accent-color solid;
+  }
 }
 .chat-item_selected {
   background-color: @selected-color;
@@ -73,14 +91,7 @@ body {
   background-color: @hover-color;
 }
 
-.chat-item__user-avatar {
-  height: 50px;
-  width: 50px;
-  flex: 0 0 auto;
-  position: relative;
-  border-radius: 100%;
-  border: 1px @accent-color solid;
-}
+
 
 .chat-item__user-avatar-image {
   border-radius: 100%;

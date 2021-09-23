@@ -6,15 +6,15 @@ import SendMessageForm from '../send-message-form/send-message-form';
 import template from './chat-content-panel.tpl';
 
 export default class ChatContentPanel extends BaseComponent {
-  constructor(props: any) {
-    super('div', {
+  constructor() {
+    super('template', {
       class: 'chat-messages-panel',
       children: {
         chatMessageHeader: new ChatHeader({
-          headerText: 'Василий Петрович',
+          headerText: '',
         }),
-        chatMessagesContaier: new MessagesContainer({
-          messages: props.messages,
+        chatMessagesContainer: new MessagesContainer({
+          messages: [],
         }),
         messageSentForm: new SendMessageForm(),
       },

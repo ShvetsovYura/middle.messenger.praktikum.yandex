@@ -1,27 +1,61 @@
-import { compile, registerHelper } from 'handlebars';
+import { compile } from 'handlebars';
 import BaseComponent from '../base-component';
-import { ChatDialogItemProps } from '../chat-dialog-item/chat-dialog-item';
+import ChatDialogCard, { ChatDialogCardProps } from '../chat-dialog-item/chat-dialog-item';
 import template from './chat-dialogs-list.tpl';
+import images from '../../../public/img/*.png';
 
-type ChatDialogsListProps = {
-  dialogsList: Array<ChatDialogItemProps>;
+export type ChatDialogsListProps = {
+  dialogsItems: Array<ChatDialogCardProps>;
 };
 
 export default class ChatDialogsList extends BaseComponent {
   constructor(props: ChatDialogsListProps) {
-    super('ul', {
+    super('template', {
       ...props,
       class: 'chats-list',
     });
   }
 
-  render() {
-    registerHelper('isdefined', (value) => !value);
-    registerHelper(
-      'dateToTimeString',
-      (date: Date) => `${date.getHours()}:${(date.getMinutes() < 10 ? '0' : '') + date.getMinutes()}`,
+  constructDialogsList(chatDialogItems: ChatDialogCardProps[]) {
+    const dialogsList = chatDialogItems.reduce(
+      (agg, cur) => ({
+        ...agg,
+        [`${cur.title}___${cur.id}`]: new ChatDialogCard({
+          ...cur,
+          avatar: cur.avatar ?? images.img_avatar_min,
+          events: {
+            click: () => {
+              this.props.onSelectDialogCard(cur);
+              for (const el of Object.keys(this.props.children)) {
+                this.props.children[el].setProps({ selected: false });
+              }
+              this.props.children[`${cur.title}___${cur.id}`].setProps({ selected: true });
+            },
+          },
+        }),
+      }),
+      {},
     );
+
+    this.setProps({ children: { ...dialogsList } });
+  }
+
+  componentDidMount() {
+    this.constructDialogsList(this.props.dialogsItems);
+  }
+
+  render() {
+    // registerHelper('isdefined', (value) => !value);
+    // registerHelper(
+    //   'dateToTimeString',
+    //   (date: Date) =>
+    //     `${date.getHours()}:${(date.getMinutes() < 10 ? '0' : '') + date.getMinutes()}`,
+    // );
     const tpl = compile(template, { noEscape: true });
-    return tpl(this.props);
+    const toRenderList = [];
+    for (const el of Object.keys(this.props.children)) {
+      toRenderList.push({ ...this.props.children[el].props });
+    }
+    return tpl(toRenderList);
   }
 }

@@ -9,7 +9,7 @@ export type MessagesContainerProps = {
 
 export default class MessagesContainer extends BaseComponent {
   constructor(props: MessagesContainerProps) {
-    super('div', {
+    super('template', {
       ...props,
       class: 'chat-messages-container',
     });

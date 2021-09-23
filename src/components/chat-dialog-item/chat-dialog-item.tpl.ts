@@ -1,6 +1,6 @@
-export default `<div id="{{id}}" class="chat-item {{#if selected}} chat-item_selected {{/if}}">
-      <div class="chat-item__user-avatar">
-        <img src="" alt="user-avatar" />
+export default `<li id="{{id}}" class="dialog-card-item {{#if selected}} chat-item_selected {{/if}}">
+      <div class="dialog-card-item__user-avatar">
+        <img src="{{avatar}}" height="50" width="50" alt="user-avatar" />
       </div>
       <div class="chat-item__user-caption">
         <p class="chat-item__dialog-title">
@@ -12,11 +12,11 @@ export default `<div id="{{id}}" class="chat-item {{#if selected}} chat-item_sel
         </p>
         <p class="chat-item__dialog-subtitle">
           <span class="chat-item__dialog-last-message">
-            <b>Вы:</b>
-            <span> {{lastMessage.text}} </span>
+            <b>{{last_message.title}}</b>
+            <span> {{last_message.content}} </span>
           </span>
-          <span class="chat-item__unread_badge {{#if (isdefined unreadMessages)}} hide{{/if}}">{{unreadCount}}</span>
+          <span class="chat-item__unread_badge {{#if (unreadMessages)}} hide{{/if}}">{{unread_count}}</span>
         </p>
       </div>
-    </div>
+    </li>
 `;
