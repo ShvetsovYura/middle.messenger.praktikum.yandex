@@ -3,7 +3,7 @@ import router from '../..';
 import BaseComponent from '../../components/base-component';
 import FormField from '../../components/form-field/form-field';
 import Button from '../../components/ui/button/button';
-import { passwordValidator } from '../../helpers/validators';
+import { passwordValidator } from '../../utils/helpers/validators';
 import UserApi from '../../services/api/user';
 import template from './change-password.tpl';
 

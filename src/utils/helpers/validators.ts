@@ -5,7 +5,7 @@ import Validator, {
   longerThan,
   onlyCyrilicLetters,
   latinLettersAndNumbers,
-} from '../services/validator';
+} from '../../services/validator';
 
 export const loginValidator = new Validator()
   .addRule(latinLettersAndNumbers())

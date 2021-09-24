@@ -11,6 +11,7 @@ import ChatContentPanel from '../../components/chat-content-panel/chat-content-p
 import ChatsApi from '../../services/api/chat';
 import WSClient from '../../services/api/webSocket';
 import { UserResponse } from '../../types';
+import appStore, { StoreEventsType } from '../../services/store-manager';
 
 export type MessengersPageProps = ChatDialogsPanelProps & MessagesContainerProps;
 let chatsList: Array<any> = [];
@@ -32,45 +33,12 @@ export default class MessengerPage extends BaseComponent {
       children: {
         chatDialogsPanel: new ChatDialogsPanel({
           dialogs: [],
-          onSelectDialogCard: (chatInfo: any) => {
-            this.props.children.chatContentPanel.props.children.chatMessageHeader.setProps({
-              headerText: chatInfo.title,
-            });
-            this._acitveDialog = chatInfo.id;
-            this._messages = [];
-            this._chatUsers = {};
-            new ChatsApi()
-              .chatUsers(chatInfo.id)
-              .then((response: XMLHttpRequest) => {
-                const result: Array<UserResponse> = JSON.parse(response.response);
-                for (const user of result) {
-                  if (this._chatUsers) {
-                    this._chatUsers[user.id] = { ...user };
-                  }
-                }
-              })
-              .then(() =>
-                new ChatsApi()
-                  .getChatUsersToken(chatInfo.id)
-                  .then((response: XMLHttpRequest) => JSON.parse(response.response))
-                  .catch((err: any) => console.error(err)),
-              )
-              .then(({ token }) => {
-                if (this._userInfo) {
-                  return new WSClient(
-                    this._userInfo.id,
-                    chatInfo.id,
-                    token,
-                    (d) => console.log(d),
-                    //this.fetchChatMessageList.bind(this),
-                  );
-                }
-              });
-          },
         }),
         chatContentPanel,
       },
     });
+
+    appStore.sub(StoreEventsType.activeDialog, this.hanldeChangeActiveDialog);
   }
 
   componentDidMount() {
@@ -93,12 +61,42 @@ export default class MessengerPage extends BaseComponent {
   }
 
   private fetchChatsList() {
-    new ChatsApi().chatsList().then((response: XMLHttpRequest) => {
-      chatsList = JSON.parse(response.response);
-      this.props.children.chatDialogsPanel.props.children.dialogsList.constructDialogsList(
-        chatsList,
+    new ChatsApi()
+      .chatsList()
+      .then((response: XMLHttpRequest) =>
+        appStore.setValue(StoreEventsType.dialogsList, JSON.parse(response.response)),
       );
+  }
+
+  private hanldeChangeActiveDialog() {
+    console.log('appStore', appStore);
+    const dialogInfo = appStore.getValue(StoreEventsType.activeDialog);
+    console.log(dialogInfo);
+    new ChatsApi().chatUsers(dialogInfo.id).then((response: XMLHttpRequest) => {
+      const result: Array<UserResponse> = JSON.parse(response.response);
+      const chatUsers: Record<string, any> = {};
+      for (const user of result) {
+        chatUsers[user.id] = { ...user };
+      }
+      appStore.setValue(StoreEventsType.chatUsers, chatUsers);
     });
+    //   .then(() =>
+    //     new ChatsApi()
+    //       .getChatUsersToken(chatInfo.id)
+    //       .then((response: XMLHttpRequest) => JSON.parse(response.response))
+    //       .catch((err: any) => console.error(err)),
+    //   )
+    //   .then(({ token }) => {
+    //     if (this._userInfo) {
+    //       return new WSClient(
+    //         this._userInfo.id,
+    //         chatInfo.id,
+    //         token,
+    //         (d) => console.log(d),
+    //         //this.fetchChatMessageList.bind(this),
+    //       );
+    //     }
+    //   });
   }
 
   render() {

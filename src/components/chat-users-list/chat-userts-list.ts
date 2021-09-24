@@ -8,10 +8,10 @@ export default class MessagesContainer extends BaseComponent {
   constructor(props: MessagesContainerProps) {
     super('template', {
       class: 'messages-container',
-      // children:{
-      //   messagesList:()=>{},
-      //   usersList:()=>{}
-      // }
+      //   children:{
+      //     messagesList:()=>{},
+      //     usersList:()=>{}
+      //   }
     });
   }
 

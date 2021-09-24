@@ -6,19 +6,17 @@ import template from './chat-dialogs-panel.tpl';
 
 export type ChatDialogsPanelProps = {
   dialogs: Array<ChatDialogItemProps>;
-  onSelect: any;
 };
 
 export default class ChatDialogsPanel extends BaseComponent {
   constructor(props: any) {
     const dialogsList = new ChatDialogsList({
       dialogsItems: props.dialogs,
-      onSelectDialogCard: props.onSelectDialogCard,
     });
     super('aside', {
       class: 'side-panel',
       children: {
-        // dialogsHeader: new ChFatDialogsHeader({}),
+        //   // dialogsHeader: new ChFatDialogsHeader({}),
         dialogsList,
       },
     });

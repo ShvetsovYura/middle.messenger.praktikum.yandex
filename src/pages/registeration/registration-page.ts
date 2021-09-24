@@ -9,7 +9,7 @@ import {
   loginValidator,
   passwordValidator,
   phoneValidator,
-} from '../../helpers/validators';
+} from '../../utils/helpers/validators';
 import AuthApi from '../../services/api/auth';
 import { UserInfo } from '../profile/profile-page';
 import template from './registration-page.tpl';

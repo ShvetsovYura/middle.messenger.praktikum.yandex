@@ -2,7 +2,8 @@ import { compile } from 'handlebars';
 import BaseComponent from '../base-component';
 import Button from '../ui/button/button';
 import Input from '../ui/input';
-import template from './send-message-form.tpl';
+import './message-send-form.less';
+import template from './message-send-form.tpl';
 
 export default class SendMessageForm extends BaseComponent {
   constructor() {

@@ -1,6 +1,6 @@
 import render from '../utils/render';
 import FormField from '../components/form-field/form-field';
-import { loginValidator } from '../helpers/validators';
+import { loginValidator } from '../utils/helpers/validators';
 
 const el = new FormField({
   caption: 'Логин',

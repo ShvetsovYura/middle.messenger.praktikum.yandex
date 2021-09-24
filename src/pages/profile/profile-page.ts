@@ -10,7 +10,7 @@ import {
   firstNameValidator,
   loginValidator,
   phoneValidator,
-} from '../../helpers/validators';
+} from '../../utils/helpers/validators';
 import template from './profile-page.tpl';
 import router from '../..';
 import AuthApi from '../../services/api/auth';

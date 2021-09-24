@@ -30,5 +30,5 @@ export default class ChatsApi {
 
   getChatUsersToken(id: number) {
     return httpClient.post(`${host}/${baseUrl}//token/${id}`);
-}
+  }
 }

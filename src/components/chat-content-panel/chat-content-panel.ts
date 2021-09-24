@@ -1,8 +1,8 @@
 import { compile } from 'handlebars';
 import BaseComponent from '../base-component';
-import ChatHeader from '../chat-header/chat-header';
+import ChatHeader from '../current-chat-header/current-chat-header';
 import MessagesContainer from '../messages-container/messages-container';
-import SendMessageForm from '../send-message-form/send-message-form';
+import SendMessageForm from '../message-send-form/message-send-form';
 import template from './chat-content-panel.tpl';
 
 export default class ChatContentPanel extends BaseComponent {
