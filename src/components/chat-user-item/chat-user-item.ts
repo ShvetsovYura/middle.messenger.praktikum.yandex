@@ -5,7 +5,7 @@ import template from './chat-user-item.tpl';
 export default class ChatUserItem extends BaseComponent {
   constructor(props: any) {
     super('template', {
-      class: '',
+      class: '_dsfsdf',
       //   children: {
       //     actionButton: () => {},
       //     userAvatar: () => {},
@@ -15,6 +15,6 @@ export default class ChatUserItem extends BaseComponent {
 
   render() {
     const tpl = compile(template, { noEscape: true });
-    return tpl({ messages: this.props.messages });
+    return tpl(null);
   }
 }

@@ -18,8 +18,9 @@ export default class CurrentChatHeader extends BaseComponent {
           caption: 'Пользователи',
           events: {
             click: () => {
-              const val = !!appStore.getValue(StoreEventsType.usersListIsOpen) ? true : false;
-              appStore.setValue(StoreEventsType.usersListIsOpen, !val);
+              const val = appStore.getValue(StoreEventsType.usersListIsOpen);
+              const needOpen = val === undefined || val === false;
+              appStore.setValue(StoreEventsType.usersListIsOpen, needOpen);
             },
           },
         }),

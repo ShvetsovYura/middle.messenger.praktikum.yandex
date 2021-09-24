@@ -39,12 +39,12 @@ export default class ChatDialogsList extends BaseComponent {
       }),
       {},
     );
-      console.log(dialogsList)
+    console.log(dialogsList);
     this.setProps({ children: { ...dialogsList } });
   }
 
   componentDidMount() {
-    this.constructDialogsList([]);
+    this.constructDialogsList();
   }
 
   render() {

@@ -1,7 +1,7 @@
-export default `<div class={{className}}>
+export default `<div class={{data.className}}>
     <ul>
-    {{#each . }}
-        <div data-tpl-key='user___{{id}}'></div> 
+    {{#each data.children }}
+        <div data-tpl-key='{{@key}}'></div> 
     {{/each}}
     </ul>
 </div>

@@ -1,5 +1,9 @@
 export default `<li>
-    <div data-tpl-key='actionButton'></div>
+    <span>Пацан</span>
+</li>
+`;
+
+/**<div data-tpl-key='actionButton'></div>
     <div>
         <div data-tpl-key='userAvatar'></div>
         <div>
@@ -8,6 +12,4 @@ export default `<li>
             {{else}}
                 <span>{{first_name}} {{second_name}}</span>
         </div>
-    </div>
-</li>
-`;
+    </div> */

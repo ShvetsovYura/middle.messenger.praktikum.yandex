@@ -1,6 +1,7 @@
 import { compile } from 'handlebars';
 import appStore, { StoreEventsType } from '../../services/store-manager';
 import BaseComponent from '../base-component';
+import ChatUserItem from '../chat-user-item/chat-user-item';
 import './chat-users-list.less';
 import template from './chat-users-list.tpl';
 
@@ -8,13 +9,21 @@ export default class ChatUsersList extends BaseComponent {
   constructor(props: any) {
     super('template', {
       className: 'users-list-panel',
-      //   children:{
-      //     messagesList:()=>{},
-      //     usersList:()=>{}
-      //   }
     });
 
     appStore.sub(StoreEventsType.usersListIsOpen, this._toggle.bind(this));
+    appStore.sub(StoreEventsType.chatUsers, this.handleChatUsersChange.bind(this));
+  }
+
+  private handleChatUsersChange() {
+    const users = appStore.getValue(StoreEventsType.chatUsers);
+    const chld: Record<string, any> = {};
+    for (const item of Object.keys(users)) {
+      chld[`user__${users[item].id}`] = new ChatUserItem({});
+    }
+
+    console.log('el', chld);
+    this.setProps({ children: chld });
   }
 
   private _toggle() {
@@ -26,12 +35,7 @@ export default class ChatUsersList extends BaseComponent {
   }
 
   render() {
-    // registerHelper(
-    //   'dateToTimeString',
-    //   (date: Date) =>
-    //     `${date.getHours()}:${(date.getMinutes() < 10 ? '0' : '') + date.getMinutes()}`,
-    // );
     const tpl = compile(template, { noEscape: true });
-    return tpl(this.props);
+    return tpl({ data: this.props });
   }
 }
