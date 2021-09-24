@@ -1,17 +1,17 @@
 import { compile, registerHelper } from 'handlebars';
 import BaseComponent from '../base-component';
-import { ChatMessageProps } from '../chat-message/chat-message';
+import ChatUsersList from '../chat-users-list/chat-users-list';
 import './messages-container.less';
 import template from './messages-container.tpl';
 
-export default class MessagesContainer extends BaseComponent {
-  constructor(props: MessagesContainerProps) {
+export default class CurrentChatMessagesContainer extends BaseComponent {
+  constructor(props: any) {
     super('template', {
-      class: 'messages-container',
-      // children:{
-      //   messagesList:()=>{},
-      //   usersList:()=>{}
-      // }
+      className: 'current-dialog-messages-list',
+      children: {
+        //   messagesList:()=>{},
+        usersList: new ChatUsersList({}),
+      },
     });
   }
 
@@ -22,6 +22,6 @@ export default class MessagesContainer extends BaseComponent {
         `${date.getHours()}:${(date.getMinutes() < 10 ? '0' : '') + date.getMinutes()}`,
     );
     const tpl = compile(template, { noEscape: true });
-    return tpl({ messages: this.props.messages });
+    return tpl(this.props);
   }
 }

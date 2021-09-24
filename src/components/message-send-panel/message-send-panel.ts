@@ -2,13 +2,13 @@ import { compile } from 'handlebars';
 import BaseComponent from '../base-component';
 import Button from '../ui/button/button';
 import Input from '../ui/input';
-import './message-send-form.less';
-import template from './message-send-form.tpl';
+import './message-send-panel.less';
+import template from './message-send-panel.tpl';
 
-export default class SendMessageForm extends BaseComponent {
+export default class SendMessagePanel extends BaseComponent {
   constructor() {
-    super('form', {
-      class: 'message-form',
+    super('template', {
+      className: 'message-send-panel',
       children: {
         messageInput: new Input({
           id: 'message',
@@ -54,6 +54,6 @@ export default class SendMessageForm extends BaseComponent {
 
   render() {
     const tpl = compile(template, { noEscape: true });
-    return tpl(null);
+    return tpl(this.props);
   }
 }

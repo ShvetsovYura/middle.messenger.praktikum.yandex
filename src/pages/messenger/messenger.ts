@@ -2,12 +2,12 @@ import { compile } from 'handlebars';
 import BaseComponent from '../../components/base-component';
 import ChatDialogsPanel, {
   ChatDialogsPanelProps,
-} from '../../components/chat-dialogs-panel/chat-dialogs-panel';
+} from '../../components/dialogs-container/dialogs-container';
 import { MessagesContainerProps } from '../../components/messages-container/messages-container';
 import template from './messanger.tpl';
 import router from '../..';
 import AuthApi from '../../services/api/auth';
-import ChatContentPanel from '../../components/chat-content-panel/chat-content-panel';
+import ChatContentPanel from '../../components/content-container/content-container';
 import ChatsApi from '../../services/api/chat';
 import WSClient from '../../services/api/webSocket';
 import { UserResponse } from '../../types';

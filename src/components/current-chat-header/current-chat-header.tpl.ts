@@ -1,5 +1,5 @@
 export default `<div class="current-chat-header">
     <div>{{headerText}}</div>
-    <div>button</div>
+    <div data-tpl-key="showUsersPanelButton"></div>
 </div>
 `;
