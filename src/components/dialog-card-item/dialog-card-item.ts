@@ -1,7 +1,7 @@
 import { compile, registerHelper } from 'handlebars';
 import BaseComponent from '../base-component';
-import './chat-dialog-item.less';
-import template from './chat-dialog-item.tpl';
+import './dialog-card-item.less';
+import template from './dialog-card-item.tpl';
 
 export type LastMessageDialogCardProps = {
   user?: LastMessageUserDialogCardProps;
@@ -27,7 +27,7 @@ export type ChatDialogCardProps = {
   events?: any;
 };
 
-export default class ChatDialogCard extends BaseComponent {
+export default class DialogCardItem extends BaseComponent {
   constructor(props: ChatDialogCardProps) {
     super('template', { ...props });
   }
@@ -44,6 +44,8 @@ export default class ChatDialogCard extends BaseComponent {
     });
 
     const tpl = compile(template, { noEscape: true });
-    return tpl(this.props);
+    const { title, content, avatar, last_message, unread_count } = this.props;
+    console.log('props', unread_count);
+    return tpl({ title, content, avatar, last_message, unread_count });
   }
 }

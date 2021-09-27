@@ -49,6 +49,7 @@ export default class SendMessagePanel extends BaseComponent {
     }
 
     this.props.onSendMessage(value);
+    this.props.children.messageInput.setProps({ value: '' });
   }
 
   render() {

@@ -1,11 +1,13 @@
 import { compile } from 'handlebars';
 import BaseComponent from '../base-component';
-import template from './chat-user-item.tpl';
+import './dialog-user-item.less';
+import template from './dialog-user-item.tpl';
 
-export default class ChatUserItem extends BaseComponent {
+export default class DialogUserItem extends BaseComponent {
   constructor(props: any) {
     super('template', {
-      class: '_dsfsdf',
+      ...props,
+      class: 'dialog-user-item',
       //   children: {
       //     actionButton: () => {},
       //     userAvatar: () => {},
@@ -15,6 +17,6 @@ export default class ChatUserItem extends BaseComponent {
 
   render() {
     const tpl = compile(template, { noEscape: true });
-    return tpl(null);
+    return tpl(this.props);
   }
 }

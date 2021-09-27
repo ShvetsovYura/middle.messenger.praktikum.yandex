@@ -1,6 +1,6 @@
 import { compile } from 'handlebars';
 import BaseComponent from '../../components/base-component';
-import ChatDialogsList from '../../components/chat-dialogs-list/chat-dialogs-list';
+import ChatDialogsList from '../../components/dialogs-list/dialogs-list';
 import template from './test.tpl';
 
 export default class TestPage extends BaseComponent {

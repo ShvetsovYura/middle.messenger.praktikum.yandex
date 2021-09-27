@@ -2,7 +2,7 @@ import { compile } from 'handlebars';
 import BaseComponent from '../../components/base-component';
 import ChatDialogsPanel, {
   ChatDialogsPanelProps,
-} from '../../components/dialogs-container/dialogs-container';
+} from '../../components/dialogs-panel/dialogs-panel';
 import template from './messanger.tpl';
 import router from '../..';
 import AuthApi from '../../services/api/auth';
@@ -10,16 +10,16 @@ import ChatContentPanel from '../../components/content-container/content-contain
 import ChatsApi from '../../services/api/chat';
 import { DialogMessage, MessageResponse, UserResponse } from '../../types';
 import appStore, { StoreEventsType } from '../../services/store-manager';
-import CurrentDialogUsersList from '../../components/chat-users-list/chat-users-list';
+import CurrentDialogUsersList from '../../components/dialog-users-list/dialog-users-list';
+import CurrentDialogUsersPanel from '../../components/dialog-users-panel';
 
 export type MessengersPageProps = ChatDialogsPanelProps & MessagesContainerProps;
 
 export default class MessengerPage extends BaseComponent {
   private _webSocket: WebSocket | null = null;
 
-  constructor(props: any) {
+  constructor() {
     super('template', {
-      ...props,
       children: {
         chatDialogsPanel: new ChatDialogsPanel({
           dialogs: [],
@@ -27,7 +27,7 @@ export default class MessengerPage extends BaseComponent {
         chatContentPanel: new ChatContentPanel({
           onSendMessage: (message: string) => this.handleSendMessage(message),
         }),
-        chatDialogUsersPanel: new CurrentDialogUsersList(),
+        currentDialogUsersPanel: new CurrentDialogUsersPanel(),
       },
     });
 
@@ -151,10 +151,13 @@ export default class MessengerPage extends BaseComponent {
     return {
       ...messageItem,
       isCurrentUser: currentUser.id === messageItem.user_id,
-      displayUserName: userInfo
-        ? [userInfo.first_name, userInfo.second_name].join(' ')
-        : 'UnknownUser',
+      displayUserName: userInfo ? this.getDisplayName(userInfo) : 'UnknownUser',
     };
+  }
+
+  private getDisplayName(userInfo: any) {
+    if (userInfo.display_name) return userInfo.display_name;
+    return [userInfo.first_name, userInfo.second_name].join(' ');
   }
 
   render() {

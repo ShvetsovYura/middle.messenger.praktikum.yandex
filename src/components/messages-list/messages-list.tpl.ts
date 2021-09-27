@@ -1,6 +1,6 @@
 export default `<div class={{data.props.className}}>
 {{#if data.dialogIsSelected}}
-    <ul>
+    <ul class="dialog-messages-list">
         {{#each data.props.children }}
         <li data-tpl-key='{{@key}}'>{{content}}</li> 
         {{/each}}

@@ -1,7 +1,9 @@
 import { compile } from 'handlebars';
 import BaseComponent from '../base-component';
-import ChatDialogCard, { ChatDialogCardProps } from '../chat-dialog-item/chat-dialog-item';
-import template from './chat-dialogs-list.tpl';
+import ChatDialogCard, { ChatDialogCardProps } from '../dialog-card-item/dialog-card-item';
+import template from './dialogs-list.tpl';
+
+// @ts-ignore
 import images from '../../../public/img/*.png';
 import appStore, { StoreEventsType } from '../../services/store-manager';
 
@@ -9,12 +11,13 @@ export type ChatDialogsListProps = {
   dialogsItems: Array<ChatDialogCardProps>;
 };
 
-export default class ChatDialogsList extends BaseComponent {
+export default class DialogsList extends BaseComponent {
   constructor(props: ChatDialogsListProps) {
     super('template', {
       ...props,
       class: 'chats-list',
     });
+
     appStore.sub(StoreEventsType.dialogsList, this.constructDialogsList.bind(this));
   }
 
@@ -39,7 +42,6 @@ export default class ChatDialogsList extends BaseComponent {
       }),
       {},
     );
-    console.log(dialogsList);
     this.setProps({ children: { ...dialogsList } });
   }
 
@@ -59,7 +61,6 @@ export default class ChatDialogsList extends BaseComponent {
     for (const el of Object.keys(this.props.children)) {
       toRenderList.push({ ...this.props.children[el].props });
     }
-    console.log('toRender', toRenderList);
     return tpl(toRenderList);
   }
 }

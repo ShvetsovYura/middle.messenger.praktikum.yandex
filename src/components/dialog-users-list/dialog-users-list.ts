@@ -1,9 +1,9 @@
 import { compile } from 'handlebars';
 import appStore, { StoreEventsType } from '../../services/store-manager';
 import BaseComponent from '../base-component';
-import ChatUserItem from '../chat-user-item/chat-user-item';
-import './chat-users-list.less';
-import template from './chat-users-list.tpl';
+import DialogUserItem from '../dialog-user-item/dialog-user-item';
+import './dialog-users-list.less';
+import template from './dialog-users-list.tpl';
 
 export default class CurrentDialogUsersList extends BaseComponent {
   constructor() {
@@ -11,7 +11,6 @@ export default class CurrentDialogUsersList extends BaseComponent {
       className: 'users-list-panel',
     });
 
-    appStore.sub(StoreEventsType.usersListIsOpen, this._toggle.bind(this));
     appStore.sub(StoreEventsType.chatUsers, this.handleChatUsersChange.bind(this));
   }
 
@@ -20,21 +19,11 @@ export default class CurrentDialogUsersList extends BaseComponent {
     const chld: Record<string, any> = {};
     if (users === null) return;
     for (const item of Object.keys(users)) {
-      chld[`user__${users[item].id}`] = new ChatUserItem({});
+      chld[`user__${users[item].id}`] = new DialogUserItem({ ...users[item] });
     }
 
     console.log('el', chld);
     this.setProps({ children: chld });
-  }
-
-  private _toggle() {
-    const isOpen = appStore.getValue(StoreEventsType.usersListIsOpen);
-    this.setProps({ isOpen });
-    if (appStore.getValue(StoreEventsType.usersListIsOpen)) {
-      this.element.classList.add('users-list-panel--show');
-    } else {
-      this.element.classList.remove('users-list-panel--show');
-    }
   }
 
   render() {
