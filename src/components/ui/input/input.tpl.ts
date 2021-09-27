@@ -7,5 +7,6 @@ type={{type}}
 placeholder="{{placeholder}}"
 {{#if value}} value="{{value}}" {{/if}}
 {{#if required}} required {{/if}}
+autocomplete="{{autocomplete}}"
 />
 `;

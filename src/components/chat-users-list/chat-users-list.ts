@@ -5,8 +5,8 @@ import ChatUserItem from '../chat-user-item/chat-user-item';
 import './chat-users-list.less';
 import template from './chat-users-list.tpl';
 
-export default class ChatUsersList extends BaseComponent {
-  constructor(props: any) {
+export default class CurrentDialogUsersList extends BaseComponent {
+  constructor() {
     super('template', {
       className: 'users-list-panel',
     });
@@ -18,6 +18,7 @@ export default class ChatUsersList extends BaseComponent {
   private handleChatUsersChange() {
     const users = appStore.getValue(StoreEventsType.chatUsers);
     const chld: Record<string, any> = {};
+    if (users === null) return;
     for (const item of Object.keys(users)) {
       chld[`user__${users[item].id}`] = new ChatUserItem({});
     }
@@ -27,6 +28,8 @@ export default class ChatUsersList extends BaseComponent {
   }
 
   private _toggle() {
+    const isOpen = appStore.getValue(StoreEventsType.usersListIsOpen);
+    this.setProps({ isOpen });
     if (appStore.getValue(StoreEventsType.usersListIsOpen)) {
       this.element.classList.add('users-list-panel--show');
     } else {

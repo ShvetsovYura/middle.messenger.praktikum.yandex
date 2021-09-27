@@ -5,19 +5,26 @@ import Input from '../ui/input';
 import './message-send-panel.less';
 import template from './message-send-panel.tpl';
 
+export type SendMessageProps = {
+  onSendMessage: (message: string | null) => void;
+};
+
 export default class SendMessagePanel extends BaseComponent {
-  constructor() {
+  constructor(props: SendMessageProps) {
     super('template', {
+      ...props,
       className: 'message-send-panel',
       children: {
         messageInput: new Input({
           id: 'message',
           name: 'message',
           type: 'text',
+          className: 'send-message-input',
+          autocomplete: 'off',
           placeholder: 'Введите сообщение...',
         }),
         sendButton: new Button({
-          class: 'message-form__submit',
+          className: 'message-form__submit',
           caption: 'Отправить',
           type: 'submit',
         }),
@@ -28,28 +35,20 @@ export default class SendMessagePanel extends BaseComponent {
     });
   }
 
-  messageSubmit(e: any) {
+  messageSubmit(e: Event) {
     e.preventDefault();
+
     const { messageInput } = this.props.children;
-    const { id, name } = messageInput.props;
+    const { id } = messageInput.props;
 
     const element = document.querySelector(`#${id}`);
-    let value: string;
+    let value: string | null = null;
     if (element) {
       const el = element as HTMLInputElement;
       value = el.value;
-    } else {
-      return;
     }
-    if (value === '') {
-      return;
-    }
-    console.log({ [name]: value });
 
-    if (element) {
-      const el = element as HTMLInputElement;
-      value = el.value;
-    }
+    this.props.onSendMessage(value);
   }
 
   render() {

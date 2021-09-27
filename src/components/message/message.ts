@@ -1,17 +1,12 @@
 import { compile } from 'handlebars';
+import { DialogMessage } from '../../types';
 import BaseComponent from '../base-component';
-import template from './chat-message.tpl';
-
-export type ChatMessageProps = {
-  message: string;
-  own: boolean;
-  status: 'pending' | 'sended' | 'reading';
-  time: Date;
-};
+import './message.less';
+import template from './message.tpl';
 
 export default class ChatMessage extends BaseComponent {
-  constructor(props: ChatMessageProps) {
-    super('div', props);
+  constructor(props: DialogMessage) {
+    super('template', props);
   }
 
   render() {

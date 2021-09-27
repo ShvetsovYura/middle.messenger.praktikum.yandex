@@ -28,7 +28,7 @@ export default class ChatsApi {
     });
   }
 
-  getChatUsersToken(id: number) {
-    return httpClient.post(`${host}/${baseUrl}//token/${id}`);
+  getChatToken(chatId: number) {
+    return httpClient.post(`${host}/${baseUrl}/token/${chatId}`);
   }
 }

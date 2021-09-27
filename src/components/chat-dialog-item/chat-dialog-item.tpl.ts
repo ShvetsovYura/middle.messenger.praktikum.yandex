@@ -6,17 +6,23 @@ export default `<li id="{{id}}" class="dialog-card-item {{#if selected}} chat-it
         <p class="chat-item__dialog-title">
           <span class="chat-item__user-title">{{title}}</span>
           <span class="chat-item__dialog-details">
-            <span class="chat-item__message-status">+</span>
-            <span class="chat-item__message-time">{{lastMessage.time}} </span>
-          </span>
+            {{#if last_message}}
+            <span class="chat-item__message-time">{{stringDateToTime last_message.time}} </span>
+            {{/if}}
+            </span>
         </p>
         <p class="chat-item__dialog-subtitle">
           <span class="chat-item__dialog-last-message">
             <b>{{last_message.title}}</b>
+            {{#if last_message}}
+            <span> <b>{{last_message.user.display_name}}</b>:</span>
             <span> {{last_message.content}} </span>
+            {{/if}}
           </span>
-          <span class="chat-item__unread_badge {{#if (unreadMessages)}} hide{{/if}}">{{unread_count}}</span>
-        </p>
+          {{#if unread_count}}
+          <span class="chat-item__unread_badge {{#if (unread_count)}} hide{{/if}}">{{unread_count}}</span>
+          {{/if}}
+          </p>
       </div>
     </li>
 `;

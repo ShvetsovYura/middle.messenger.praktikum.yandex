@@ -1,5 +1,6 @@
 import { compile, registerHelper } from 'handlebars';
 import BaseComponent from '../base-component';
+import './chat-dialog-item.less';
 import template from './chat-dialog-item.tpl';
 
 export type LastMessageDialogCardProps = {
@@ -33,6 +34,15 @@ export default class ChatDialogCard extends BaseComponent {
 
   render() {
     registerHelper('isdefined', (value) => !value);
+    registerHelper('stringDateToTime', (dt: string) => {
+      const date = new Date(dt);
+      if (date) {
+        return date.toLocaleString();
+        // return `${date.getHours()}:${(date.getMinutes() < 10 ? '0' : '') + date.getMinutes()}`;
+      }
+      return '';
+    });
+
     const tpl = compile(template, { noEscape: true });
     return tpl(this.props);
   }

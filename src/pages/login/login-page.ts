@@ -3,10 +3,10 @@ import router from '../..';
 import BaseComponent from '../../components/base-component';
 import FormField from '../../components/form-field/form-field';
 import Button from '../../components/ui/button/button';
-import { loginValidator, passwordValidator } from '../../utils/helpers/validators';
 import AuthApi from '../../services/api/auth';
-import UserApi from '../../services/api/user';
 import template from './login-page.tpl';
+import appStore, { StoreEventsType } from '../../services/store-manager';
+import { UserResponse } from '../../types';
 
 export default class LoginPage extends BaseComponent {
   constructor() {
@@ -71,11 +71,11 @@ export default class LoginPage extends BaseComponent {
     });
   }
 
-  componentDidMount() {}
-
   render() {
-    new AuthApi().userInfo().then((resp: Response) => {
+    new AuthApi().userInfo().then((resp: XMLHttpRequest) => {
       if (resp.status === 200) {
+        const userInfo: UserResponse = JSON.parse(resp.response);
+        appStore.setValue(StoreEventsType.currentUserInfo, userInfo);
         router.go('/messenger');
       }
     });

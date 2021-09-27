@@ -12,6 +12,7 @@ export type InputProps = {
   className?: string;
   placeholder?: string;
   value?: string;
+  autocomplete?: 'on' | 'off';
 };
 
 export default class FormInput extends BaseComponent {
@@ -19,6 +20,7 @@ export default class FormInput extends BaseComponent {
     super('template', {
       ...props,
       type: props.type || 'text',
+      autocomplete: props.autocomplete || 'on',
       className: props.className || 'form-field__input',
     });
   }

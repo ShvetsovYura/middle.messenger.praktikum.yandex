@@ -5,6 +5,8 @@ export enum StoreEventsType {
   activeDialog = '__activeDialog',
   chatUsers = '__chatUsers',
   usersListIsOpen = '__usersListIsOpen',
+  currentUserInfo = '__currentUserInfo',
+  dialogMessages = '__dialogMessages',
 }
 
 class StoreManager {
@@ -41,6 +43,17 @@ class StoreManager {
 
   public getValue(propName: string): any {
     return this._storeProxy[propName];
+  }
+
+  public concatenateArraysValues(propName: string, value: any) {
+    let currentValue = this.getValue(propName);
+
+    if (typeof currentValue === 'undefined' || currentValue === null) {
+      currentValue = [];
+    }
+
+    const freshValues = Array.isArray(value) ? value : [value];
+    this._storeProxy[propName] = [...currentValue, ...freshValues];
   }
 
   public sub(propName: string, callback: Function) {

@@ -1,0 +1,108 @@
+
+@import '../../styles/vars.less';
+.dialog-card-item {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    height: 72px;
+    overflow: hidden;
+    cursor: pointer;
+    border-bottom: solid @accent-color 1px;
+    align-items: flex-start;
+    padding: 10px;
+    &__user-avatar {
+      height: 50px;
+      width: 50px;
+      flex: 0 0 auto;
+      position: relative;
+      border-radius: 100%;
+      border: 1px @accent-color solid;
+    }
+    &__user-avatar img{
+      height: 50px;
+      width: 50px;
+      flex: 0 0 auto;
+      position: relative;
+      border-radius: 100%;
+      border: 1px @accent-color solid;
+    }
+  }
+  .chat-item_selected {
+    background-color: @selected-color;
+  }
+  .chat-item:hover {
+    background-color: @hover-color;
+  }
+  
+  .chat-item__user-avatar-image {
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+  }
+  
+  .chat-item__user-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .chat-item__user-caption {
+    max-width: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    flex: 1 1 auto;
+    padding: 5px 5px 5px 10px;
+  }
+  
+  .chat-item__dialog-title {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: flex-start;
+    height: 27px;
+    font-weight: bolder;
+  }
+  .chat-item__dialog-details {
+    flex: 0 0 auto;
+    font-size: 0.75rem;
+    padding: 1px 0px 0px 0px;
+    margin-left: 0.5rem;
+  }
+  
+  .chat-item__dialog-subtitle {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: flex-start;
+    height: 27px;
+    margin-top: -3px;
+  }
+  
+  .chat-item__dialog-last-message {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 27px;
+  }
+  
+  .chat-item__unread_badge {
+    flex: 0 0 auto;
+    margin-top: -3px;
+    margin-right: -3px;
+    margin-left: 0.5rem;
+    background-color: @accent-color;
+    color: #fff;
+    border-radius: 0.75rem;
+    padding: 0 0.5rem;
+    font-weight: 500;
+    height: 1.5rem;
+    min-width: 1.5rem;
+    line-height: 1.5rem;
+    text-align: center;
+    font-size: 0.85rem;
+  }
+  
+  .hide {
+    display: none;
+  }
+  
