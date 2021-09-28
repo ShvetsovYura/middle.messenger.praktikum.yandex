@@ -25,4 +25,14 @@ export default class UserApi {
       data: { oldPassword, newPassword },
     });
   }
+
+  searchUser(login: string) {
+    return httpClient.post(`${host}/${baseUrl}/search`, {
+      headers: {
+        'content-type': 'application/json',
+        accept: 'application/json',
+      },
+      data: { login },
+    });
+  }
 }

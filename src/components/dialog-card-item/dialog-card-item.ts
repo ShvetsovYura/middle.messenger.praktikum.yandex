@@ -44,8 +44,6 @@ export default class DialogCardItem extends BaseComponent {
     });
 
     const tpl = compile(template, { noEscape: true });
-    const { title, content, avatar, last_message, unread_count } = this.props;
-    console.log('props', unread_count);
-    return tpl({ title, content, avatar, last_message, unread_count });
+    return tpl(this.props);
   }
 }

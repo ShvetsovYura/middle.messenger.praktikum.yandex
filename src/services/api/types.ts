@@ -17,3 +17,8 @@ export type UserResponse = {
   phone: string;
   avatar: string;
 };
+
+export type UsersRequest = {
+  users: Array<number>;
+  chatId: number;
+};

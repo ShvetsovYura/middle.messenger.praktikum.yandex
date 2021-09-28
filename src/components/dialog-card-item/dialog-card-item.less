@@ -1,5 +1,6 @@
 
 @import '../../styles/vars.less';
+
 .dialog-card-item {
     display: flex;
     flex-direction: row;
@@ -18,7 +19,7 @@
       border-radius: 100%;
       border: 1px @accent-color solid;
     }
-    &__user-avatar img{
+    &__user-avatar img {
       height: 50px;
       width: 50px;
       flex: 0 0 auto;
@@ -27,7 +28,8 @@
       border: 1px @accent-color solid;
     }
   }
-  .chat-item_selected {
+  
+  .dialog-card-item--selected {
     background-color: @selected-color;
   }
   .chat-item:hover {

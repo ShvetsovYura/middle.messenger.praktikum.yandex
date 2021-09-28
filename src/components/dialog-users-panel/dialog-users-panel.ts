@@ -1,9 +1,8 @@
 import { compile } from 'handlebars';
 import appStore, { StoreEventsType } from '../../services/store-manager';
 import BaseComponent from '../base-component';
+import DialogUserSearchContainer from '../dialog-user-search-container';
 import CurrentDialogUsersList from '../dialog-users-list';
-import Button from '../ui/button/button';
-import Input from '../ui/input';
 import './dialog-users-panel.less';
 import template from './dialog-users-panel.tpl';
 
@@ -12,14 +11,7 @@ export default class CurrentDialogUsersPanel extends BaseComponent {
     super('template', {
       className: 'current-dialog-users-list-panel',
       children: {
-        findUsersInput: new Input({
-          id: 'hohoh',
-          name: 'troel ',
-        }),
-        findUsersButton: new Button({
-          type: 'button',
-          caption: 'Найти',
-        }),
+        searchUsersContainer: new DialogUserSearchContainer(),
         currentDialogUsers: new CurrentDialogUsersList(),
       },
     });

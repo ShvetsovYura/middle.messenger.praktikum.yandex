@@ -1,4 +1,4 @@
-export default `<li id="{{id}}" class="dialog-card-item {{#if selected}} chat-item_selected {{/if}}">
+export default `<li id="{{id}}" class="dialog-card-item {{#if selected}} dialog-card-item--selected {{/if}}">
       <div class="dialog-card-item__user-avatar">
         <img src="{{avatar}}" height="50" width="50" alt="user-avatar" />
       </div>

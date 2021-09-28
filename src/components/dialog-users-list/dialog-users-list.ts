@@ -19,7 +19,8 @@ export default class CurrentDialogUsersList extends BaseComponent {
     const chld: Record<string, any> = {};
     if (users === null) return;
     for (const item of Object.keys(users)) {
-      chld[`user__${users[item].id}`] = new DialogUserItem({ ...users[item] });
+      console.log({ ...users[item] });
+      chld[`user__${users[item].id}`] = new DialogUserItem({ ...users[item], current: true });
     }
 
     console.log('el', chld);

@@ -1,5 +1,9 @@
 import { compile } from 'handlebars';
+import ChatsApi from '../../services/api/chat';
+import appStore, { StoreEventsType } from '../../services/store-manager';
+import { UserResponse } from '../../types';
 import BaseComponent from '../base-component';
+import Button from '../ui/button/button';
 import './dialog-user-item.less';
 import template from './dialog-user-item.tpl';
 
@@ -7,12 +11,46 @@ export default class DialogUserItem extends BaseComponent {
   constructor(props: any) {
     super('template', {
       ...props,
-      class: 'dialog-user-item',
-      //   children: {
-      //     actionButton: () => {},
-      //     userAvatar: () => {},
-      //   },
+      className: 'dialog-user-item',
+      children: {
+        actionButton: new Button({
+          caption: props.current ? 'Удалить' : 'Добавить',
+          events: {
+            click: () => {
+              const { id } = appStore.getValue(StoreEventsType.activeDialog);
+              if (this.props.current) {
+                this.handleRemoveUserFromDialog(id, this.props.id);
+              } else {
+                this.handleAddUserToDialog(id, this.props.id);
+              }
+            },
+          },
+        }),
+      },
     });
+  }
+
+  private handleRemoveUserFromDialog(chatId: number, userId: number) {
+    new ChatsApi()
+      .removeUsers({ users: [userId], chatId })
+      .then(() => new ChatsApi().chatUsers(chatId))
+      .then((resp: XMLHttpRequest) => this.refreshFoundList(userId, JSON.parse(resp.response)));
+  }
+
+  private handleAddUserToDialog(chatId: number, userId: number) {
+    new ChatsApi()
+      .addUsers({ users: [userId], chatId })
+      .then(() => new ChatsApi().chatUsers(chatId))
+      .then((resp: XMLHttpRequest) => this.refreshFoundList(userId, JSON.parse(resp.response)));
+  }
+
+  private refreshFoundList(userId: number, users: UserResponse[]) {
+    appStore.setValue(StoreEventsType.chatUsers, users);
+    const foundUsers: UserResponse[] = appStore.getValue(StoreEventsType.dialogUserSearchResult);
+    appStore.setValue(
+      StoreEventsType.dialogUserSearchResult,
+      foundUsers.filter((u) => u.id !== userId),
+    );
   }
 
   render() {

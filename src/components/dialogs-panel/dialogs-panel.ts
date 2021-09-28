@@ -7,14 +7,13 @@ import template from './dialogs-panel.tpl';
 
 export default class DialogsPanel extends BaseComponent {
   constructor(props: any) {
-
     super('aside', {
       class: 'side-panel',
       children: {
-        dialogsPanelHeader:new DialogsPanelHeader({}),
-        dialogsList:new DialogsList({
+        dialogsPanelHeader: new DialogsPanelHeader({}),
+        dialogsList: new DialogsList({
           dialogsItems: props.dialogs,
-        })
+        }),
       },
     });
   }

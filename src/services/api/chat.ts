@@ -1,4 +1,5 @@
 import HTTPTransport from '../HttpTransport';
+import { UsersRequest } from './types';
 
 const host = 'https://ya-praktikum.tech';
 const baseUrl = 'api/v2/chats';
@@ -25,6 +26,26 @@ export default class ChatsApi {
         'content-type': 'application/json',
         accept: 'application/json',
       },
+    });
+  }
+
+  removeUsers(users: UsersRequest) {
+    return httpClient.delete(`${host}/${baseUrl}/users`, {
+      headers: {
+        'content-type': 'application/json',
+        accept: 'application/json',
+      },
+      data: users,
+    });
+  }
+
+  addUsers(users: UsersRequest) {
+    return httpClient.put(`${host}/${baseUrl}/users`, {
+      headers: {
+        'content-type': 'application/json',
+        accept: 'application/json',
+      },
+      data: users,
     });
   }
 

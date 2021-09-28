@@ -7,6 +7,7 @@ export enum StoreEventsType {
   usersListIsOpen = '__usersListIsOpen',
   currentUserInfo = '__currentUserInfo',
   dialogMessages = '__dialogMessages',
+  dialogUserSearchResult = '__dialogUserSearchResult',
 }
 
 class StoreManager {
