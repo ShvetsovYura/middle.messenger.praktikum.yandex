@@ -1,4 +1,5 @@
 import { compile } from 'handlebars';
+import { sanitize } from '../../utils/helpers/helper-functions';
 import BaseComponent from '../base-component';
 import Button from '../ui/button/button';
 import Input from '../ui/input';
@@ -48,7 +49,9 @@ export default class SendMessagePanel extends BaseComponent {
       value = el.value;
     }
 
-    this.props.onSendMessage(value);
+    if (value) {
+      this.props.onSendMessage(sanitize(value));
+    }
     this.props.children.messageInput.setProps({ value: '' });
   }
 

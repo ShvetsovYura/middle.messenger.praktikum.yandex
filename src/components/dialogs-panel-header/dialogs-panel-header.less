@@ -1,0 +1,80 @@
+@import '../../styles/vars.less';
+
+.header-panel {
+    background-color: @background-color;
+    display: flex;
+    padding: 5px 10px;
+    flex-direction: column;
+    &__settings {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  
+
+.header-popup-menu {
+    position: relative;
+    background-color: red;
+    display: inline-block;
+
+    &__button {
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+    }
+
+    &__content {
+        display: none;
+        position: absolute;
+        left: 0;
+        padding:3px;
+        min-width: 100px;
+        box-shadow: 0px 0px 15px 0px gray;
+        z-index: 1;
+        background-color: lightblue;
+
+        a {
+            color: black;
+            padding: 5px 5px;
+            text-decoration: none;
+            display: block;
+        }
+    }
+}
+
+.header-popup-menu:hover .header-popup-menu__content {
+    display: block;
+}
+
+.current-user-info-card {
+    display: flex;
+    align-items: center;
+    &__avatar {
+        margin-right: 10px;
+        height: 50px;
+        width: 50px;
+        flex: 0 0 auto;
+        position: relative;
+        border-radius: 100%;
+        border: 1px @accent-color solid;
+    }
+    // &__avatar img {
+    //     height: 50px;
+    //     width: 50px;
+    //     flex: 0 0 auto;
+    //     position: relative;
+    //     border-radius: 100%;
+    //     border: 1px @accent-color solid;
+    // }
+
+    &__body{
+        // display: flex;
+        // flex-direction: column;
+    }
+}
+
+.add-dialog-panel {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}

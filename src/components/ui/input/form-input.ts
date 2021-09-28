@@ -20,7 +20,7 @@ export default class FormInput extends BaseComponent {
     super('template', {
       ...props,
       type: props.type || 'text',
-      autocomplete: props.autocomplete || 'on',
+      autocomplete: props.autocomplete || 'off',
       className: props.className || 'form-field__input',
     });
   }

@@ -90,7 +90,9 @@ export default abstract class BaseComponent {
     }
     const { children = {} } = this.props;
     Object.keys(children).forEach((childKey) => {
-      this._element.querySelector(`[data-tpl-key="${childKey}"`)?.replaceWith(children[childKey].getContent());
+      this._element
+        .querySelector(`[data-tpl-key="${childKey}"`)
+        ?.replaceWith(children[childKey].getContent());
     });
     this._addEvents();
   }

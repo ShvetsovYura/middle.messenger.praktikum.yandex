@@ -15,27 +15,26 @@ export default class DialogsList extends BaseComponent {
   constructor(props: ChatDialogsListProps) {
     super('template', {
       ...props,
-      class: 'chats-list',
+      className: 'chats-list',
     });
 
     appStore.sub(StoreEventsType.dialogsList, this.constructDialogsList.bind(this));
   }
 
   constructDialogsList() {
-    console.log(appStore.getValue(StoreEventsType.dialogsList));
     const dialogsList = appStore.getValue(StoreEventsType.dialogsList)?.reduce(
-      (agg: any, cur: any) => ({
+      (agg: any, current: any) => ({
         ...agg,
-        [`${cur.title}___${cur.id}`]: new ChatDialogCard({
-          ...cur,
-          avatar: cur.avatar ?? images.img_avatar_min,
+        [`dialog__${current.id}`]: new ChatDialogCard({
+          ...current,
+          avatar: current.avatar ?? images.img_avatar_min,
           events: {
             click: () => {
               for (const el of Object.keys(this.props.children)) {
                 this.props.children[el].setProps({ selected: false });
               }
-              this.props.children[`${cur.title}___${cur.id}`].setProps({ selected: true });
-              appStore.setValue(StoreEventsType.activeDialog, cur);
+              this.props.children[`dialog__${current.id}`].setProps({ selected: true });
+              appStore.setValue(StoreEventsType.activeDialog, current);
             },
           },
         }),
@@ -45,22 +44,14 @@ export default class DialogsList extends BaseComponent {
     this.setProps({ children: { ...dialogsList } });
   }
 
-  componentDidMount() {
-    this.constructDialogsList();
-  }
-
   render() {
-    // registerHelper('isdefined', (value) => !value);
-    // registerHelper(
-    //   'dateToTimeString',
-    //   (date: Date) =>
-    //     `${date.getHours()}:${(date.getMinutes() < 10 ? '0' : '') + date.getMinutes()}`,
-    // );
     const tpl = compile(template, { noEscape: true });
-    const toRenderList = [];
-    for (const el of Object.keys(this.props.children)) {
-      toRenderList.push({ ...this.props.children[el].props });
-    }
-    return tpl(toRenderList);
+    // const toRenderList = [];
+    // if (this.props?.children) {
+    //   for (const el of Object.keys(this.props?.children)) {
+    //     toRenderList.push({ ...this.props.children[el].props });
+    //   }
+    // }
+    return tpl(this.props);
   }
 }

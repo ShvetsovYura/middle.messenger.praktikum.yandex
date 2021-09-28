@@ -1,6 +1,6 @@
 export default `<ul>
-    {{#each . }}
-        <div data-tpl-key='{{title}}___{{id}}'>{{title}}</div> 
+    {{#each children}}
+        <div data-tpl-key='{{@key}}'>{{title}}</div> 
     {{/each}}
     </ul>
 `;

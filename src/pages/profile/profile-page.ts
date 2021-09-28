@@ -2,7 +2,8 @@ import { compile } from 'handlebars';
 import BaseComponent from '../../components/base-component';
 import FormField from '../../components/form-field/form-field';
 import Button from '../../components/ui/button/button';
-// import userInfoMock from '../../mocks/user-info';
+
+import '../../styles/register.less';
 
 import {
   displayNameValidator,

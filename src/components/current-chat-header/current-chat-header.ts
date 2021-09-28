@@ -16,6 +16,7 @@ export default class CurrentChatHeader extends BaseComponent {
       children: {
         showUsersPanelButton: new Button({
           caption: 'Пользователи',
+          disabled: true,
           events: {
             click: () => {
               const val = appStore.getValue(StoreEventsType.usersListIsOpen);
@@ -31,6 +32,7 @@ export default class CurrentChatHeader extends BaseComponent {
 
   private handleChangeActiveDialog(dialogInfo: any) {
     this.setProps({ headerText: dialogInfo.title });
+    this.props.children.showUsersPanelButton.setProps({ disabled: false });
   }
 
   render() {

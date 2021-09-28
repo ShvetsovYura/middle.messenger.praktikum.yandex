@@ -16,15 +16,13 @@ export default class CurrentDialogUsersList extends BaseComponent {
 
   private handleChatUsersChange() {
     const users = appStore.getValue(StoreEventsType.chatUsers);
-    const chld: Record<string, any> = {};
+    const children: Record<string, any> = {};
     if (users === null) return;
     for (const item of Object.keys(users)) {
-      console.log({ ...users[item] });
-      chld[`user__${users[item].id}`] = new DialogUserItem({ ...users[item], current: true });
+      children[`user__${users[item].id}`] = new DialogUserItem({ ...users[item], current: true });
     }
 
-    console.log('el', chld);
-    this.setProps({ children: chld });
+    this.setProps({ children });
   }
 
   render() {
