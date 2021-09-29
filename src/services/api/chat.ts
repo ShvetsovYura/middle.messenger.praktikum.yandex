@@ -1,4 +1,4 @@
-import HTTPTransport from '../HttpTransport';
+import HTTPTransport from '../http-transport';
 import { UsersRequest } from './types';
 
 const host = 'https://ya-praktikum.tech';

@@ -1,5 +1,5 @@
 import { UserInfo } from '../../pages/profile/profile-page';
-import HTTPTransport from '../HttpTransport';
+import HTTPTransport from '../http-transport';
 
 const host = 'https://ya-praktikum.tech';
 const baseUrl = 'api/v2/auth';

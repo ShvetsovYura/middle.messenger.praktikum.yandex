@@ -42,7 +42,7 @@ export default class DialogCardItem extends BaseComponent {
       return '';
     });
 
-    const tpl = compile(template, { noEscape: true });
+    const tpl = compile(template);
     return tpl(this.props);
   }
 }
