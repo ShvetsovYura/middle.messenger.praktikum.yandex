@@ -2,6 +2,8 @@ import { compile } from 'handlebars';
 import appStore, { StoreEventsType } from '../../services/store-manager';
 import BaseComponent from '../base-component';
 import DialogUserItem from '../dialog-user-item/dialog-user-item';
+// @ts-ignore
+import images from '../../../public/img/*.png';
 import './dialog-users-list.less';
 import template from './dialog-users-list.tpl';
 
@@ -19,7 +21,11 @@ export default class CurrentDialogUsersList extends BaseComponent {
     const children: Record<string, any> = {};
     if (users === null) return;
     for (const item of Object.keys(users)) {
-      children[`user__${users[item].id}`] = new DialogUserItem({ ...users[item], current: true });
+      children[`user__${users[item].id}`] = new DialogUserItem({
+        ...users[item],
+        current: true,
+        avatar: users[item].avatar ?? images.img_avatar_min,
+      });
     }
 
     this.setProps({ children });

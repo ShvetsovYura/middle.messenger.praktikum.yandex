@@ -11,15 +11,16 @@ import template from './dialog-user-search-container.tpl';
 export default class DialogUserSearchContainer extends BaseComponent {
   constructor() {
     super('template', {
-      className: 'current-dialog-users-list-panel',
       children: {
         findUsersInput: new Input({
           id: 'searchUser',
           name: 'searchUser ',
+          placeholder: 'Введите логин пользователя...',
         }),
         findUsersButton: new Button({
           type: 'button',
-          caption: 'Найти',
+          caption: 'search',
+          isIcon: true,
           events: {
             click: () => {
               const { value } = this.props.children.findUsersInput.element;

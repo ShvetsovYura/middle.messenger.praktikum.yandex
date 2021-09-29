@@ -11,7 +11,7 @@ export default `<div class="header-panel">
         </div>
         <div>
             <div class="header-popup-menu">
-                <button class="header-popup-menu__button">Настройки</button>
+                <button class="header-popup-menu__button material-icons">manage_accounts</button>
                 <div class="header-popup-menu__content">
                     <div data-tpl-key="profileButton"></div>
                     <div data-tpl-key="exitButton"></div>

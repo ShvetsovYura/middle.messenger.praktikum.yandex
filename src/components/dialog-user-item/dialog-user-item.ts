@@ -14,7 +14,8 @@ export default class DialogUserItem extends BaseComponent {
       className: 'dialog-user-item',
       children: {
         actionButton: new Button({
-          caption: props.current ? 'Удалить' : 'Добавить',
+          caption: props.current ? 'person_remove' : 'person_add_alt',
+          isIcon: true,
           events: {
             click: () => {
               const { id } = appStore.getValue(StoreEventsType.activeDialog);

@@ -26,7 +26,8 @@ export default class SendMessagePanel extends BaseComponent {
         }),
         sendButton: new Button({
           className: 'message-form__submit',
-          caption: 'Отправить',
+          isIcon: true,
+          caption: 'send',
           type: 'submit',
         }),
       },

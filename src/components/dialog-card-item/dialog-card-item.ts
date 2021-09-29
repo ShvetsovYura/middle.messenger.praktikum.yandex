@@ -38,7 +38,6 @@ export default class DialogCardItem extends BaseComponent {
       const date = new Date(dt);
       if (date) {
         return date.toLocaleString();
-        // return `${date.getHours()}:${(date.getMinutes() < 10 ? '0' : '') + date.getMinutes()}`;
       }
       return '';
     });

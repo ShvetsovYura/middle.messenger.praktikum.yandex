@@ -46,12 +46,6 @@ export default class DialogsList extends BaseComponent {
 
   render() {
     const tpl = compile(template, { noEscape: true });
-    // const toRenderList = [];
-    // if (this.props?.children) {
-    //   for (const el of Object.keys(this.props?.children)) {
-    //     toRenderList.push({ ...this.props.children[el].props });
-    //   }
-    // }
     return tpl(this.props);
   }
 }

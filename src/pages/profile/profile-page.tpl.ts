@@ -1,5 +1,8 @@
 export default `<form class="form">
-  <h2 class="form-header">{{title}}</h2>
+  <div class="form-header-container">
+    <div data-tpl-key="backButton"></div>
+    <h2 class="form-header-container__form-header">{{title}}</h2>
+  </div>
   <div class="form-field">
     <label class="form-field__avatar">
       <input class="form-field__file" type="file" name="avatar" id="avatar" />

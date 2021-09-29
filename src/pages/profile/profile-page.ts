@@ -2,7 +2,7 @@ import { compile } from 'handlebars';
 import BaseComponent from '../../components/base-component';
 import FormField from '../../components/form-field/form-field';
 import Button from '../../components/ui/button/button';
-
+import './profile-page.less';
 import '../../styles/register.less';
 
 import {
@@ -37,6 +37,14 @@ export default class ProfilePage extends BaseComponent {
     super('main', {
       title: 'Профиль пользователя',
       children: {
+        backButton: new Button({
+          isIcon: true,
+          caption: 'arrow_back',
+          className: 'form-header-container__back-button',
+          events: {
+            click: () => router.back(),
+          },
+        }),
         firstNameFormField: new FormField({
           caption: 'Имя',
           id: 'first_name',
@@ -86,8 +94,8 @@ export default class ProfilePage extends BaseComponent {
           caption: 'Выйти',
           events: {
             click: () => {
-              new AuthApi().logOut().then((logoutResponse: Response) => {
-                if (logoutResponse.status === 200 && logoutResponse.statusText === 'OK') {
+              new AuthApi().logOut().then(({ status, statusText }: Response) => {
+                if (status === 200 && statusText === 'OK') {
                   router.go('/');
                 }
               });

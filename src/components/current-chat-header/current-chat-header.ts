@@ -15,7 +15,8 @@ export default class CurrentChatHeader extends BaseComponent {
       ...props,
       children: {
         showUsersPanelButton: new Button({
-          caption: 'Пользователи',
+          caption: 'people',
+          isIcon: true,
           disabled: true,
           events: {
             click: () => {

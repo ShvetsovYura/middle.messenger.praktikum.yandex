@@ -25,10 +25,12 @@ export default class LoginPage extends BaseComponent {
     const submitFormButton = new Button({
       caption: 'Войти',
       type: 'submit',
+      className: 'form-field__submit form-field__submit_large',
     });
 
     const toRegistrationFormButton = new Button({
       caption: 'Зарегистрироваться',
+      className: 'form-field__submit form-field__submit_large',
       events: {
         click: () => router.go('/sign-up'),
       },

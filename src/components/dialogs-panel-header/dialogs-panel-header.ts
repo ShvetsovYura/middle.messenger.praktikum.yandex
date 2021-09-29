@@ -20,12 +20,14 @@ export default class DialogsPanelHeader extends BaseComponent {
       children: {
         profileButton: new Button({
           caption: 'В профиль',
+          className: 'menu-item-button',
           events: {
             click: () => router.go('/settings'),
           },
         }),
         exitButton: new Button({
           caption: 'Выйти',
+          className: 'menu-item-button',
           events: {
             click: () => {
               new AuthApi().logOut().then(() => router.go('/'));
@@ -35,10 +37,13 @@ export default class DialogsPanelHeader extends BaseComponent {
         dialogNameInput: new Input({
           name: 'dialogName',
           id: 'dialogName',
+          placeholder: 'Введите название чата для добавления...',
           autocomplete: 'off',
         }),
         dialogAddActionButton: new Button({
-          caption: 'Добавить',
+          caption: 'add',
+          isIcon: true,
+          className: 'add-dialog-panel__button',
           events: {
             click: () => {
               const { value } = this.props.children.dialogNameInput.element;
