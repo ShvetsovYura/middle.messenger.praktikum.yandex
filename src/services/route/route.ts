@@ -21,6 +21,10 @@ export default class Route<T extends BaseComponent> {
     return this._pathname;
   }
 
+  get block() {
+    return this._block;
+  }
+
   isMatch(path: string): boolean {
     return this._pathname === path;
   }

@@ -8,7 +8,7 @@ export default class Router {
 
   public history: History;
 
-  private routes: Array<Route<BaseComponent>>;
+  private _routes: Array<Route<BaseComponent>>;
 
   private _currentRoute: Route<BaseComponent> | null;
 
@@ -18,16 +18,25 @@ export default class Router {
     if (Router.__instance) {
       return Router.__instance;
     }
-    this.routes = [];
+    this._routes = [];
     this.history = window.history;
+
     this._currentRoute = null;
     this._rootQuery = rootQuery;
     Router.__instance = this;
   }
 
+  get routes() {
+    return this._routes;
+  }
+
+  get currentRoute() {
+    return this._currentRoute;
+  }
+
   use<T extends BaseComponent>(pathname: string, block: new () => T): this {
     const route = new Route(pathname, block, { rootQuery: this._rootQuery });
-    this.routes.push(route);
+    this._routes.push(route);
     return this;
   }
 
@@ -68,6 +77,6 @@ export default class Router {
   }
 
   private getRoute(pathname: string): Route<BaseComponent> | undefined {
-    return this.routes.find((route) => route.isMatch(pathname));
+    return this._routes.find((route) => route.isMatch(pathname));
   }
 }
