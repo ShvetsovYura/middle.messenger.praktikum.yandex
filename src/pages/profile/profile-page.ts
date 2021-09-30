@@ -5,6 +5,8 @@ import Button from '../../components/ui/button/button';
 import './profile-page.less';
 import '../../styles/register.less';
 
+import accessController from '../../utils/access-controller';
+
 import {
   displayNameValidator,
   emailValidator,
@@ -42,7 +44,7 @@ export default class ProfilePage extends BaseComponent {
           caption: 'arrow_back',
           className: 'form-header-container__back-button',
           events: {
-            click: () => router.back(),
+            click: () => router.go('/messenger'),
           },
         }),
         firstNameFormField: new FormField({
@@ -143,6 +145,7 @@ export default class ProfilePage extends BaseComponent {
 
     new AuthApi().userInfo().then((response: XMLHttpRequest) => {
       if (response.status === 200) {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         const { first_name, second_name, display_name, email, phone, login } = JSON.parse(
           response.response,
         );
@@ -157,7 +160,9 @@ export default class ProfilePage extends BaseComponent {
   }
 
   componentDidMount() {
-    this.loadUserInfo();
+    accessController
+      .userIsLoggined()
+      .then((isLogged) => (isLogged ? this.loadUserInfo() : router.go('/')));
   }
 
   render() {
