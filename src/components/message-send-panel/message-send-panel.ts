@@ -1,10 +1,10 @@
 import { compile } from 'handlebars';
-import { sanitize } from '../../utils/helpers/helper-functions';
 import BaseComponent from '../base-component';
 import Button from '../ui/button/button';
 import Input from '../ui/input';
 import './message-send-panel.less';
 import template from './message-send-panel.tpl';
+import fnc from '../../utils/helpers/help-functions';
 
 export type SendMessageProps = {
   onSendMessage: (message: string | null) => void;
@@ -51,7 +51,7 @@ export default class SendMessagePanel extends BaseComponent {
     }
 
     if (value) {
-      this.props.onSendMessage(sanitize(value));
+      this.props.onSendMessage(fnc.sanitize(value));
     }
     this.props.children.messageInput.setProps({ value: '' });
   }
