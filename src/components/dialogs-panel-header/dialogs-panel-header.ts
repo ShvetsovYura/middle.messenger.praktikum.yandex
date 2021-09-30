@@ -11,7 +11,7 @@ import images from '../../../public/img/*.png';
 import appStore, { StoreEventsType } from '../../services/store-manager';
 import Input from '../ui/input';
 import ChatsApi from '../../services/api/chat';
-import { sanitize } from '../../utils/helpers/helper-functions';
+import fnc from '../../utils/helpers/help-functions';
 
 export default class DialogsPanelHeader extends BaseComponent {
   constructor(props: any) {
@@ -49,7 +49,7 @@ export default class DialogsPanelHeader extends BaseComponent {
               const { value } = this.props.children.dialogNameInput.element;
 
               new ChatsApi()
-                .createChat(sanitize(value))
+                .createChat(fnc.sanitize(value))
                 .then(() => new ChatsApi().chatsList())
                 .then((resp: XMLHttpRequest) => {
                   appStore.concatenateArraysValues(
