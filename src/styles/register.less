@@ -2,90 +2,88 @@
 @import "config.less";
 
 .form-field {
-  width: 100%;
-  padding: 10px;
-  padding-bottom: 2px;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
+    width: 100%;
+    padding: 10px;
+    padding-bottom: 2px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
 
-  &__label {
-    padding-left: 5px;
-    font-size: 0.9rem;
-    &_block {
-      display: block;
+    &__label {
+        padding-left: 5px;
+        font-size: 0.9rem;
+        &_block {
+            display: block;
+        }
+        &_inline {
+            display: inline;
+            align-self: center;
+        }
     }
-    &_inline {
-      display: inline;
-      align-self: center;
+
+    &__error-message {
+        font-size: 0.8rem;
+        line-height: 0.9rem;
+        min-height: 0.9rem;
+        padding-right: 10px;
+        float: right;
+        display: block;
+        color: @error-text-corlor;
     }
-  }
 
-  &__error-message {
-    font-size: 0.8rem;
-    line-height: 0.9rem;
-    min-height: 0.9rem;
-    padding-right: 10px;
-    float: right;
-    display: block;
-    color: @error-text-corlor;
-  }
+    &__input {
+        border: none;
+        background-color: rgb(247, 236, 236);
+        height: 30px;
+        padding: 3px;
+        border-bottom: @accent-color 1px solid;
+        width: 70%;
 
-  &__input {
-    border: none;
-    background-color: rgb(247, 236, 236);
-    height: 30px;
-    padding: 3px;
-    border-bottom: @accent-color 1px solid;
-    width: 70%;
-
-    &:disabled {
-      background-color: @disabled-color;
+        &:disabled {
+            background-color: @disabled-color;
+        }
     }
-  }
-  &__submit {
-    display: block;
-    height: 30px;
-    padding: 5px;
-    margin: auto;
-    &_large {
-      padding: 5px 20px;
+    &__submit {
+        display: block;
+        height: 30px;
+        padding: 5px;
+        margin: auto;
+        &_large {
+            padding: 5px 20px;
+        }
     }
-  }
 
-  &__file {
-    display: none;
-  }
+    &__file {
+        display: none;
+    }
 
-  &__avatar {
-    width: 150px;
-    height: 150px;
-    border-radius: 100%;
-    border: 1px solid @accent-color;
-    cursor: pointer;
-    margin: auto;
-  }
+    &__avatar {
+        width: 150px;
+        height: 150px;
+        border-radius: 100%;
+        border: 1px solid @accent-color;
+        cursor: pointer;
+        margin: auto;
+    }
 }
 
 .form {
-  width: 100%;
-  max-width: 600px;
-  display: flex;
-  flex-direction: column;
-  padding: 30px;
-  background-color: @base-color;
-  box-shadow: 0px 0px 5px 1px @shadow-color;
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    background-color: @base-color;
+    box-shadow: 0px 0px 5px 1px @shadow-color;
 }
 
-.form-header {
-  align-self: center;
-}
+
 
 .form-container {
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

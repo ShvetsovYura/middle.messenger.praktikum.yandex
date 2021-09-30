@@ -1,4 +1,4 @@
-export default `
+export default `<main class="form-container">
 <form class="form">
   <h2 class="form-header">{{title}}</h2>
   <div data-tpl-key='currentPasswordFormField'></div>
@@ -8,7 +8,8 @@ export default `
     <div data-tpl-key='submitFormButton'></div>
   </div>
   <div>
-    <a href="profile.html">Назад</a>
+    <div data-tpl-key="backButton"></div>
   </div>
 </form>
+</main>
 `;

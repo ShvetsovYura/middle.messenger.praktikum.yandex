@@ -1,12 +1,12 @@
 import { compile } from 'handlebars';
 import BaseComponent from '../../base-component';
 
-const template = '{{ message }}';
+const template = '<span class="{{className}}">{{ message }}</span>';
 export default class InputErrrorMessage extends BaseComponent {
   constructor(props: any) {
-    super('span', {
+    super('template', {
       ...props,
-      class: 'form-field__error-message',
+      className: 'form-field__error-message',
     });
   }
 

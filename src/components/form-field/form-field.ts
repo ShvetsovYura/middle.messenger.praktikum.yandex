@@ -15,7 +15,7 @@ export type FormFieldProps = {
   events?: Record<string, Function>;
   message?: string;
   value?: string;
-  class?: string;
+  className?: string;
   validator?: any;
 };
 
@@ -25,25 +25,29 @@ export default class FormField extends BaseComponent {
   valid: boolean;
 
   constructor(props: FormFieldProps) {
-    super('div', {
+    const input = new Input({
+      id: props.id,
+      name: props.id,
+      required: props.required,
+      disabled: props.disabled,
+      events: {
+        blur: () => this.validateField(),
+        focus: () => this.validateField(),
+        input: () => this.validateField(),
+      },
+      value: props.value,
+      type: props.type,
+    });
+
+    const label = new Label({
+      caption: props.caption,
+      for: props.id,
+    });
+
+    super('template', {
       children: {
-        label: new Label({
-          caption: props.caption,
-          for: props.id,
-        }),
-        input: new Input({
-          id: props.id,
-          name: props.id,
-          required: props.required,
-          disabled: props.disabled,
-          events: {
-            blur: () => this.validateField(),
-            focus: () => this.validateField(),
-            input: () => this.validateField(),
-          },
-          value: props.value,
-          type: props.type,
-        }),
+        label,
+        input,
         errorMessage: new InputErrrorMessage({ message: props.message || '' }),
       },
     });
@@ -54,6 +58,10 @@ export default class FormField extends BaseComponent {
 
   getValue() {
     return this.props.children.input.getValue();
+  }
+
+  setValue(value: string | number) {
+    this.props.children.input.setProps({ value });
   }
 
   validateField(): boolean | undefined {
@@ -74,17 +82,6 @@ export default class FormField extends BaseComponent {
 
   render() {
     const tpl = compile(template, { noEscape: true });
-    const {
-      id,
-      label,
-      inline,
-      underline,
-    } = this.props;
-    return tpl({
-      labelFor: id,
-      label,
-      inline,
-      underline,
-    });
+    return tpl(this.props);
   }
 }

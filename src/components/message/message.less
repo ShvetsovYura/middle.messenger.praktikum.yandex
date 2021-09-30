@@ -1,0 +1,47 @@
+@import '../../styles/vars.less';
+
+.chat-message {
+    padding: 10px;
+    max-width: 60%;
+    list-style: none;
+
+    &_own {
+        margin-left: auto;
+    }
+
+    &__body {
+        padding: 10px 10px 5px 10px;
+        border-radius: 0.75rem;
+        box-shadow: 0 0 3px 0px grey;
+    }
+    
+    &__username {
+        margin-bottom: 5px;
+        font-size: 0.8rem;
+        color: darkblue;
+    }
+
+    &__body_own {
+        background-color: @accent-color-lite;
+    }
+
+    &__body_partner {
+        background-color: lightgray;
+    }
+    
+    &__info {
+        margin-top: 5px;
+        display: flex;
+        justify-content: flex-end;
+        font-size: 0.6rem;
+    }
+
+    &__status {
+        margin-left: 5px;
+    }
+}
+  
+  
+  
+
+  

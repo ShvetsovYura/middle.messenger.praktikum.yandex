@@ -1,26 +1,21 @@
-import { compile, registerHelper } from 'handlebars';
+import { compile } from 'handlebars';
 import BaseComponent from '../base-component';
-import { ChatMessageProps } from '../chat-message/chat-message';
+import MessagesList from '../messages-list';
+import './messages-container.less';
 import template from './messages-container.tpl';
 
-export type MessagesContainerProps = {
-  messages: Array<ChatMessageProps>;
-};
-
-export default class MessagesContainer extends BaseComponent {
-  constructor(props: MessagesContainerProps) {
-    super('div', {
-      ...props,
-      class: 'chat-messages-container',
+export default class CurrentChatMessagesContainer extends BaseComponent {
+  constructor() {
+    super('template', {
+      className: 'current-dialog-messages-list',
+      children: {
+        messagesList: new MessagesList({}),
+      },
     });
   }
 
   render() {
-    registerHelper(
-      'dateToTimeString',
-      (date: Date) => `${date.getHours()}:${(date.getMinutes() < 10 ? '0' : '') + date.getMinutes()}`,
-    );
     const tpl = compile(template, { noEscape: true });
-    return tpl({ messages: this.props.messages });
+    return tpl(this.props);
   }
 }

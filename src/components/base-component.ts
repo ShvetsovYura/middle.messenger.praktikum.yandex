@@ -7,12 +7,12 @@ type Meta = {
   props: Record<string, any>;
 };
 
-const listPropsAsAttribute: string[] = ['for', 'class', 'value', 'type', 'id', 'name', 'placeholder', 'href'];
-
 export default abstract class BaseComponent {
   private _props: Record<string, any>;
 
   private _element: HTMLElement;
+
+  private _templateElement: HTMLTemplateElement;
 
   private _meta: Meta;
 
@@ -27,7 +27,7 @@ export default abstract class BaseComponent {
     FLOW_RENDER: 'flow:render',
   };
 
-  constructor(tagName = 'div', props: Record<string, any> = {}) {
+  constructor(tagName = 'template', props: Record<string, any> = {}) {
     const eventBus: IEventBus = new EventBus();
     this._meta = {
       tagName,
@@ -40,7 +40,7 @@ export default abstract class BaseComponent {
     this._registerEvents(eventBus);
     this._eventBus().emit(BaseComponent.EVENTS.INIT);
 
-    this._removeEvents = this._removeEvents.bind(this);
+    // this._removeEvents = this._removeEvents.bind(this);
   }
 
   get element() {
@@ -65,47 +65,35 @@ export default abstract class BaseComponent {
   private _removeEvents(): void {
     const { events = {} } = this.props;
     Object.keys(events).forEach((eventName) => {
-      this._element.removeEventListener(eventName, events[eventName]);
+      this._element?.removeEventListener(eventName, events[eventName]);
     });
   }
 
   private _addEvents(): void {
     const { events = {} } = this.props;
     Object.keys(events).forEach((eventName) => {
-      this._element.addEventListener(eventName, events[eventName]);
+      this._element?.addEventListener(eventName, events[eventName]);
     });
   }
 
   private _render() {
     this._removeEvents();
-    const block = this.render();
-    this._element.innerHTML = block;
-
+    this._templateElement.innerHTML = this.render();
+    const fragment = this._templateElement.content;
+    const newElement = fragment.firstChild as HTMLElement;
+    if (!this._element) {
+      this._element = newElement;
+    } else {
+      // Почему не работает присваивание - загадка
+      this._element.replaceWith(newElement);
+      this._element = newElement;
+    }
     const { children = {} } = this.props;
     Object.keys(children).forEach((childKey) => {
-      this._element.querySelector(`[data-tpl-key="${childKey}"`)?.replaceWith(children[childKey].getContent());
+      this._element
+        .querySelector(`[data-tpl-key="${childKey}"`)
+        ?.replaceWith(children[childKey].getContent());
     });
-    Object.keys(this.props).forEach((propName) => {
-      if (listPropsAsAttribute.includes(propName)) {
-        this._element.setAttribute(propName, this.props[propName]);
-      }
-      if (propName === 'disabled') {
-        if (this.props[propName]) {
-          this._element.setAttribute('disabled', 'disabled');
-        } else {
-          this._element.removeAttribute('disabled');
-        }
-      }
-
-      if (propName === 'required') {
-        if (this.props[propName]) {
-          this._element.setAttribute('required', 'required');
-        } else {
-          this._element.removeAttribute('required');
-        }
-      }
-    });
-
     this._addEvents();
   }
 
@@ -115,9 +103,9 @@ export default abstract class BaseComponent {
         const value = props[prop];
         return typeof value === 'function' ? value.bind(props) : value;
       },
-      set: (target, prop: string, value: T): boolean => {
+      set: (_target, prop: string, value: T): boolean => {
         target[prop] = value;
-        this._eventBus().emit(BaseComponent.EVENTS.FLOW_CDU, { ...target }, target);
+        this._eventBus().emit(BaseComponent.EVENTS.FLOW_CDU, { ..._target }, _target);
         return true;
       },
       deleteProperty: () => {
@@ -135,19 +123,13 @@ export default abstract class BaseComponent {
 
   private _componentDidMount(): void {
     this.componentDidMount();
-
     this._eventBus().emit(BaseComponent.EVENTS.FLOW_RENDER);
   }
 
   private _createResources(): void {
-    const { tagName } = this._meta;
-    this._element = this._createDocumentElement(tagName);
-    this._element.setAttribute('data-id', this._id);
-  }
-
-  _setAttributes(attributes: Record<string, any>) {
-    Object.keys(attributes).forEach((attribute) =>
-      this._element.setAttribute(attribute, attributes[attribute]));
+    // const { tagName } = this._meta;
+    this._templateElement = document.createElement('template'); // this._createDocumentElement(tagName);
+    // this._element.setAttribute('data-id', this._id);
   }
 
   private _createDocumentElement(tagName: string): HTMLElement {
@@ -176,11 +158,16 @@ export default abstract class BaseComponent {
     return this._element;
   }
 
-  show() {
-    this._element.style.display = 'block';
+  show(rootQuerySelector: string = '#app'): void {
+    const root = document.querySelector(rootQuerySelector);
+    root?.append(this._element);
+    this._eventBus().emit(BaseComponent.EVENTS.FLOW_RENDER);
+
+    // this._element.style.display = 'block';
   }
 
   hide() {
-    this._element.style.display = 'none';
+    this._element?.remove();
+    // this._element.style.display = 'none';
   }
 }
