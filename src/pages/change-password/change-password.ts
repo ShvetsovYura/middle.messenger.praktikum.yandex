@@ -6,6 +6,7 @@ import Button from '../../components/ui/button/button';
 import { passwordValidator } from '../../utils/helpers/validators';
 import UserApi from '../../services/api/user';
 import template from './change-password.tpl';
+import accessController from '../../utils/access-controller';
 
 export default class ChangePasswordPage extends BaseComponent {
   constructor() {
@@ -63,9 +64,12 @@ export default class ChangePasswordPage extends BaseComponent {
       return;
     }
     new UserApi().changeUserPassword(oldPwd.value, newPwd.value).then(() => {
-      alert('Пароли изменены, бро');
       router.go('/settings');
     });
+  }
+
+  componentDidMount() {
+    accessController.userIsLoggined().then((isLogged) => !isLogged && router.go('/'));
   }
 
   render() {

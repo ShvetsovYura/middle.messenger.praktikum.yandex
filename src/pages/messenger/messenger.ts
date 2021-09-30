@@ -1,17 +1,14 @@
 import { compile } from 'handlebars';
 import BaseComponent from '../../components/base-component';
-import ChatDialogsPanel, {
-  ChatDialogsPanelProps,
-} from '../../components/dialogs-panel/dialogs-panel';
+import ChatDialogsPanel from '../../components/dialogs-panel/dialogs-panel';
 import template from './messanger.tpl';
 import router from '../..';
-import AuthApi from '../../services/api/auth';
 import ChatContentPanel from '../../components/content-container/content-container';
 import ChatsApi from '../../services/api/chat';
 import { DialogMessage, MessageResponse, UserResponse } from '../../types';
 import appStore, { StoreEventsType } from '../../services/store-manager';
-import CurrentDialogUsersList from '../../components/dialog-users-list/dialog-users-list';
 import CurrentDialogUsersPanel from '../../components/dialog-users-panel';
+import accessController from '../../utils/access-controller';
 
 export type MessengersPageProps = ChatDialogsPanelProps & MessagesContainerProps;
 
@@ -30,34 +27,16 @@ export default class MessengerPage extends BaseComponent {
         currentDialogUsersPanel: new CurrentDialogUsersPanel(),
       },
     });
-
     appStore.sub(StoreEventsType.activeDialog, this.hanldeChangeActiveDialog.bind(this));
   }
 
   componentDidMount() {
-    console.log('userinfo');
-    new AuthApi()
-      .userInfo()
-      .then((resp: XMLHttpRequest) => {
-        if (resp.status === 401) {
-          router.go('/');
-        }
-        if (resp.status === 200) {
-          const userInfo: UserResponse = JSON.parse(resp.response);
-          appStore.setValue(StoreEventsType.currentUserInfo, userInfo);
-          this.fetchChatsList();
-        }
-      })
-      .catch((e) => {
-        if (e.status === 401) {
-          router.go('/');
-        }
-      });
+    accessController
+      .userIsLoggined()
+      .then((isLogged) => (isLogged ? this.fetchChatsList() : router.go('/')));
   }
 
   private handleSendMessage(message: string | null) {
-    console.log('send messages', message);
-
     if (message === '' || message === null) return;
     if (this._webSocket) {
       this._webSocket.send(
@@ -116,6 +95,7 @@ export default class MessengerPage extends BaseComponent {
       console.log('ccu', currentChatUsers);
       const currentUser = appStore.getValue(StoreEventsType.currentUserInfo);
 
+      // TODO: refactor this
       const messages = Array.isArray(response)
         ? response
             .filter((m: MessageResponse) => m.type === 'message')
