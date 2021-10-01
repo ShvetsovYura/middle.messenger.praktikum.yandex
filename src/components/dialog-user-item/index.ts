@@ -1,3 +1,1 @@
-import DialogUserItem from './dialog-user-item';
-
-export default DialogUserItem;
+export { DialogUserItem as default } from './dialog-user-item';

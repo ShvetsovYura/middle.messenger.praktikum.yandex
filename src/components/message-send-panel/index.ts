@@ -1,3 +1,1 @@
-import SendMessageForm from './message-send-panel';
-
-export default SendMessageForm;
+export { SendMessagePanel as default } from './message-send-panel';

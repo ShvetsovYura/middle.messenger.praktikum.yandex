@@ -10,7 +10,7 @@ export type SendMessageProps = {
   onSendMessage: (message: string | null) => void;
 };
 
-export default class SendMessagePanel extends BaseComponent {
+export class SendMessagePanel extends BaseComponent {
   constructor(props: SendMessageProps) {
     super('template', {
       ...props,
@@ -57,7 +57,7 @@ export default class SendMessagePanel extends BaseComponent {
   }
 
   render() {
-    const tpl = compile(template, { noEscape: true });
+    const tpl = compile(template);
     return tpl(this.props);
   }
 }

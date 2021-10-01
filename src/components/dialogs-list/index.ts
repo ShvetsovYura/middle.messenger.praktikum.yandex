@@ -1,3 +1,1 @@
-import DialogsList from './dialogs-list';
-
-export default DialogsList;
+export { DialogsList as default } from './dialogs-list';

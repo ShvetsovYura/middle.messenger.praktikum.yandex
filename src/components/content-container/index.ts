@@ -1,3 +1,1 @@
-import ContentContainer from './content-container';
-
-export default ContentContainer;
+export { ContentContainer as default } from './content-container';

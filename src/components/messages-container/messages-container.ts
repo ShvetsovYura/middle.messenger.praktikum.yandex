@@ -4,7 +4,7 @@ import MessagesList from '../messages-list';
 import './messages-container.less';
 import template from './messages-container.tpl';
 
-export default class CurrentChatMessagesContainer extends BaseComponent {
+export class CurrentChatMessagesContainer extends BaseComponent {
   constructor() {
     super('template', {
       className: 'current-dialog-messages-list',
@@ -15,7 +15,7 @@ export default class CurrentChatMessagesContainer extends BaseComponent {
   }
 
   render() {
-    const tpl = compile(template, { noEscape: true });
+    const tpl = compile(template);
     return tpl(this.props);
   }
 }

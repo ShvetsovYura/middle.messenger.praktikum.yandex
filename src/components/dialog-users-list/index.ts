@@ -1,3 +1,1 @@
-import CurrentDialogUsersList from "./dialog-users-list";
-
-export default CurrentDialogUsersList;
+export { CurrentDialogUsersList as default } from './dialog-users-list';

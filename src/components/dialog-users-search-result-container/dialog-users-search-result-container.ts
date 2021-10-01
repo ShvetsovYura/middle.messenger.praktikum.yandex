@@ -2,7 +2,7 @@ import { compile } from 'handlebars';
 import appStore, { StoreEventsType } from '../../services/store-manager';
 import { UserResponse } from '../../types';
 import BaseComponent from '../base-component';
-import DialogUserItem from '../dialog-user-item/dialog-user-item';
+import DialogUserItem from '../dialog-user-item';
 
 // @ts-ignore
 import images from '../../../public/img/*.png';
@@ -10,7 +10,7 @@ import images from '../../../public/img/*.png';
 import './dialog-users-search-result-container.less';
 import template from './dialog-users-search-result-container.tpl';
 
-export default class DialogUserSearchResultContainer extends BaseComponent {
+export class DialogUserSearchResultContainer extends BaseComponent {
   constructor() {
     super('template', {
       className: '',
@@ -24,7 +24,6 @@ export default class DialogUserSearchResultContainer extends BaseComponent {
     const users: UserResponse[] = appStore.getValue(StoreEventsType.chatUsers);
 
     const actualUsers = foundUsers.filter((item) => !users.some((e) => e.id === item.id));
-    console.log('chat users', actualUsers);
     const children: Record<string, any> = {};
     if (users === null) return;
     for (const user of actualUsers) {
@@ -39,7 +38,7 @@ export default class DialogUserSearchResultContainer extends BaseComponent {
   }
 
   render() {
-    const tpl = compile(template, { noEscape: true });
+    const tpl = compile(template);
     return tpl(this.props);
   }
 }

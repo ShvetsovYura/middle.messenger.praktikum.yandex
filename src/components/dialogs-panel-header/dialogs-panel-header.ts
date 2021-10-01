@@ -13,7 +13,7 @@ import Input from '../ui/input';
 import ChatsApi from '../../services/api/chat';
 import fnc from '../../utils/helpers/help-functions';
 
-export default class DialogsPanelHeader extends BaseComponent {
+export class DialogsPanelHeader extends BaseComponent {
   constructor(props: any) {
     super('template', {
       ...props,
@@ -69,7 +69,7 @@ export default class DialogsPanelHeader extends BaseComponent {
   }
 
   render() {
-    const tpl = compile(template, { noEscape: true });
+    const tpl = compile(template);
     const avatar = this.props.avatar ?? images.img_avatar_min;
     return tpl({ ...this.props, avatar });
   }

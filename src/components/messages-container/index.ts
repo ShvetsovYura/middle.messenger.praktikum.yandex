@@ -1,3 +1,1 @@
-import MessagesContainer from './messages-container';
-
-export default MessagesContainer;
+export { CurrentChatMessagesContainer as default } from './messages-container';

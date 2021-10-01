@@ -8,7 +8,7 @@ import Input from '../ui/input';
 import './dialog-user-search-container.less';
 import template from './dialog-user-search-container.tpl';
 
-export default class DialogUserSearchContainer extends BaseComponent {
+export class DialogUserSearchContainer extends BaseComponent {
   constructor() {
     super('template', {
       children: {
@@ -48,7 +48,7 @@ export default class DialogUserSearchContainer extends BaseComponent {
   }
 
   render() {
-    const tpl = compile(template, { noEscape: true });
+    const tpl = compile(template);
     return tpl(this.props);
   }
 }

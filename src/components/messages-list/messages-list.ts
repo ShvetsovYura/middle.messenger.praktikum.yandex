@@ -2,11 +2,11 @@ import { compile } from 'handlebars';
 import appStore, { StoreEventsType } from '../../services/store-manager';
 import { DialogMessage } from '../../types';
 import BaseComponent from '../base-component';
-import ChatMessage from '../message/message';
+import ChatMessage from '../message';
 import './messages-list.less';
 import template from './messages-list.tpl';
 
-export default class MessagesList extends BaseComponent {
+export class MessagesList extends BaseComponent {
   constructor(props: any) {
     super('template', {
       ...props,
@@ -17,8 +17,6 @@ export default class MessagesList extends BaseComponent {
   }
 
   private handleReceiveMessages() {
-    console.log('received messages', appStore.getValue(StoreEventsType.dialogMessages));
-
     const messagesList = appStore.getValue(StoreEventsType.dialogMessages)?.reduce(
       (agg: Record<string, DialogMessage>, message: DialogMessage) => ({
         ...agg,
@@ -31,12 +29,11 @@ export default class MessagesList extends BaseComponent {
 
   render() {
     const activeDialog = appStore.getValue(StoreEventsType.activeDialog);
-    console.log('is selected dialog', activeDialog !== undefined && activeDialog !== null);
     const data = {
       props: this.props,
       dialogIsSelected: activeDialog !== undefined && activeDialog !== null,
     };
-    const tpl = compile(template, { noEscape: true });
+    const tpl = compile(template);
     return tpl({ data });
   }
 }

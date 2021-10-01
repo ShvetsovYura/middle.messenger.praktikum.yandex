@@ -1,3 +1,1 @@
-import CurrentDialogUsersPanel from './dialog-users-panel';
-
-export default CurrentDialogUsersPanel;
+export { CurrentDialogUsersPanel as default } from './dialog-users-panel';

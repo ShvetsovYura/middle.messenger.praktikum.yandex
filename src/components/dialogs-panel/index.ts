@@ -1,3 +1,1 @@
-import DialogsPanel from './dialogs-panel';
-
-export default DialogsPanel;
+export { DialogsPanel as default } from './dialogs-panel';
