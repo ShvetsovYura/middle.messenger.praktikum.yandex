@@ -6,7 +6,7 @@ import CurrentDialogUsersList from '../dialog-users-list';
 import './dialog-users-panel.less';
 import template from './dialog-users-panel.tpl';
 
-export default class CurrentDialogUsersPanel extends BaseComponent {
+export class CurrentDialogUsersPanel extends BaseComponent {
   constructor() {
     super('template', {
       className: 'current-dialog-users-list-panel',
@@ -25,7 +25,7 @@ export default class CurrentDialogUsersPanel extends BaseComponent {
   }
 
   render() {
-    const tpl = compile(template, { noEscape: true });
+    const tpl = compile(template);
     return tpl(this.props);
   }
 }

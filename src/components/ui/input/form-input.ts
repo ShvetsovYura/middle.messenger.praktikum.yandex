@@ -15,7 +15,7 @@ export type InputProps = {
   autocomplete?: 'on' | 'off';
 };
 
-export default class FormInput extends BaseComponent {
+export class FormInput extends BaseComponent {
   constructor(props: InputProps) {
     super('template', {
       ...props,

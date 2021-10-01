@@ -27,7 +27,7 @@ export type ChatDialogCardProps = {
   events?: any;
 };
 
-export default class DialogCardItem extends BaseComponent {
+export class DialogCardItem extends BaseComponent {
   constructor(props: ChatDialogCardProps) {
     super('template', { ...props });
   }

@@ -7,7 +7,7 @@ import Button from '../ui/button/button';
 import './dialog-user-item.less';
 import template from './dialog-user-item.tpl';
 
-export default class DialogUserItem extends BaseComponent {
+export class DialogUserItem extends BaseComponent {
   constructor(props: any) {
     super('template', {
       ...props,
@@ -55,7 +55,7 @@ export default class DialogUserItem extends BaseComponent {
   }
 
   render() {
-    const tpl = compile(template, { noEscape: true });
+    const tpl = compile(template);
     return tpl(this.props);
   }
 }

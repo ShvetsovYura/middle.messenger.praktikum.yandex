@@ -1,13 +1,13 @@
 import { compile } from 'handlebars';
 import appStore, { StoreEventsType } from '../../services/store-manager';
 import BaseComponent from '../base-component';
-import DialogUserItem from '../dialog-user-item/dialog-user-item';
+import DialogUserItem from '../dialog-user-item';
 // @ts-ignore
 import images from '../../../public/img/*.png';
 import './dialog-users-list.less';
 import template from './dialog-users-list.tpl';
 
-export default class CurrentDialogUsersList extends BaseComponent {
+export class CurrentDialogUsersList extends BaseComponent {
   constructor() {
     super('template', {
       className: 'users-list-panel',
@@ -32,7 +32,7 @@ export default class CurrentDialogUsersList extends BaseComponent {
   }
 
   render() {
-    const tpl = compile(template, { noEscape: true });
+    const tpl = compile(template);
     return tpl({ data: this.props });
   }
 }

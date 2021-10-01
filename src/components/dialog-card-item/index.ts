@@ -1,3 +1,1 @@
-import DialogCardItem from './dialog-card-item';
-
-export default DialogCardItem;
+export { DialogCardItem as default } from './dialog-card-item';

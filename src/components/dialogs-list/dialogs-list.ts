@@ -1,17 +1,17 @@
 import { compile } from 'handlebars';
 import BaseComponent from '../base-component';
-import ChatDialogCard, { ChatDialogCardProps } from '../dialog-card-item/dialog-card-item';
 import template from './dialogs-list.tpl';
 
 // @ts-ignore
 import images from '../../../public/img/*.png';
 import appStore, { StoreEventsType } from '../../services/store-manager';
+import { ChatDialogCardProps, DialogCardItem } from '../dialog-card-item/dialog-card-item';
 
 export type ChatDialogsListProps = {
   dialogsItems: Array<ChatDialogCardProps>;
 };
 
-export default class DialogsList extends BaseComponent {
+export class DialogsList extends BaseComponent {
   constructor(props: ChatDialogsListProps) {
     super('template', {
       ...props,
@@ -25,7 +25,7 @@ export default class DialogsList extends BaseComponent {
     const dialogsList = appStore.getValue(StoreEventsType.dialogsList)?.reduce(
       (agg: any, current: any) => ({
         ...agg,
-        [`dialog__${current.id}`]: new ChatDialogCard({
+        [`dialog__${current.id}`]: new DialogCardItem({
           ...current,
           avatar: current.avatar ?? images.img_avatar_min,
           events: {
@@ -45,7 +45,7 @@ export default class DialogsList extends BaseComponent {
   }
 
   render() {
-    const tpl = compile(template, { noEscape: true });
+    const tpl = compile(template);
     return tpl(this.props);
   }
 }

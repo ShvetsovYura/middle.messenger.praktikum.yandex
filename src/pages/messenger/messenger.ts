@@ -1,16 +1,14 @@
 import { compile } from 'handlebars';
 import BaseComponent from '../../components/base-component';
-import ChatDialogsPanel from '../../components/dialogs-panel/dialogs-panel';
+import ChatDialogsPanel from '../../components/dialogs-panel';
 import template from './messanger.tpl';
 import router from '../..';
-import ChatContentPanel from '../../components/content-container/content-container';
+import ChatContentPanel from '../../components/content-container';
 import ChatsApi from '../../services/api/chat';
 import { DialogMessage, MessageResponse, UserResponse } from '../../types';
 import appStore, { StoreEventsType } from '../../services/store-manager';
 import CurrentDialogUsersPanel from '../../components/dialog-users-panel';
 import accessController from '../../utils/access-controller';
-
-export type MessengersPageProps = ChatDialogsPanelProps & MessagesContainerProps;
 
 export default class MessengerPage extends BaseComponent {
   private _webSocket: WebSocket | null = null;
@@ -53,15 +51,13 @@ export default class MessengerPage extends BaseComponent {
     new ChatsApi()
       .chatsList()
       .then((response: XMLHttpRequest) =>
-        appStore.setValue(StoreEventsType.dialogsList, JSON.parse(response.response)),
-      );
+        appStore.setValue(StoreEventsType.dialogsList, JSON.parse(response.response)));
   }
 
   private hanldeChangeActiveDialog() {
     appStore.setValue(StoreEventsType.chatUsers, null);
     appStore.setValue(StoreEventsType.dialogMessages, null);
     const dialogInfo = appStore.getValue(StoreEventsType.activeDialog);
-    console.log('activeDialog', dialogInfo);
     new ChatsApi()
       .chatUsers(dialogInfo.id)
       .then((response: XMLHttpRequest) => {
@@ -92,18 +88,20 @@ export default class MessengerPage extends BaseComponent {
       const response = JSON.parse(event.data);
 
       const currentChatUsers = appStore.getValue(StoreEventsType.chatUsers);
-      console.log('ccu', currentChatUsers);
       const currentUser = appStore.getValue(StoreEventsType.currentUserInfo);
 
-      // TODO: refactor this
-      const messages = Array.isArray(response)
-        ? response
-            .filter((m: MessageResponse) => m.type === 'message')
-            .map((m: MessageResponse) =>
-              this.constructMessageItem(m, currentUser, currentChatUsers),
-            )
-            .reverse()
-        : [this.constructMessageItem(response as MessageResponse, currentUser, currentChatUsers)];
+      let messages = [];
+
+      if (Array.isArray(response)) {
+        messages = response
+          .filter((m: MessageResponse) => m.type === 'message')
+          .map((m: MessageResponse) => this.constructMessageItem(m, currentUser, currentChatUsers))
+          .reverse();
+      } else {
+        messages = [
+          this.constructMessageItem(response as MessageResponse, currentUser, currentChatUsers),
+        ];
+      }
 
       appStore.concatenateArraysValues(StoreEventsType.dialogMessages, messages);
     });
@@ -117,9 +115,7 @@ export default class MessengerPage extends BaseComponent {
       );
     });
 
-    this._webSocket.addEventListener('close', () => {
-      console.log('Соединение закрыто');
-    });
+    this._webSocket.addEventListener('close', () => {});
   }
 
   private constructMessageItem(
@@ -141,7 +137,7 @@ export default class MessengerPage extends BaseComponent {
   }
 
   render() {
-    const tpl = compile(template, { noEscape: true });
+    const tpl = compile(template);
     return tpl(this.props);
   }
 }

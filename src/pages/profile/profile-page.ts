@@ -166,7 +166,7 @@ export default class ProfilePage extends BaseComponent {
   }
 
   render() {
-    const tpl = compile(template, { noEscape: true });
+    const tpl = compile(template);
     const { title } = this.props;
     return tpl({ title });
   }

@@ -81,4 +81,9 @@ describe('Тест элемента-блока', () => {
       .to.be.a('string')
       .and.to.eq('click event');
   });
+
+  it('Изменеие пропсов', () => {
+    element.setProps({ text: 'otherText' });
+    expect(element.props.text).eq('otherText');
+  });
 });

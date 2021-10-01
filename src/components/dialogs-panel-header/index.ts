@@ -1,3 +1,1 @@
-import DialogsPanelHeader from './dialogs-panel-header';
-
-export default DialogsPanelHeader;
+export { DialogsPanelHeader as default } from './dialogs-panel-header';

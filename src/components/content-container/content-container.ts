@@ -5,7 +5,7 @@ import CurrentChatMessagesContainer from '../messages-container/messages-contain
 import SendMessagePanel, { SendMessageProps } from '../message-send-panel/message-send-panel';
 import template from './content-container.tpl';
 
-export default class ContentContainer extends BaseComponent {
+export class ContentContainer extends BaseComponent {
   constructor(props: SendMessageProps) {
     super('template', {
       ...props,
@@ -21,7 +21,7 @@ export default class ContentContainer extends BaseComponent {
   }
 
   render() {
-    const tpl = compile(template, { noEscape: true });
+    const tpl = compile(template);
     return tpl(this.props);
   }
 }

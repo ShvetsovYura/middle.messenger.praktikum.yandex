@@ -1,3 +1,1 @@
-import DialogUserSearchResultContainer from './dialog-users-search-result-container';
-
-export default DialogUserSearchResultContainer;
+export { DialogUserSearchResultContainer as default } from './dialog-users-search-result-container';
