@@ -5,6 +5,7 @@
 - `npm run build` — сборка
 - `npm run eslint` - запуск eslint
 - `npm run stylelint` - запуск stylelint
+- `npm run test` - запуск тестов
 
 netlify: https://nifty-sinoussi-580704.netlify.app
 
