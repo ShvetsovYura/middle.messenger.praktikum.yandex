@@ -6,23 +6,11 @@ class AccessController {
   userIsLoggined() {
     return new AuthApi()
       .userInfo()
-      .then((resp: XMLHttpRequest): boolean => {
-        if (resp.status === 401) {
-          return false;
-        }
-        if (resp.status === 200) {
-          const userInfo: UserResponse = JSON.parse(resp.response);
-          appStore.setValue(StoreEventsType.currentUserInfo, userInfo);
-          return true;
-        }
-        return false;
+      .then((response: UserResponse): boolean => {
+        appStore.setValue(StoreEventsType.currentUserInfo, response);
+        return true;
       })
-      .catch((e): boolean => {
-        if (e.status === 401) {
-          return false;
-        }
-        return false;
-      });
+      .catch((): boolean => false);
   }
 }
 

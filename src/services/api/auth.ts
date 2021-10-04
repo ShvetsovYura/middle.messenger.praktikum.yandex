@@ -8,30 +8,18 @@ const httpClient = new HTTPTransport();
 export default class AuthApi {
   signUp(userData: UserInfo) {
     return httpClient.post(`${host}/${baseUrl}/signup`, {
-      headers: {
-        'content-type': 'application/json',
-        accept: 'application/json',
-      },
       data: { ...userData },
     });
   }
 
   signIn(login: string, password: string) {
     return httpClient.post(`${host}/${baseUrl}/signin`, {
-      headers: {
-        'content-type': 'application/json',
-        accept: 'application/json',
-      },
       data: { login, password },
     });
   }
 
   logOut() {
-    return httpClient.post(`${host}/${baseUrl}/logout`, {
-      headers: {
-        'content-type': 'application/json',
-      },
-    });
+    return httpClient.post(`${host}/${baseUrl}/logout`);
   }
 
   userInfo() {

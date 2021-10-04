@@ -4,8 +4,6 @@ import Route from '../route/route';
 export default class Router {
   private static __instance: Router;
 
-  // private _pathname: string;
-
   public history: History;
 
   private _routes: Array<Route<BaseComponent>>;

@@ -35,14 +35,14 @@ export class DialogUserItem extends BaseComponent {
     new ChatsApi()
       .removeUsers({ users: [userId], chatId })
       .then(() => new ChatsApi().chatUsers(chatId))
-      .then((resp: XMLHttpRequest) => this.refreshFoundList(userId, JSON.parse(resp.response)));
+      .then((response: UserResponse[]) => this.refreshFoundList(userId, response));
   }
 
   private handleAddUserToDialog(chatId: number, userId: number) {
     new ChatsApi()
       .addUsers({ users: [userId], chatId })
       .then(() => new ChatsApi().chatUsers(chatId))
-      .then((resp: XMLHttpRequest) => this.refreshFoundList(userId, JSON.parse(resp.response)));
+      .then((response: UserResponse[]) => this.refreshFoundList(userId, response));
   }
 
   private refreshFoundList(userId: number, users: UserResponse[]) {

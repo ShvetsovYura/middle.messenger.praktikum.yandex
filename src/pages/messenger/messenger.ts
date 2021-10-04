@@ -28,12 +28,6 @@ export default class MessengerPage extends BaseComponent {
     appStore.sub(StoreEventsType.activeDialog, this.hanldeChangeActiveDialog.bind(this));
   }
 
-  componentDidMount() {
-    accessController
-      .userIsLoggined()
-      .then((isLogged) => (isLogged ? this.fetchChatsList() : router.go('/')));
-  }
-
   private handleSendMessage(message: string | null) {
     if (message === '' || message === null) return;
     if (this._webSocket) {
@@ -50,8 +44,7 @@ export default class MessengerPage extends BaseComponent {
   private fetchChatsList() {
     new ChatsApi()
       .chatsList()
-      .then((response: XMLHttpRequest) =>
-        appStore.setValue(StoreEventsType.dialogsList, JSON.parse(response.response)));
+      .then((response) => appStore.setValue(StoreEventsType.dialogsList, response));
   }
 
   private hanldeChangeActiveDialog() {
@@ -60,21 +53,12 @@ export default class MessengerPage extends BaseComponent {
     const dialogInfo = appStore.getValue(StoreEventsType.activeDialog);
     new ChatsApi()
       .chatUsers(dialogInfo.id)
-      .then((response: XMLHttpRequest) => {
-        const result: Array<UserResponse> = JSON.parse(response.response);
-
-        appStore.setValue(StoreEventsType.chatUsers, result);
+      .then((response: UserResponse[]) => {
+        appStore.setValue(StoreEventsType.chatUsers, response);
       })
       .then(() => {
-        new ChatsApi().getChatToken(dialogInfo.id).then((resp: XMLHttpRequest) => {
-          if (resp.status === 200) {
-            const tokenObject: { token: string } = JSON.parse(resp.response);
-            this.openWebSocket(
-              appStore.getValue(StoreEventsType.currentUserInfo),
-              dialogInfo,
-              tokenObject.token,
-            );
-          }
+        new ChatsApi().getChatToken(dialogInfo.id).then(({ token }) => {
+          this.openWebSocket(appStore.getValue(StoreEventsType.currentUserInfo), dialogInfo, token);
         });
       });
   }
@@ -134,6 +118,12 @@ export default class MessengerPage extends BaseComponent {
   private getDisplayName(userInfo: any) {
     if (userInfo.display_name) return userInfo.display_name;
     return [userInfo.first_name, userInfo.second_name].join(' ');
+  }
+
+  componentDidMount() {
+    accessController
+      .userIsLoggined()
+      .then((isLogged) => (isLogged ? this.fetchChatsList() : router.go('/')));
   }
 
   render() {

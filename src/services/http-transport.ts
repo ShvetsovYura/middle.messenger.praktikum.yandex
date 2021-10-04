@@ -60,6 +60,16 @@ export default class HTTPTransport {
   request(url: string, options: TRequestOptions) {
     const { method = METHODS.GET, headers = {}, data, timeout = 5000 } = options;
 
+    const defaultHeaders = {
+      'Content-Type': 'application/json',
+      accept: 'application/json',
+    };
+
+    const mergedHeaders: Record<string, string> = {
+      ...defaultHeaders,
+      ...headers,
+    };
+
     let query: string;
     if (method === METHODS.GET) {
       query = queryStringify(data as TRequestData);
@@ -72,15 +82,19 @@ export default class HTTPTransport {
 
       xhr.open(method, url + query);
       xhr.withCredentials = true;
-      Object.keys(headers).forEach((key: string) => {
-        xhr.setRequestHeader(key, headers[key]);
+      Object.keys(mergedHeaders).forEach((key: string) => {
+        xhr.setRequestHeader(key, mergedHeaders[key]);
       });
 
       xhr.onload = () => {
-        if (xhr.status >= 300) {
-          reject(xhr);
+        let jsonResponse = {};
+        try {
+          jsonResponse = JSON.parse(xhr.response);
+        } catch (e) {}
+        if (xhr.status >= 200 && xhr.status < 300) {
+          resolve(jsonResponse);
         } else {
-          resolve(xhr);
+          reject(jsonResponse);
         }
       };
 

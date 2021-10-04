@@ -95,13 +95,7 @@ export default class ProfilePage extends BaseComponent {
         logoutButton: new Button({
           caption: 'Выйти',
           events: {
-            click: () => {
-              new AuthApi().logOut().then(({ status, statusText }: Response) => {
-                if (status === 200 && statusText === 'OK') {
-                  router.go('/');
-                }
-              });
-            },
+            click: () => new AuthApi().logOut().then(() => router.go('/')),
           },
         }),
       },
@@ -143,20 +137,16 @@ export default class ProfilePage extends BaseComponent {
       phoneFormField,
     } = this.props.children;
 
-    new AuthApi().userInfo().then((response: XMLHttpRequest) => {
-      if (response.status === 200) {
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        const { first_name, second_name, display_name, email, phone, login } = JSON.parse(
-          response.response,
-        );
+    new AuthApi()
+      .userInfo()
+      .then(({ first_name, second_name, display_name, email, phone, login }) => {
         firstNameFormField.setValue(first_name);
         secondNameFormField.setValue(second_name);
         displayNameFormField.setValue(display_name);
         loginFormField.setValue(login);
         emailFormField.setValue(email);
         phoneFormField.setValue(phone);
-      }
-    });
+      });
   }
 
   componentDidMount() {
