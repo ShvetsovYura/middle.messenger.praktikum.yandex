@@ -124,11 +124,7 @@ export default class RegistrationPage extends BaseComponent {
         },
         {},
       );
-      new AuthApi().signUp(userData).then((resp: XMLHttpRequest) => {
-        if (resp.status === 200) {
-          router.go('/');
-        }
-      });
+      new AuthApi().signUp(userData).then(() => router.go('/'));
     }
   }
 

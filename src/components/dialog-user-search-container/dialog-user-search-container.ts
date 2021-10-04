@@ -24,12 +24,9 @@ export class DialogUserSearchContainer extends BaseComponent {
           events: {
             click: () => {
               const { value } = this.props.children.findUsersInput.element;
-              new UserApi().searchUser(value).then((resp: XMLHttpRequest) => {
+              new UserApi().searchUser(value).then((resp) => {
                 appStore.setValue(StoreEventsType.dialogUserSearchResult, []);
-                appStore.setValue(
-                  StoreEventsType.dialogUserSearchResult,
-                  JSON.parse(resp.response),
-                );
+                appStore.setValue(StoreEventsType.dialogUserSearchResult, resp);
               });
             },
           },

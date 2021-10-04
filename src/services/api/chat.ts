@@ -12,39 +12,22 @@ export default class ChatsApi {
 
   createChat(title: string) {
     return httpClient.post(`${host}/${baseUrl}`, {
-      headers: {
-        'content-type': 'application/json',
-        accept: 'application/json',
-      },
       data: { title },
     });
   }
 
   chatUsers(id: number) {
-    return httpClient.get(`${host}/${baseUrl}/${id}/users`, {
-      headers: {
-        'content-type': 'application/json',
-        accept: 'application/json',
-      },
-    });
+    return httpClient.get(`${host}/${baseUrl}/${id}/users`);
   }
 
   removeUsers(users: UsersRequest) {
     return httpClient.delete(`${host}/${baseUrl}/users`, {
-      headers: {
-        'content-type': 'application/json',
-        accept: 'application/json',
-      },
       data: users,
     });
   }
 
   addUsers(users: UsersRequest) {
     return httpClient.put(`${host}/${baseUrl}/users`, {
-      headers: {
-        'content-type': 'application/json',
-        accept: 'application/json',
-      },
       data: users,
     });
   }

@@ -51,11 +51,8 @@ export class DialogsPanelHeader extends BaseComponent {
               new ChatsApi()
                 .createChat(fnc.sanitize(value))
                 .then(() => new ChatsApi().chatsList())
-                .then((resp: XMLHttpRequest) => {
-                  appStore.concatenateArraysValues(
-                    StoreEventsType.dialogsList,
-                    JSON.parse(resp.response),
-                  );
+                .then((resp) => {
+                  appStore.concatenateArraysValues(StoreEventsType.dialogsList, resp);
                 });
             },
           },

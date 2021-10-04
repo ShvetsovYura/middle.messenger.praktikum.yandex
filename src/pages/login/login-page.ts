@@ -8,7 +8,7 @@ import template from './login-page.tpl';
 import appStore, { StoreEventsType } from '../../services/store-manager';
 import { UserResponse } from '../../types';
 
-export default class LoginPage extends BaseComponent {
+export class LoginPage extends BaseComponent {
   constructor() {
     const loginFormField = new FormField({
       caption: 'Логин',
@@ -73,23 +73,21 @@ export default class LoginPage extends BaseComponent {
 
     new AuthApi()
       .signIn(login.value, password.value)
-      .then(({ status, statusText }: Response) => {
-        if (status === 200 && statusText === 'OK') {
-          router.go('/messenger');
-        }
+      .then(() => router.go('/messenger'))
+      .catch((err) => this.setProps({ error: err.reason }));
+  }
+
+  componentDidMount() {
+    new AuthApi()
+      .userInfo()
+      .then((userInfo: UserResponse) => {
+        appStore.setValue(StoreEventsType.currentUserInfo, userInfo);
+        router.go('/messenger');
       })
-      .catch((err) => this.setProps({ error: JSON.parse(err.response).reason }));
+      .catch((err) => this.setProps({ error: err.reason }));
   }
 
   render() {
-    new AuthApi().userInfo().then((resp: XMLHttpRequest) => {
-      if (resp.status === 200) {
-        const userInfo: UserResponse = JSON.parse(resp.response);
-        appStore.setValue(StoreEventsType.currentUserInfo, userInfo);
-        router.go('/messenger');
-      }
-    });
-
     const tpl = compile(template);
     const { title, error } = this.props;
     return tpl({ title, error });

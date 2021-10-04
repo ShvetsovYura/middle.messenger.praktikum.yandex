@@ -2,19 +2,12 @@ import { v4 as uuid } from 'uuid';
 
 import { EventBus, IEventBus } from '../services/event-bus';
 
-type Meta = {
-  tagName: string;
-  props: Record<string, any>;
-};
-
 export default abstract class BaseComponent {
   private _props: Record<string, any>;
 
   private _element: HTMLElement;
 
   private _templateElement: HTMLTemplateElement;
-
-  private _meta: Meta;
 
   private _eventBus: () => IEventBus;
 
@@ -29,18 +22,12 @@ export default abstract class BaseComponent {
 
   constructor(tagName = 'template', props: Record<string, any> = {}) {
     const eventBus: IEventBus = new EventBus();
-    this._meta = {
-      tagName,
-      props,
-    };
     this._id = uuid();
     this._eventBus = () => eventBus;
     this._props = this._makePropsProxy(props);
 
     this._registerEvents(eventBus);
     this._eventBus().emit(BaseComponent.EVENTS.INIT);
-
-    // this._removeEvents = this._removeEvents.bind(this);
   }
 
   get element() {
@@ -84,7 +71,6 @@ export default abstract class BaseComponent {
     if (!this._element) {
       this._element = newElement;
     } else {
-      // Почему не работает присваивание - загадка
       this._element.replaceWith(newElement);
       this._element = newElement;
     }
@@ -127,13 +113,7 @@ export default abstract class BaseComponent {
   }
 
   private _createResources(): void {
-    // const { tagName } = this._meta;
-    this._templateElement = document.createElement('template'); // this._createDocumentElement(tagName);
-    // this._element.setAttribute('data-id', this._id);
-  }
-
-  private _createDocumentElement(tagName: string): HTMLElement {
-    return document.createElement(tagName);
+    this._templateElement = document.createElement('template');
   }
 
   init() {
@@ -162,12 +142,9 @@ export default abstract class BaseComponent {
     const root = document.querySelector(rootQuerySelector);
     root?.append(this._element);
     this._eventBus().emit(BaseComponent.EVENTS.FLOW_RENDER);
-
-    // this._element.style.display = 'block';
   }
 
   hide() {
     this._element?.remove();
-    // this._element.style.display = 'none';
   }
 }
