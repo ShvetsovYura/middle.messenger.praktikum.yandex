@@ -1,9 +1,12 @@
 import { compile } from 'handlebars';
+import router from '../..';
 import BaseComponent from '../../components/base-component';
 import FormField from '../../components/form-field/form-field';
 import Button from '../../components/ui/button/button';
-import { passwordValidator } from '../../helpers/validators';
+import { passwordValidator } from '../../utils/helpers/validators';
+import UserApi from '../../services/api/user';
 import template from './change-password.tpl';
+import accessController from '../../utils/access-controller';
 
 export default class ChangePasswordPage extends BaseComponent {
   constructor() {
@@ -32,9 +35,16 @@ export default class ChangePasswordPage extends BaseComponent {
           type: 'password',
           validator: passwordValidator,
         }),
+        backButton: new Button({
+          caption: '<- в настройки',
+          events: {
+            click: () => router.go('/settings'),
+          },
+        }),
 
         submitFormButton: new Button({
           caption: 'Сменить пароль',
+          type: 'submit',
         }),
       },
       events: {
@@ -45,15 +55,25 @@ export default class ChangePasswordPage extends BaseComponent {
 
   submitForm(e: any) {
     e.preventDefault();
-    const result: Record<string, string> = {};
-    e.target.querySelectorAll('input').forEach(({ name, value }: HTMLInputElement) => {
-      result[name] = value;
+    const oldPwd = e.target.querySelector('#oldPassword');
+    const newPwd = e.target.querySelector('#newPassword');
+    const repNewPwd = e.target.querySelector('#repeatNewPassword');
+
+    if (newPwd.value !== repNewPwd.value) {
+      alert('Пароли не совпадают');
+      return;
+    }
+    new UserApi().changeUserPassword(oldPwd.value, newPwd.value).then(() => {
+      router.go('/settings');
     });
-    console.log(result);
+  }
+
+  componentDidMount() {
+    accessController.userIsLoggined().then((isLogged) => !isLogged && router.go('/'));
   }
 
   render() {
-    const tpl = compile(template, { noEscape: true });
+    const tpl = compile(template);
     return tpl(this.props);
   }
 }

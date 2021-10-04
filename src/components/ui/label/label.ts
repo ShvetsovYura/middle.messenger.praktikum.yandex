@@ -11,23 +11,23 @@ export type InputProps = {
 };
 
 type LabelProps = {
-  for: string;
+  for?: string;
   caption: string;
-  class?: string;
+  className?: string;
 };
 
-const template = '{{ caption }}';
+const template = '<label class="{{className}}" {{#if for}} for="{{for}}" {{/if}}>{{ caption }}</label>';
 
 export default class Label extends BaseComponent {
   constructor(props: LabelProps) {
-    super('label', {
+    super('template', {
       ...props,
-      class: props.class || 'form-field__label',
+      className: props.className || 'form-field__label',
     });
   }
 
   render() {
-    const tpl = compile(template, { noEscape: true });
+    const tpl = compile(template);
     return tpl(this.props);
   }
 }

@@ -5,30 +5,34 @@ export interface IEventBus {
 }
 
 export class EventBus implements IEventBus {
-  private listeners: Record<string, Function[]>;
+  private _listeners: Record<string, Function[]>;
 
   constructor() {
-    this.listeners = {};
+    this._listeners = {};
+  }
+
+  get listeners() {
+    return this._listeners;
   }
 
   on(event: string, callback: Function): void {
-    if (!this.listeners[event]) {
-      this.listeners[event] = [];
+    if (!this._listeners[event]) {
+      this._listeners[event] = [];
     }
-    this.listeners[event].push(callback);
+    this._listeners[event].push(callback);
   }
 
   off(event: string, callback: Function) {
-    if (!this.listeners[event]) {
+    if (!this._listeners[event]) {
       throw new Error(`Событие ${event} не найдено`);
     }
-    this.listeners[event] = this.listeners[event].filter((cb) => cb !== callback);
+    this._listeners[event] = this._listeners[event].filter((cb) => cb !== callback);
   }
 
   emit(event: string, ...args: any) {
-    if (!this.listeners[event]) {
+    if (!this._listeners[event]) {
       throw new Error(`Событие ${event} не найдено`);
     }
-    this.listeners[event].forEach((cb) => cb(...args));
+    this._listeners[event].forEach((cb) => cb(...args));
   }
 }

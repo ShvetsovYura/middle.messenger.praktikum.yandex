@@ -1,3 +1,1 @@
-import Input from './custom_input';
-
-export default Input;
+export { FormInput as default } from './form-input';

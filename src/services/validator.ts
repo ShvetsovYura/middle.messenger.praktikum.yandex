@@ -66,6 +66,13 @@ export function isVariousSymbols(): Function {
   };
 }
 
+export function latinLettersAndNumbers(): Function {
+  const re = /^[a-zA-Z0-9]+$/;
+  return function (value: string): ValidationResult {
+    return re.test(value) ? valid() : invalid('Должны быть латинские символы (и/или цифры)');
+  };
+}
+
 export function onlyLatinLetters(): Function {
   const re = /^[a-zA-Z]+$/;
   return function (value: string): ValidationResult {
