@@ -11,7 +11,8 @@
     "check-types": "tsc",
     "test": "mocha -r ignore-styles -r jsdom-global/register",
     "precommit": "npm-run-all lint:ts lint:style check-types test",
-    "prepush": "npm-run-all lint:ts lint:style check-types test"
+    "prepush": "npm-run-all lint:ts lint:style check-types test",
+    "prepare": "husky install"
   },
   "husky": {
     "hooks": {
