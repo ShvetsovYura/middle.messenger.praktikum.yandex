@@ -15,9 +15,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm-run-all test lint:all",
-      "pre-push": "npm run other command",
-      "...": "..."
+      "pre-commit": "echo \"[Husky] pre-commit\"",
+      "pre-push": "npm run other command"
     }
   },
   "repository": {
