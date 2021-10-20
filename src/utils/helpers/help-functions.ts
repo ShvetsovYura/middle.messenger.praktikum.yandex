@@ -45,7 +45,8 @@ function isEqual(lhs: PlainObject, rhs: PlainObject) {
   return true;
 }
 
-function merge(lhs: Indexed, rhs: Indexed): Indexed {
+function merge(lhs: Indexed<any>, rhs: Indexed<any>): Indexed {
+  rhs = rhs as Record<string, any>;
   for (const p in rhs) {
     // eslint-disable-next-line no-prototype-builtins
     if (!rhs.hasOwnProperty(p)) {
@@ -67,8 +68,9 @@ function merge(lhs: Indexed, rhs: Indexed): Indexed {
 }
 
 function set(object: Indexed | unknown, path: string, value: unknown): Indexed | unknown {
+  const obj: any = object;
   if (typeof path !== 'string') throw new Error('path must be string');
-  if (object.constructor !== Object) return object;
+  if (obj.constructor !== Object) return obj;
   const res = path.split('.').reduceRight((acc: any, cur: any) => {
     if (Object.keys(acc).length === 0) {
       acc = { [cur]: value };

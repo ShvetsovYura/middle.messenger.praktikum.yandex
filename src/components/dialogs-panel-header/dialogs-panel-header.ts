@@ -7,7 +7,7 @@ import './dialogs-panel-header.less';
 import template from './dialogs-panel-header.tpl';
 
 // @ts-ignore
-import images from '../../../public/img/*.png';
+import * as img_avatar_min from '../../../public/img/img_avatar_min.png';
 import appStore, { StoreEventsType } from '../../services/store-manager';
 import Input from '../ui/input';
 import ChatsApi from '../../services/api/chat';
@@ -67,7 +67,7 @@ export class DialogsPanelHeader extends BaseComponent {
 
   render() {
     const tpl = compile(template);
-    const avatar = this.props.avatar ?? images.img_avatar_min;
+    const avatar = this.props.avatar ?? img_avatar_min;
     return tpl({ ...this.props, avatar });
   }
 }

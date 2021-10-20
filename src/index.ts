@@ -6,6 +6,7 @@ import MessengerPage from './pages/messenger';
 import ProfilePage from './pages/profile';
 import RegistrationPage from './pages/registeration/index';
 import Router from './services/router/router';
+import './styles/style.less';
 
 const router = new Router('#app');
 

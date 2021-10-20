@@ -3,7 +3,8 @@ import appStore, { StoreEventsType } from '../../services/store-manager';
 import BaseComponent from '../base-component';
 import DialogUserItem from '../dialog-user-item';
 // @ts-ignore
-import images from '../../../public/img/*.png';
+import * as img_avatar_min from '../../../public/img/img_avatar_min.png';
+
 import './dialog-users-list.less';
 import template from './dialog-users-list.tpl';
 
@@ -24,7 +25,7 @@ export class CurrentDialogUsersList extends BaseComponent {
       children[`user__${users[item].id}`] = new DialogUserItem({
         ...users[item],
         current: true,
-        avatar: users[item].avatar ?? images.img_avatar_min,
+        avatar: users[item].avatar ?? img_avatar_min,
       });
     }
 
