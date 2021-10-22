@@ -12,4 +12,4 @@
 
 Ссылка на онлайн версию https://welcochat-app.herokuapp.com/messenger
 
-PR: https://github.com/ShvetsovYura/middle.messenger.praktikum.yandex/pull/9
+PR: https://github.com/ShvetsovYura/middle.messenger.praktikum.yandex/pull/10
