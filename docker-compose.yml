@@ -1,8 +1,6 @@
 version: "3.9"
 services:
   web: 
-    image: welcochat_img
     build: .
-    container_name: welcochat
     ports:
       - 5000:5000
