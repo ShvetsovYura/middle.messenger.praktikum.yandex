@@ -10,4 +10,4 @@
 netlify: https://nifty-sinoussi-580704.netlify.app
 
 
-PR: https://github.com/ShvetsovYura/middle.messenger.praktikum.yandex/pull/9
+PR: https://github.com/ShvetsovYura/middle.messenger.praktikum.yandex/pull/10
