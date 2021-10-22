@@ -18,6 +18,8 @@ import template from './profile-page.tpl';
 import router from '../..';
 import AuthApi from '../../services/api/auth';
 import UserApi from '../../services/api/user';
+// @ts-ignore
+import * as img_avatar_min from '../../../public/img/img_avatar_min.png';
 
 export type UserInfo = {
   first_name: string;
@@ -158,6 +160,6 @@ export default class ProfilePage extends BaseComponent {
   render() {
     const tpl = compile(template);
     const { title } = this.props;
-    return tpl({ title });
+    return tpl({ title, img_avatar_min });
   }
 }
