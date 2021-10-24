@@ -1,4 +1,4 @@
-import { compile, registerHelper } from 'handlebars';
+import { compile } from 'handlebars';
 import BaseComponent from '../base-component';
 import './dialog-card-item.less';
 import template from './dialog-card-item.tpl';
@@ -33,15 +33,7 @@ export class DialogCardItem extends BaseComponent {
   }
 
   render() {
-    registerHelper('isdefined', (value) => !value);
-    registerHelper('stringDateToTime', (dt: string) => {
-      const date = new Date(dt);
-      if (date) {
-        return date.toLocaleString();
-      }
-      return '';
-    });
-
+    console.log('card item');
     const tpl = compile(template);
     return tpl(this.props);
   }

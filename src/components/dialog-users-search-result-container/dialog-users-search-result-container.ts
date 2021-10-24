@@ -5,7 +5,7 @@ import BaseComponent from '../base-component';
 import DialogUserItem from '../dialog-user-item';
 
 // @ts-ignore
-import images from '../../../public/img/*.png';
+import * as img_avatar_min from '../../../public/img/img_avatar_min.png';
 
 import './dialog-users-search-result-container.less';
 import template from './dialog-users-search-result-container.tpl';
@@ -30,7 +30,7 @@ export class DialogUserSearchResultContainer extends BaseComponent {
       children[`foundUser__${user.id}`] = new DialogUserItem({
         ...user,
         current: false,
-        avatar: user.avatar ?? images.img_avatar_min,
+        avatar: user.avatar ?? img_avatar_min,
       });
     }
 

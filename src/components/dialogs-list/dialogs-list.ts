@@ -3,7 +3,7 @@ import BaseComponent from '../base-component';
 import template from './dialogs-list.tpl';
 
 // @ts-ignore
-import images from '../../../public/img/*.png';
+import * as img_avatar_min from '../../../public/img/img_avatar_min.png';
 import appStore, { StoreEventsType } from '../../services/store-manager';
 import { ChatDialogCardProps, DialogCardItem } from '../dialog-card-item/dialog-card-item';
 
@@ -27,7 +27,7 @@ export class DialogsList extends BaseComponent {
         ...agg,
         [`dialog__${current.id}`]: new DialogCardItem({
           ...current,
-          avatar: current.avatar ?? images.img_avatar_min,
+          avatar: current.avatar ?? img_avatar_min,
           events: {
             click: () => {
               for (const el of Object.keys(this.props.children)) {

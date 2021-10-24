@@ -90,7 +90,9 @@ export default class HTTPTransport {
         let jsonResponse = {};
         try {
           jsonResponse = JSON.parse(xhr.response);
-        } catch (e) {}
+        } catch (e) {
+          console.error(e);
+        }
         if (xhr.status >= 200 && xhr.status < 300) {
           resolve(jsonResponse);
         } else {

@@ -6,7 +6,7 @@ export default `<form class="form">
   <div class="form-field">
     <label class="form-field__avatar">
       <input class="form-field__file" type="file" name="avatar" id="avatar" />
-      <img src="/img/img_avatar.png" class="form-field__avatar" alt="avatar" />
+      <img src="{{img_avatar_min}}" class="form-field__avatar" alt="avatar" />
     </label>
   </div>
   <div data-tpl-key='firstNameFormField'></div>

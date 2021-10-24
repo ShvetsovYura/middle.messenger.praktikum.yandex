@@ -5,6 +5,8 @@ import { EventBus, IEventBus } from '../services/event-bus';
 export default abstract class BaseComponent {
   private _props: Record<string, any>;
 
+  private _tagName: string;
+
   private _element: HTMLElement;
 
   private _templateElement: HTMLTemplateElement;
@@ -21,6 +23,7 @@ export default abstract class BaseComponent {
   };
 
   constructor(tagName = 'template', props: Record<string, any> = {}) {
+    this._tagName = tagName;
     const eventBus: IEventBus = new EventBus();
     this._id = uuid();
     this._eventBus = () => eventBus;
@@ -113,7 +116,9 @@ export default abstract class BaseComponent {
   }
 
   private _createResources(): void {
-    this._templateElement = document.createElement('template');
+    this._templateElement = document.createElement(
+      this._tagName === 'template' ? this._tagName : 'template',
+    );
   }
 
   init() {
